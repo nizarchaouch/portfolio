@@ -42,13 +42,13 @@ export default {
       }
     },
 
-    Logout() {
+    async Logout() {
       try {
-        axios.post("http://localhost:8000/api/logout", {
+        await axios.post("http://localhost:8000/api/logout", null, {
           withCredentials: true,
         });
-        // location.reload();
-        console.log("logout");
+        location.reload();
+        console.log("Déconnexion réussie");
       } catch (error) {
         console.error(error);
       }
