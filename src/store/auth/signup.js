@@ -25,25 +25,26 @@ export default {
             withCredentials: true,
           }
         );
-        console.log("data", data);
-        if (response.status == 400) {
-          console.error("candidat existe déjà !", response.status);
-          ctx.state.alert = true;
-          ctx.commit("setMes", "candidat existe déjà !");
-          setTimeout(() => {
-            ctx.state.alert = false;
-          }, 2000);
-        } else {
+        // console.log("data", data);
+        if (response.status == 201) {
           console.log("inscription réussie");
           ctx.commit("incrStep");
         }
       } catch (error) {
         console.error("Erreur lors de l'inscription :", error);
-        ctx.state.alert = true;
-        ctx.commit("setMes", "Erreur lors de l'inscription");
-        setTimeout(() => {
-          ctx.state.alert = false;
-        }, 2000);
+        if (error.message === "Request failed with status code 400") {
+          ctx.state.alert = true;
+          ctx.commit("setMes", "candidat existe déjà!");
+          setTimeout(() => {
+            ctx.state.alert = false;
+          }, 2000);
+        } else {
+          ctx.state.alert = true;
+          ctx.commit("setMes", "Erreur lors de l'inscription");
+          setTimeout(() => {
+            ctx.state.alert = false;
+          }, 2000);
+        }
       }
     },
   },
