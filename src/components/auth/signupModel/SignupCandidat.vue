@@ -71,7 +71,12 @@ export default {
       }
     },
     onSubmit() {
-      this.SubmitSignup(this.data);
+      if (!this.form) return;
+      this.loading = true;
+      setTimeout(() => {
+        this.SubmitSignup(this.data);
+        this.loading = false;
+      }, 500);
     },
   },
   mounted() {
@@ -95,6 +100,7 @@ export default {
       ></v-alert>
       <span class="d-block my-2 text-h5">Créez votre profil candidat</span>
       <span>{{ currentTitle }}</span>
+      {{ form }}
       <v-avatar
         color="primary"
         size="24"
