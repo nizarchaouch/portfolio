@@ -63,8 +63,8 @@ export default {
         const reader = new FileReader();
 
         reader.onload = (e) => {
-          this.imageUrl = e.target.result;
-          console.log("URL de l'image:", this.imageUrl);
+          this.data.imageUrl = e.target.result;
+          console.log("URL de l'image:", this.data.imageUrl);
         };
 
         reader.readAsDataURL(file);
@@ -132,7 +132,7 @@ export default {
               label="Mot de passe"
               type="password"
               v-model="data.password"
-              :rules="[rules.required]"
+              :rules="[rules.required, rules.counter]"
               autofocus
             ></v-text-field>
             <v-text-field

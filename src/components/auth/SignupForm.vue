@@ -1,8 +1,10 @@
 <script>
 import Candidat from "@/components/auth/signupModel/SignupCandidat.vue";
+import Recruteur from "@/components/auth/signupModel/SignupRecruteur.vue";
 export default {
   components: {
     Candidat,
+    Recruteur,
   },
   data: () => ({
     tab: 2,
@@ -26,12 +28,10 @@ export default {
       </v-tab>
     </v-tabs>
     <v-window v-model="tab">
-      <v-window-item :value="1">
-        <Candidat />
-      </v-window-item>
+      <v-window-item :value="1"> <Candidat /> </v-window-item>
     </v-window>
     <v-window v-model="tab">
-      <v-window-item :value="2"> Recruteur </v-window-item>
+      <v-window-item :value="2"> <Recruteur /> </v-window-item>
     </v-window>
   </v-card>
 </template>

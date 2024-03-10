@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export default {
-  state: { step: 1, alert: false, message: "" },
+  state: { step: 3, alert: false, message: "" },
   getters: {},
   mutations: {
     incrStep(state) {
@@ -25,7 +25,7 @@ export default {
             withCredentials: true,
           }
         );
-        // console.log("data", data);
+        console.log("data", data);
         if (response.status == 201) {
           console.log("inscription réussie");
           ctx.commit("incrStep");
