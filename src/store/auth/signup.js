@@ -51,7 +51,7 @@ export default {
     async SignupRecruteur(ctx, data) {
       try {
         const response = await axios.post(
-          "http://localhost:8000/api/signup",
+          "http://localhost:8000/api/recruteur/signup",
           JSON.stringify(data),
           {
             headers: { "Content-type": "application/json" },

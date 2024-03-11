@@ -14,7 +14,7 @@ export default {
     },
     async userAuth(ctx) {
       try {
-        const response = await axios.get("http://localhost:8000/api/user", {
+        const response = await axios.get("http://localhost:8000/api/candidat/user", {
           headers: { "Content-type": "application/json" },
           withCredentials: true,
         });
