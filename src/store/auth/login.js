@@ -11,10 +11,41 @@ export default {
     },
   },
   actions: {
-    async Submit(ctx) {
+    async loginCandidat(ctx) {
       try {
         const response = await axios.post(
           "http://localhost:8000/api/candidat/login",
+          JSON.stringify(ctx.state.data),
+          {
+            headers: { "Content-type": "application/json" },
+            withCredentials: true,
+          }
+        );
+        console.log(ctx.state.data);
+        if (response.status !== 200) {
+          console.error("Login failed. Status code:", response.status);
+          ctx.state.alert = true;
+          setTimeout(() => {
+            ctx.state.alert = false;
+          }, 2000);
+        } else {
+          console.log("Login successful");
+          await router.push("/");
+        }
+      } catch (error) {
+        console.error("Error during login:", error);
+        ctx.state.alert = true;
+        setTimeout(() => {
+          ctx.state.alert = false;
+        }, 2000);
+        console.log(ctx.state.alert);
+      }
+    },
+    // login recruteur
+    async loginRecruteur(ctx) {
+      try {
+        const response = await axios.post(
+          "http://localhost:8000/api/recruteur/login",
           JSON.stringify(ctx.state.data),
           {
             headers: { "Content-type": "application/json" },

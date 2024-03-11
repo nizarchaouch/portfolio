@@ -27,14 +27,14 @@ export default {
   },
   methods: {
     ...mapMutations(["setData"]),
-    ...mapActions(["Submit", "userAuth"]),
+    ...mapActions(["loginCandidat", "userAuth"]),
     onSubmit() {
       this.setData(this.data);
 
       if (!this.form) return;
       this.loading = true;
       setTimeout(() => {
-        this.Submit();
+        this.loginCandidat();
         this.loading = false;
       }, 500);
     },

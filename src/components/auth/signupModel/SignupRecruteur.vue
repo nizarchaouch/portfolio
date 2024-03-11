@@ -61,7 +61,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions(["SubmitSignup", "userAuth"]),
+    ...mapActions(["SignupRecruteur", "userAuth"]),
     ...mapMutations(["incrStep", "decrStep"]),
     handleFileChange(event) {
       const file = event.target.files[0];
@@ -81,7 +81,7 @@ export default {
       if (!this.form) return;
       this.loading = true;
       setTimeout(() => {
-        this.SubmitSignup(this.data);
+        this.SignupRecruteur(this.data);
         this.loading = false;
       }, 500);
     },
