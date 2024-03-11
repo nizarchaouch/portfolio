@@ -9,15 +9,15 @@ export default {
     },
   },
   actions: {
-    setAuth(ctx, auth) {
-      ctx.commit("SET_AUTH", auth);
-    },
     async userAuth(ctx) {
       try {
-        const response = await axios.get("http://localhost:8000/api/candidat/user", {
-          headers: { "Content-type": "application/json" },
-          withCredentials: true,
-        });
+        const response = await axios.get(
+          "http://localhost:8000/api/candidat/user",
+          {
+            headers: { "Content-type": "application/json" },
+            withCredentials: true,
+          }
+        );
 
         // console.log("content: ", content.message);
         // console.log("cookiea", document.cookie);

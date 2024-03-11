@@ -52,7 +52,7 @@ export default {
         setTimeout(() => {
           ctx.state.alert = false;
         }, 2000);
-        console.log(ctx.state.alert);
+        // console.log(ctx.state.alert);
       }
     },
 

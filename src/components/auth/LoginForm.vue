@@ -35,7 +35,6 @@ export default {
         this.loginRecruteur(this.data);
         this.loading = false;
       }, 500);
-     
     },
   },
 };
