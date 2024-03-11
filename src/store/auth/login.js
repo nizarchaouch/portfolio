@@ -2,38 +2,27 @@ import router from "@/router";
 import axios from "axios";
 
 export default {
-  state: { data: "", alert: false },
+  state: { alert: false },
   getters: {},
-  mutations: {
-    setData(state, data) {
-      state.data = data;
-      // console.log("data", data);
-    },
-  },
+  mutations: {},
   actions: {
-    async loginCandidat(ctx) {
+    async loginCandidat(ctx, data) {
       try {
         const response = await axios.post(
           "http://localhost:8000/api/candidat/login",
-          JSON.stringify(ctx.state.data),
+          JSON.stringify(data),
           {
             headers: { "Content-type": "application/json" },
             withCredentials: true,
           }
         );
-        console.log(ctx.state.data);
-        if (response.status !== 200) {
-          console.error("Login failed. Status code:", response.status);
-          ctx.state.alert = true;
-          setTimeout(() => {
-            ctx.state.alert = false;
-          }, 2000);
-        } else {
+        console.log(data);
+        if (response.status === 200) {
           console.log("Login successful");
           await router.push("/");
         }
       } catch (error) {
-        console.error("Error during login:", error);
+        console.log("Error during login:", error.message);
         ctx.state.alert = true;
         setTimeout(() => {
           ctx.state.alert = false;
@@ -42,29 +31,23 @@ export default {
       }
     },
     // login recruteur
-    async loginRecruteur(ctx) {
+    async loginRecruteur(ctx, data) {
       try {
         const response = await axios.post(
           "http://localhost:8000/api/recruteur/login",
-          JSON.stringify(ctx.state.data),
+          JSON.stringify(data),
           {
             headers: { "Content-type": "application/json" },
             withCredentials: true,
           }
         );
         console.log(ctx.state.data);
-        if (response.status !== 200) {
-          console.error("Login failed. Status code:", response.status);
-          ctx.state.alert = true;
-          setTimeout(() => {
-            ctx.state.alert = false;
-          }, 2000);
-        } else {
+        if (response.status === 200) {
           console.log("Login successful");
           await router.push("/");
         }
       } catch (error) {
-        console.error("Error during login:", error);
+        console.error("Error during login:", error.message);
         ctx.state.alert = true;
         setTimeout(() => {
           ctx.state.alert = false;

@@ -1,6 +1,6 @@
 <script>
 import logo from "@/assets/logo_text.png";
-import { mapState, mapMutations, mapActions } from "vuex";
+import { mapState, mapActions } from "vuex";
 
 export default {
   computed: {
@@ -26,17 +26,16 @@ export default {
     this.userAuth();
   },
   methods: {
-    ...mapMutations(["setData"]),
-    ...mapActions(["loginCandidat", "userAuth"]),
+    ...mapActions(["loginCandidat", "loginRecruteur", "userAuth"]),
     onSubmit() {
-      this.setData(this.data);
-
       if (!this.form) return;
       this.loading = true;
       setTimeout(() => {
-        this.loginCandidat();
+        this.loginCandidat(this.data);
+        this.loginRecruteur(this.data);
         this.loading = false;
       }, 500);
+     
     },
   },
 };
