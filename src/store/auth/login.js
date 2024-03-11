@@ -14,7 +14,7 @@ export default {
     async Submit(ctx) {
       try {
         const response = await axios.post(
-          "http://localhost:8000/api/login",
+          "http://localhost:8000/api/candidat/login",
           JSON.stringify(ctx.state.data),
           {
             headers: { "Content-type": "application/json" },
@@ -44,7 +44,7 @@ export default {
 
     async Logout() {
       try {
-        await axios.post("http://localhost:8000/api/logout", null, {
+        await axios.post("http://localhost:8000/api/candidat/logout", null, {
           withCredentials: true,
         });
         location.reload();
