@@ -27,7 +27,6 @@ export default {
         setTimeout(() => {
           ctx.state.alert = false;
         }, 2000);
-        console.log(ctx.state.alert);
       }
     },
     // login recruteur
@@ -41,7 +40,6 @@ export default {
             withCredentials: true,
           }
         );
-        console.log(ctx.state.data);
         if (response.status === 200) {
           console.log("Login successful");
           await router.push("/");
@@ -52,7 +50,6 @@ export default {
         setTimeout(() => {
           ctx.state.alert = false;
         }, 2000);
-        // console.log(ctx.state.alert);
       }
     },
 
