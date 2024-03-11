@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export default {
-  state: { step: 3, alert: false, message: "" },
+  state: { step: 1, alert: false, message: "" },
   getters: {},
   mutations: {
     incrStep(state) {
@@ -15,7 +15,7 @@ export default {
     },
   },
   actions: {
-    async SubmitSignup(ctx, data) {
+    async SignupCandidat(ctx, data) {
       try {
         const response = await axios.post(
           "http://localhost:8000/api/signup",

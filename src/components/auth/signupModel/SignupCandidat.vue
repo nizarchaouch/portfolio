@@ -54,7 +54,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions(["SubmitSignup", "userAuth"]),
+    ...mapActions(["SignupCandidat", "userAuth"]),
     ...mapMutations(["incrStep", "decrStep"]),
     handleFileChange(event) {
       const file = event.target.files[0];
@@ -74,7 +74,7 @@ export default {
       if (!this.form) return;
       this.loading = true;
       setTimeout(() => {
-        this.SubmitSignup(this.data);
+        this.SignupCandidat(this.data);
         this.loading = false;
       }, 500);
     },
@@ -100,7 +100,6 @@ export default {
       ></v-alert>
       <span class="d-block my-2 text-h5">Créez votre profil candidat</span>
       <span>{{ currentTitle }}</span>
-      {{ form }}
       <v-avatar
         color="primary"
         size="24"
