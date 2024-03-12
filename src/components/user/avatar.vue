@@ -9,6 +9,12 @@ export default {
   },
   data: () => ({
     menu: false,
+    items: [
+      { text: "Mon Profil", icon: "mdi-star" },
+      { text: "Mon Portfolio", icon: "mdi-folder" },
+      { text: "Suivi de mes réponses", icon: "mdi-account-multiple" },
+      { text: "Uploads CV", icon: "mdi-upload" },
+    ],
   }),
   methods: {
     ...mapActions(["Logout"]),
@@ -39,31 +45,24 @@ export default {
 
         <v-divider class="mb-3"></v-divider>
 
-        <v-btn
-          variant="text"
-          rounded
-          class="text-none"
-          text="Mon Portfolio"
-        ></v-btn>
-        <v-divider class="mx-4 my-1"></v-divider>
-        <v-btn
-          variant="text"
-          rounded
-          class="text-none"
-          text="Suivi de mes réponses"
-        ></v-btn>
-        <v-divider class="mx-4 my-1"></v-divider>
-        <v-btn
-          variant="text"
-          rounded
-          class="text-none"
-          text="Mon Profil"
-        ></v-btn>
+        <v-spacer></v-spacer>
+        <v-list density="compact" nav>
+          <v-list-item
+            v-for="(item, i) in items"
+            :key="i"
+            :value="item"
+            color="primary"
+          >
+            <template v-slot:prepend>
+              <v-icon :icon="item.icon"></v-icon>
+            </template>
+
+            <v-list-item-title v-text="item.text"></v-list-item-title>
+          </v-list-item>
+        </v-list>
 
         <v-card-actions>
-          <!-- <v-spacer></v-spacer> -->
-
-          <!-- <v-btn variant="text" @click="menu = false"> Cancel </v-btn> -->
+          <!--  -->
           <v-btn
             color="red"
             variant="outlined"
