@@ -13,6 +13,7 @@ export default {
           <v-badge color="error" :content="1">
             <v-icon icon="mdi-bell"></v-icon>
           </v-badge>
+          <v-tooltip activator="parent" location="bottom">Notfication</v-tooltip>
         </v-btn>
       </template>
 

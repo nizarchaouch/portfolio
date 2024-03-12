@@ -28,6 +28,7 @@ export default {
         <v-btn v-bind="props" :ripple="false" variant="plain" icon>
           <v-avatar :image="userData.imageUrl"> </v-avatar>
           <v-icon color="black" class="mt-6 bad">mdi-chevron-down</v-icon>
+          <v-tooltip activator="parent" location="bottom">Menu</v-tooltip>
         </v-btn>
       </template>
 
