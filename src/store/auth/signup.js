@@ -35,15 +35,9 @@ export default {
         if (error.message === "Request failed with status code 400") {
           ctx.state.alert = true;
           ctx.commit("setMes", "candidat existe déjà!");
-          setTimeout(() => {
-            ctx.state.alert = false;
-          }, 2000);
         } else {
           ctx.state.alert = true;
           ctx.commit("setMes", "Erreur lors de l'inscription");
-          setTimeout(() => {
-            ctx.state.alert = false;
-          }, 2000);
         }
       }
     },
@@ -68,15 +62,9 @@ export default {
         if (error.message === "Request failed with status code 400") {
           ctx.state.alert = true;
           ctx.commit("setMes", "recruteur existe déjà!");
-          setTimeout(() => {
-            ctx.state.alert = false;
-          }, 2000);
         } else {
           ctx.state.alert = true;
           ctx.commit("setMes", "Erreur lors de l'inscription");
-          setTimeout(() => {
-            ctx.state.alert = false;
-          }, 2000);
         }
       }
     },

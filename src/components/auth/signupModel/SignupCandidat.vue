@@ -90,14 +90,14 @@ export default {
   </template>
   <v-card class="mx-auto" max-width="700">
     <v-card-title class="text-h6">
-      <v-alert
-        v-if="signup.alert"
-        density="compact"
-        type="error"
-        closable
-        border
-        :title="signup.message"
-      ></v-alert>
+      <v-snackbar
+        :timeout="7000"
+        color="red-darken-2 mt-16"
+        v-model="signup.alert"
+        location="top"
+      >
+        {{ signup.message }}
+      </v-snackbar>
       <span class="d-block my-2 text-h5">Créez votre profil candidat</span>
       <span>{{ currentTitle }}</span>
       <v-avatar

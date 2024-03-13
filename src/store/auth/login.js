@@ -24,9 +24,6 @@ export default {
       } catch (error) {
         console.log("Error during login:", error.message);
         ctx.state.alert = true;
-        setTimeout(() => {
-          ctx.state.alert = false;
-        }, 2000);
       }
     },
     // login recruteur

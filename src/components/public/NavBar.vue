@@ -89,7 +89,7 @@ export default {
       elevation="10"
       permanent
     >
-      <v-icon @click="drawer = !drawer" class="ma-3">mdi-close-outline</v-icon>
+      <v-icon @click="drawer = !drawer" class="ma-3">mdi-close</v-icon>
       <v-list density="compact">
         <v-list-item title="accueil" to="/"> </v-list-item>
         <v-list-item title="templates" to=""></v-list-item>

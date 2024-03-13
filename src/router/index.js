@@ -19,6 +19,7 @@ const routes = [
     name: "signup",
     component: Signup,
   },
+
 ];
 
 const router = createRouter({

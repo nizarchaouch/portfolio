@@ -51,14 +51,14 @@ export default {
         max-width="400"
         rounded="lg"
       >
-        <v-alert
-          v-if="login.alert"
-          density="compact"
-          type="error"
-          closable
-          border
-          title="E-mail ou Mot de passe incorrect"
-        ></v-alert>
+        <v-snackbar
+          :timeout="7000"
+          color="red-darken-2 mt-16"
+          v-model="login.alert"
+          location="top"
+        >
+          E-mail ou Mot de passe incorrect
+        </v-snackbar>
         <v-img class="mx-auto my-6" max-width="228" :src="logo"></v-img>
         <div class="text-subtitle-1 text-medium-emphasis">E-mail</div>
 

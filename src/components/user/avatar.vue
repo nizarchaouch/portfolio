@@ -10,10 +10,10 @@ export default {
   data: () => ({
     menu: false,
     items: [
-      { text: "Mon Profil", icon: "mdi-folder" },
-      { text: "Mon Portfolio", icon: "mdi-star" },
-      { text: "Mes Candidatures", icon: "mdi-account-multiple" },
-      { text: "Uploads CV", icon: "mdi-upload" },
+      { text: "Mon Profil", icon: "mdi-folder", to: "" },
+      { text: "Mon Portfolio", icon: "mdi-star", to: "" },
+      { text: "Mes Candidatures", icon: "mdi-account-multiple", to: "" },
+      { text: "Uploads CV", icon: "mdi-upload", to: "" },
     ],
   }),
   methods: {
@@ -53,6 +53,7 @@ export default {
             :key="i"
             :value="item"
             color="primary"
+            :to="item.to"
           >
             <template v-slot:prepend>
               <v-icon :icon="item.icon"></v-icon>
