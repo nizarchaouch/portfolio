@@ -24,7 +24,7 @@ export default {
     rules: {
       required: (value) => !!value || "Champ requis.",
       counter: (value) => value.length > 7 || "Minimum 8 caractères",
-      desc: (value) => value.length > 1 || "Minimum 150 caractères",
+      desc: (value) => value.length > 149 || "Minimum 150 caractères",
       mail: (value) => {
         const pattern =
           /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;

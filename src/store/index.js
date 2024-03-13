@@ -4,7 +4,7 @@ import login from "./auth/login";
 import signup from "./auth/signup";
 
 export default createStore({
-  state: {},
+  state: {apiUrl:"http://localhost:8000/api/"},
   mutations: {},
   actions: {},
   modules: { user, login, signup },
