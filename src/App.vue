@@ -6,6 +6,9 @@ export default {};
 </template>
 
 <style lang="scss">
+body {
+  background-color: #e5e5f2;
+}
 ::-webkit-scrollbar {
   width: 10px;
 }

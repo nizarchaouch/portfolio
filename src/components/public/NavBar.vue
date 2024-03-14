@@ -39,6 +39,7 @@ export default {
               <v-tab to="">Offres d'emploi</v-tab>
             </v-tabs>
           </v-col>
+
           <!-- btn login signup -->
           <template v-if="!this.$store.state.user.authenticated">
             <v-col

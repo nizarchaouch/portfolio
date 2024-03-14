@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import Login from "@/views/LoginView.vue";
 import Signup from "@/views/SignupView";
+import ProfilView from "@/views/candidat/ProfilView.vue";
 
 const routes = [
   {
@@ -19,7 +20,11 @@ const routes = [
     name: "signup",
     component: Signup,
   },
-
+  {
+    path: "/profil",
+    name: "profil",
+    component: ProfilView,
+  },
 ];
 
 const router = createRouter({
