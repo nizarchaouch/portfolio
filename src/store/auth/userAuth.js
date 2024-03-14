@@ -9,6 +9,7 @@ export default {
     },
     SET_DATA_CAND(state, data) {
       state.dataCand = data;
+      console.log("dataCand",state.dataCand);
     },
   },
   actions: {

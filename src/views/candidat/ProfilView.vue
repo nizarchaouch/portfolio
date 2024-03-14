@@ -1,39 +1,55 @@
 <script>
-import { mapActions } from "vuex";
+import { mapState, mapActions } from "vuex";
 import NavBar from "@/components/public/NavBar.vue";
 export default {
   name: "profil",
+  computed: {
+    ...mapState(["user"]),
+  },
   data: () => ({
-    items: [
-      { label: "Nom", type: "", vmodel: "" },
-      { label: "Prenom", type: "", vmodel: "" },
-      { label: "Telephone", type: "number", vmodel: "" },
-      { label: "Date de Naissance", type: "date", vmodel: "" },
-      { label: "Gouvernorat (Adress)", type: "", vmodel: "" },
-    ],
-    items2: [
-      { label: "E-mail du compte", type: "", vmodel: "" },
-      { label: "Mot de passe", type: "", vmodel: "" },
-    ],
-    items3: [
-      { label: "LinkedIn", icon: "mdi-linkedin", vmodel: "" },
-      { label: "Github", icon: "mdi-github", vmodel: "" },
-      { label: "X(twitter)", icon: "mdi-twitter", vmodel: "" },
-      { label: "Instagram", icon: "mdi-instagram", vmodel: "" },
-    ],
+    items: [],
+    items2: [],
   }),
+
   components: {
     NavBar,
   },
+
   methods: {
     ...mapActions(["userAuth"]),
   },
   mounted() {
     this.userAuth();
+
+    this.items = [
+      { label: "Nom", type: "", vmodel: this.user.dataCand.nom },
+      { label: "Prénom", type: "", vmodel: this.user.dataCand.prenom },
+      { label: "Téléphone", type: "number", vmodel: this.user.dataCand.tel },
+      {
+        label: "Date de Naissance",
+        type: "date",
+        vmodel: this.user.dataCand.dateNais,
+      },
+      {
+        label: "Gouvernorat (Adress)",
+        type: "",
+        vmodel: this.user.dataCand.adress,
+      },
+    ];
+    this.items2 = [
+      { label: "LinkedIn", icon: "mdi-linkedin", vmodel: "" },
+      { label: "Github", icon: "mdi-github", vmodel: "" },
+      { label: "X(twitter)", icon: "mdi-twitter", vmodel: "" },
+      { label: "Instagram", icon: "mdi-instagram", vmodel: "" },
+    ];
   },
 };
 </script>
 <template>
+  {{ console.log("profil", this.user.dataCand.nom) }}
+  <!-- <template v-if="!this.user.authenticated">
+    {{ this.$router.push("/") }}
+  </template> -->
   <NavBar />
   <!-- container info comptz -->
   <v-container class="mt-16">
@@ -58,7 +74,7 @@ export default {
                 <v-img
                   class="mx-auto my-12"
                   width="150"
-                  src="https://shorter.me/pW1kn"
+                  :src="this.user.dataCand.imageUrl"
                 ></v-img>
               </label>
               <input type="file" id="file" class="d-none" />
@@ -71,9 +87,12 @@ export default {
                 v-for="(item, i) in items.slice(0, 3)"
                 :key="i"
               >
+                <p class="text-subtitle-2 text-medium-emphasis">
+                 {{item.label}}
+                </p>
                 <v-text-field
-                  :label="item.label"
                   :type="item.type"
+                  v-model="item.vmodel"
                   variant="outlined"
                 >
                 </v-text-field>
@@ -84,9 +103,12 @@ export default {
                 v-for="(item, i) in items.slice(3)"
                 :key="i"
               >
+                <p class="text-subtitle-2 text-medium-emphasis">
+                 {{item.label}}
+                </p>
                 <v-text-field
-                  :label="item.label"
                   :type="item.type"
+                  v-model="item.vmodel"
                   variant="outlined"
                 >
                 </v-text-field>
@@ -105,39 +127,50 @@ export default {
           <h3 class="d-inline">Informations de connexion</h3>
           <v-divider class="border-opacity-25"></v-divider>
           <v-container>
-            <!-- item de profil -->
             <v-row>
               <v-col cols="10">
                 <p class="text-subtitle-2 text-medium-emphasis">
                   E-mail du compte
                 </p>
-                <v-text-field variant="outlined" density="compact">
+                <v-text-field
+                  variant="outlined"
+                  density="compact"
+                  readonly
+                  v-model="this.user.dataCand.mail"
+                >
                 </v-text-field>
               </v-col>
             </v-row>
             <v-row>
               <v-col cols="10">
                 <p class="text-subtitle-2 text-medium-emphasis">Mot de passe</p>
-                <v-text-field variant="outlined" density="compact" readonly>
+                <v-text-field
+                  variant="outlined"
+                  density="compact"
+                  readonly
+                  value="Mot de passe"
+                  type="password"
+                >
                 </v-text-field>
               </v-col>
               <v-col cols="2" class="mt-5">
                 <v-btn color="primary" icon="mdi-form-textbox-password"></v-btn>
-                <v-tooltip activator="parent" location="bottom">Modifier mot de passe</v-tooltip>
+                <v-tooltip activator="parent" location="bottom"
+                  >Modifier mot de passe</v-tooltip
+                >
               </v-col>
             </v-row>
           </v-container>
         </v-card>
       </v-col>
-      <!--  -->
+      <!-- link social media -->
       <v-col cols="12" sm="12" md="5" xl="4">
         <v-card class="pa-2 ma-2 mx-auto rounded">
-          <h3 class="d-inline">Lien les réseaux sociaux</h3>
+          <h3 class="d-inline">Lien des réseaux sociaux</h3>
           <v-divider class="border-opacity-25"></v-divider>
           <v-container>
-            <!-- item de profil -->
             <v-row>
-              <v-col cols="6" v-for="(item, i) in items3.slice(0, 2)" :key="i">
+              <v-col cols="6" v-for="(item, i) in items2.slice(0, 2)" :key="i">
                 <p class="text-subtitle-2 text-medium-emphasis">
                   {{ item.label }}
                 </p>
@@ -147,7 +180,7 @@ export default {
               </v-col>
             </v-row>
             <v-row>
-              <v-col cols="6" v-for="(item, i) in items3.slice(2)" :key="i">
+              <v-col cols="6" v-for="(item, i) in items2.slice(2)" :key="i">
                 <p class="text-subtitle-2 text-medium-emphasis">
                   {{ item.label }}
                 </p>
