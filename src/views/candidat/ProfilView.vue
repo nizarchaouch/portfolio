@@ -5,11 +5,40 @@ export default {
   name: "profil",
   computed: {
     ...mapState(["user"]),
+    items() {
+      if (this.user && this.user.dataCand) {
+        return [
+          { label: "Nom", type: "", vmodel: this.user.dataCand.nom },
+          { label: "Prénom", type: "", vmodel: this.user.dataCand.prenom },
+          {
+            label: "Téléphone",
+            type: "number",
+            vmodel: this.user.dataCand.tel,
+          },
+          {
+            label: "Date de Naissance",
+            type: "Date",
+            vmodel: this.user.dataCand.dateNais.split("T")[0],
+          },
+          {
+            label: "Gouvernorat (Adress)",
+            type: "",
+            vmodel: this.user.dataCand.adress,
+          },
+        ];
+      } else {
+        return [];
+      }
+    },
+    items2() {
+      return [
+        { label: "LinkedIn", icon: "mdi-linkedin", vmodel: "" },
+        { label: "Github", icon: "mdi-github", vmodel: "" },
+        { label: "X(twitter)", icon: "mdi-twitter", vmodel: "" },
+        { label: "Instagram", icon: "mdi-instagram", vmodel: "" },
+      ];
+    },
   },
-  data: () => ({
-    items: [],
-    items2: [],
-  }),
 
   components: {
     NavBar,
@@ -17,36 +46,16 @@ export default {
 
   methods: {
     ...mapActions(["userAuth"]),
+    change() {
+      console.log("update");
+    },
   },
   mounted() {
     this.userAuth();
-
-    this.items = [
-      { label: "Nom", type: "", vmodel: this.user.dataCand.nom },
-      { label: "Prénom", type: "", vmodel: this.user.dataCand.prenom },
-      { label: "Téléphone", type: "number", vmodel: this.user.dataCand.tel },
-      {
-        label: "Date de Naissance",
-        type: "date",
-        vmodel: this.user.dataCand.dateNais,
-      },
-      {
-        label: "Gouvernorat (Adress)",
-        type: "",
-        vmodel: this.user.dataCand.adress,
-      },
-    ];
-    this.items2 = [
-      { label: "LinkedIn", icon: "mdi-linkedin", vmodel: "" },
-      { label: "Github", icon: "mdi-github", vmodel: "" },
-      { label: "X(twitter)", icon: "mdi-twitter", vmodel: "" },
-      { label: "Instagram", icon: "mdi-instagram", vmodel: "" },
-    ];
   },
 };
 </script>
 <template>
-  {{ console.log("profil", this.user.dataCand.nom) }}
   <!-- <template v-if="!this.user.authenticated">
     {{ this.$router.push("/") }}
   </template> -->
@@ -88,12 +97,13 @@ export default {
                 :key="i"
               >
                 <p class="text-subtitle-2 text-medium-emphasis">
-                 {{item.label}}
+                  {{ item.label }}
                 </p>
                 <v-text-field
                   :type="item.type"
                   v-model="item.vmodel"
                   variant="outlined"
+                  @update:model-value="change"
                 >
                 </v-text-field>
               </v-col>
@@ -104,7 +114,7 @@ export default {
                 :key="i"
               >
                 <p class="text-subtitle-2 text-medium-emphasis">
-                 {{item.label}}
+                  {{ item.label }}
                 </p>
                 <v-text-field
                   :type="item.type"
