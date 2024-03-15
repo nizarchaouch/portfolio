@@ -4,32 +4,51 @@ import NavBar from "@/components/public/NavBar.vue";
 export default {
   name: "profil",
   computed: {
-    ...mapState(["user"]),
-    items() {
-      if (this.user && this.user.dataCand) {
-        return [
-          { label: "Nom", type: "", vmodel: this.user.dataCand.nom },
-          { label: "Prénom", type: "", vmodel: this.user.dataCand.prenom },
-          {
-            label: "Téléphone",
-            type: "number",
-            vmodel: this.user.dataCand.tel,
-          },
-          {
-            label: "Date de Naissance",
-            type: "Date",
-            vmodel: this.user.dataCand.dateNais.split("T")[0],
-          },
-          {
-            label: "Gouvernorat (Adress)",
-            type: "",
-            vmodel: this.user.dataCand.adress,
-          },
-        ];
-      } else {
-        return [];
-      }
+    ...mapState(["user", "candidat"]),
+    data() {
+      return {
+        id: this.user.dataCand._id,
+        imageUrl: this.user.dataCand.imageUrl,
+        nom: this.user.dataCand.nom,
+        prenom: this.user.dataCand.prenom,
+        dateNais: this.user.dataCand.dateNais
+          ? this.user.dataCand.dateNais.split("T")[0]
+          : "",
+        tel: this.user.dataCand.tel,
+        adress: this.user.dataCand.adress,
+        // mail: this.user.dataCand.mail,
+      };
     },
+    // items() {
+    //   if (this.user && this.user.dataCand) {
+    //     return [
+    //       {
+    //         label: "Nom",
+    //         data: "nom",
+    //         type: "",
+    //         vmodel: this.user.dataCand.nom,
+    //       },
+    //       { label: "Prénom", type: "", vmodel: this.user.dataCand.prenom },
+    //       {
+    //         label: "Téléphone",
+    //         type: "number",
+    //         vmodel: this.user.dataCand.tel,
+    //       },
+    //       {
+    //         label: "Date de Naissance",
+    //         type: "Date",
+    //         vmodel: this.user.dataCand.dateNais.split("T")[0],
+    //       },
+    //       {
+    //         label: "Gouvernorat (Adress)",
+    //         type: "",
+    //         vmodel: this.user.dataCand.adress,
+    //       },
+    //     ];
+    //   } else {
+    //     return [];
+    //   }
+    // },
     items2() {
       return [
         { label: "LinkedIn", icon: "mdi-linkedin", vmodel: "" },
@@ -45,9 +64,27 @@ export default {
   },
 
   methods: {
-    ...mapActions(["userAuth"]),
-    change() {
-      console.log("update");
+    ...mapActions(["userAuth", "updated"]),
+    handleFileChange(event) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          this.data.imageUrl = e.target.result;
+          this.userAuth();
+          this.updated(this.data);
+          this.userAuth();
+          console.log("URL de l'image:", this.data.imageUrl);
+        };
+        reader.readAsDataURL(file);
+      }
+    },
+
+    updateValue(index, value) {
+      this.data[index] = value;
+      this.userAuth();
+      this.updated(this.data);
+      this.userAuth();
     },
   },
   mounted() {
@@ -56,12 +93,17 @@ export default {
 };
 </script>
 <template>
-  <!-- <template v-if="!this.user.authenticated">
-    {{ this.$router.push("/") }}
-  </template> -->
   <NavBar />
   <!-- container info comptz -->
   <v-container class="mt-16">
+    <v-snackbar
+      :timeout="7000"
+      color="blue-darken-2 mt-16"
+      v-model="candidat.alert"
+      location="top"
+    >
+      {{ candidat.message }}
+    </v-snackbar>
     <v-row>
       <v-col cols="12" sm="12" md="10" xl="8" class="mx-auto">
         <h1>Paramètres du compte</h1>
@@ -83,43 +125,68 @@ export default {
                 <v-img
                   class="mx-auto my-12"
                   width="150"
-                  :src="this.user.dataCand.imageUrl"
+                  :src="data.imageUrl"
                 ></v-img>
               </label>
-              <input type="file" id="file" class="d-none" />
+              <input
+                type="file"
+                id="file"
+                class="d-none"
+                @change="handleFileChange"
+              />
             </v-col>
             <!-- item de profil -->
             <v-row class="mt-10">
-              <v-col
-                cols="12"
-                sm="4"
-                v-for="(item, i) in items.slice(0, 3)"
-                :key="i"
-              >
-                <p class="text-subtitle-2 text-medium-emphasis">
-                  {{ item.label }}
-                </p>
+              <v-col cols="12" sm="4">
+                <p class="text-subtitle-2 text-medium-emphasis">Nom</p>
                 <v-text-field
-                  :type="item.type"
-                  v-model="item.vmodel"
                   variant="outlined"
-                  @update:model-value="change"
+                  v-model="data.nom"
+                  @change="updateValue('nom', $event.target.value)"
                 >
                 </v-text-field>
               </v-col>
-              <v-col
-                cols="12"
-                sm="4"
-                v-for="(item, i) in items.slice(3)"
-                :key="i"
-              >
+              <v-col cols="12" sm="4">
+                <p class="text-subtitle-2 text-medium-emphasis">Prenom</p>
+                <v-text-field
+                  variant="outlined"
+                  v-model="data.prenom"
+                  @change="updateValue('prenom', $event.target.value)"
+                >
+                </v-text-field>
+              </v-col>
+              <v-col cols="12" sm="4">
+                <p class="text-subtitle-2 text-medium-emphasis">Telephone</p>
+                <v-text-field
+                  variant="outlined"
+                  v-model="data.tel"
+                  type="number"
+                  @change="updateValue('tel', $event.target.value)"
+                >
+                </v-text-field>
+              </v-col>
+
+              <!-- aaa -->
+              <v-col cols="12" sm="4">
                 <p class="text-subtitle-2 text-medium-emphasis">
-                  {{ item.label }}
+                  Date de Naissance
                 </p>
                 <v-text-field
-                  :type="item.type"
-                  v-model="item.vmodel"
+                  type="date"
                   variant="outlined"
+                  v-model="data.dateNais"
+                  @change="updateValue('dateNais', $event.target.value)"
+                >
+                </v-text-field>
+              </v-col>
+              <v-col cols="12" sm="4">
+                <p class="text-subtitle-2 text-medium-emphasis">
+                  Gouvernorat (Adress)
+                </p>
+                <v-text-field
+                  variant="outlined"
+                  v-model="data.adress"
+                  @change="updateValue('adress', $event.target.value)"
                 >
                 </v-text-field>
               </v-col>

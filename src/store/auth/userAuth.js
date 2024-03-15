@@ -9,7 +9,7 @@ export default {
     },
     SET_DATA_CAND(state, data) {
       state.dataCand = data;
-      console.log("dataCand",state.dataCand);
+      console.log("dataCand", state.dataCand);
     },
   },
   actions: {
@@ -31,7 +31,7 @@ export default {
           await ctx.commit("SET_AUTH", true);
         }
         console.log("auth", ctx.state.authenticated);
-        ctx.commit("SET_DATA_CAND",response.data)
+        ctx.commit("SET_DATA_CAND", response.data);
       } catch (error) {
         console.error("Error during user authentication:", error);
         await ctx.commit("SET_AUTH", false);
