@@ -1,6 +1,7 @@
 <script>
 import { mapState, mapActions } from "vuex";
 import NavBar from "@/components/public/NavBar.vue";
+import DialogPwd from "./DialogPwd.vue";
 export default {
   name: "profil",
   computed: {
@@ -16,7 +17,6 @@ export default {
           : "",
         tel: this.user.dataCand.tel,
         adress: this.user.dataCand.adress,
-        // mail: this.user.dataCand.mail,
       };
     },
     // items() {
@@ -61,6 +61,7 @@ export default {
 
   components: {
     NavBar,
+    DialogPwd,
   },
 
   methods: {
@@ -115,15 +116,15 @@ export default {
     </v-row>
     <v-row justify="center">
       <v-col cols="12" sm="12" md="10" xl="8">
-        <v-card class="pa-2 ma-2 mx-auto rounded" :loading="false">
+        <v-card class="pa-2 ma-2 mx-auto rounded">
           <h3>Informations du compte</h3>
           <v-divider class="border-opacity-25"></v-divider>
           <v-container class="d-flex flex-wrap">
             <!-- photo de profil -->
-            <v-col cols="2">
+            <v-col cols="12" xl="2">
               <label for="file">
                 <v-img
-                  class="mx-auto my-12"
+                  class="mx-auto my-15 rounded-circle"
                   width="150"
                   :src="data.imageUrl"
                 ></v-img>
@@ -231,10 +232,7 @@ export default {
                 </v-text-field>
               </v-col>
               <v-col cols="2" class="mt-5">
-                <v-btn color="primary" icon="mdi-form-textbox-password"></v-btn>
-                <v-tooltip activator="parent" location="bottom"
-                  >Modifier mot de passe</v-tooltip
-                >
+                <DialogPwd />
               </v-col>
             </v-row>
           </v-container>
