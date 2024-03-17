@@ -26,7 +26,7 @@ export default {
       } catch (error) {
         console.error("Erreur lors de la mise à jour :", error);
         ctx.state.alert = true;
-        ctx.commit("setMes", "Erreur lors de la mise à jour :");
+        ctx.commit("setMes", "Erreur lors de la mise à jour");
       }
     },
   },
