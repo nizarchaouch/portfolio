@@ -4,7 +4,7 @@ export default {
   computed: {
     ...mapState(["login", "user"]),
     userData() {
-      return this.user.dataCand;
+      return this.user.userData;
     },
   },
   data: () => ({

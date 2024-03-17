@@ -18,7 +18,7 @@ export default {
     async SignupCandidat(ctx, data) {
       try {
         const response = await axios.post(
-          "http://localhost:8000/api/candidat/signup",
+          "http://localhost:8000/api/user/signup",
           JSON.stringify(data),
           {
             headers: { "Content-type": "application/json" },
@@ -45,7 +45,7 @@ export default {
     async SignupRecruteur(ctx, data) {
       try {
         const response = await axios.post(
-          "http://localhost:8000/api/recruteur/signup",
+          "http://localhost:8000/api/user/signup/recruteur",
           JSON.stringify(data),
           {
             headers: { "Content-type": "application/json" },

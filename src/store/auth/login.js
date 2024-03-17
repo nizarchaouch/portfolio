@@ -6,10 +6,10 @@ export default {
   getters: {},
   mutations: {},
   actions: {
-    async loginCandidat(ctx, data) {
+    async loginUser(ctx, data) {
       try {
         const response = await axios.post(
-          "http://localhost:8000/api/candidat/login",
+          "http://localhost:8000/api/user/login",
           JSON.stringify(data),
           {
             headers: { "Content-type": "application/json" },
@@ -26,33 +26,10 @@ export default {
         ctx.state.alert = true;
       }
     },
-    // login recruteur
-    async loginRecruteur(ctx, data) {
-      try {
-        const response = await axios.post(
-          "http://localhost:8000/api/recruteur/login",
-          JSON.stringify(data),
-          {
-            headers: { "Content-type": "application/json" },
-            withCredentials: true,
-          }
-        );
-        if (response.status === 200) {
-          console.log("Login successful");
-          await router.push("/");
-        }
-      } catch (error) {
-        console.error("Error during login:", error.message);
-        ctx.state.alert = true;
-        setTimeout(() => {
-          ctx.state.alert = false;
-        }, 2000);
-      }
-    },
 
     async Logout() {
       try {
-        await axios.post("http://localhost:8000/api/candidat/logout", null, {
+        await axios.post("http://localhost:8000/api/user/logout", null, {
           withCredentials: true,
         });
         location.reload();

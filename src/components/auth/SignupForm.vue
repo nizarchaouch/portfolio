@@ -1,6 +1,7 @@
 <script>
 import Candidat from "@/components/auth/signupModel/SignupCandidat.vue";
 import Recruteur from "@/components/auth/signupModel/SignupRecruteur.vue";
+import { mapState, mapActions } from "vuex";
 export default {
   components: {
     Candidat,
@@ -9,9 +10,21 @@ export default {
   data: () => ({
     tab: 2,
   }),
+  computed: {
+    ...mapState([ "user"]),
+  },
+  methods: {
+    ...mapActions(["userAuth"]),
+  },
+  mounted() {
+    this.userAuth();
+  },
 };
 </script>
 <template>
+  <template v-if="this.user.authenticated">
+    {{ this.$router.push("/") }}
+  </template>
   <v-card class="mx-auto mt-16" max-width="700">
     <v-tabs v-model="tab" align-tabs="center" color="deep-purple-accent-4">
       <v-tab :value="1"

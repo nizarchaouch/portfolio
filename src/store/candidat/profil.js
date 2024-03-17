@@ -10,7 +10,7 @@ export default {
     async updated(ctx, data) {
       try {
         const response = await axios.put(
-          `http://localhost:8000/api/candidat/update/${data.id}`,
+          `http://localhost:8000/api/user/update/${data.id}`,
           JSON.stringify(data),
           {
             headers: { "Content-type": "application/json" },

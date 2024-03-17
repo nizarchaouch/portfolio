@@ -8,54 +8,20 @@ export default {
     ...mapState(["user", "candidat"]),
     data() {
       return {
-        id: this.user.dataCand._id,
-        imageUrl: this.user.dataCand.imageUrl,
-        nom: this.user.dataCand.nom,
-        prenom: this.user.dataCand.prenom,
-        dateNais: this.user.dataCand.dateNais
-          ? this.user.dataCand.dateNais.split("T")[0]
+        id: this.user.userData._id,
+        imageUrl: this.user.userData.imageUrl,
+        nom: this.user.userData.nom,
+        prenom: this.user.userData.prenom,
+        dateNais: this.user.userData.dateNais
+          ? this.user.userData.dateNais.split("T")[0]
           : "",
-        tel: this.user.dataCand.tel,
-        adress: this.user.dataCand.adress,
+        tel: this.user.userData.tel,
+        adress: this.user.userData.adress,
+        urlfacebook: this.user.userData.urlfacebook,
+        urllinkedin: this.user.userData.urllinkedin,
+        urltwitter: this.user.userData.urltwitter,
+        urlgithub: this.user.userData.urlgithub,
       };
-    },
-    // items() {
-    //   if (this.user && this.user.dataCand) {
-    //     return [
-    //       {
-    //         label: "Nom",
-    //         data: "nom",
-    //         type: "",
-    //         vmodel: this.user.dataCand.nom,
-    //       },
-    //       { label: "Prénom", type: "", vmodel: this.user.dataCand.prenom },
-    //       {
-    //         label: "Téléphone",
-    //         type: "number",
-    //         vmodel: this.user.dataCand.tel,
-    //       },
-    //       {
-    //         label: "Date de Naissance",
-    //         type: "Date",
-    //         vmodel: this.user.dataCand.dateNais.split("T")[0],
-    //       },
-    //       {
-    //         label: "Gouvernorat (Adress)",
-    //         type: "",
-    //         vmodel: this.user.dataCand.adress,
-    //       },
-    //     ];
-    //   } else {
-    //     return [];
-    //   }
-    // },
-    items2() {
-      return [
-        { label: "LinkedIn", icon: "mdi-linkedin", vmodel: "" },
-        { label: "Github", icon: "mdi-github", vmodel: "" },
-        { label: "X(twitter)", icon: "mdi-twitter", vmodel: "" },
-        { label: "Instagram", icon: "mdi-instagram", vmodel: "" },
-      ];
     },
   },
 
@@ -214,7 +180,7 @@ export default {
                   variant="outlined"
                   density="compact"
                   readonly
-                  v-model="this.user.dataCand.mail"
+                  v-model="this.user.userData.mail"
                 >
                 </v-text-field>
               </v-col>
@@ -245,22 +211,51 @@ export default {
           <v-divider class="border-opacity-25"></v-divider>
           <v-container>
             <v-row>
-              <v-col cols="6" v-for="(item, i) in items2.slice(0, 2)" :key="i">
-                <p class="text-subtitle-2 text-medium-emphasis">
-                  {{ item.label }}
-                </p>
-                <v-text-field variant="outlined" density="compact">
-                  <v-icon>{{ item.icon }}</v-icon>
+              <v-col cols="6">
+                <p class="text-subtitle-2 text-medium-emphasis">LinkedIn</p>
+                <v-text-field
+                  variant="outlined"
+                  density="compact"
+                  v-model="data.urllinkedin"
+                  @change="updateValue('urllinkedin', $event.target.value)"
+                >
+                  <v-icon>mdi-linkedin </v-icon>
+                </v-text-field>
+              </v-col>
+              <v-col cols="6">
+                <p class="text-subtitle-2 text-medium-emphasis">Github</p>
+                <v-text-field
+                  variant="outlined"
+                  density="compact"
+                  v-model="data.urlgithub"
+                  @change="updateValue('urlgithub', $event.target.value)"
+                >
+                  <v-icon>mdi-github </v-icon>
                 </v-text-field>
               </v-col>
             </v-row>
+            <!-- faccebook twitter -->
             <v-row>
-              <v-col cols="6" v-for="(item, i) in items2.slice(2)" :key="i">
-                <p class="text-subtitle-2 text-medium-emphasis">
-                  {{ item.label }}
-                </p>
-                <v-text-field variant="outlined" density="compact">
-                  <v-icon>{{ item.icon }}</v-icon>
+              <v-col cols="6">
+                <p class="text-subtitle-2 text-medium-emphasis">X(twitter)</p>
+                <v-text-field
+                  variant="outlined"
+                  density="compact"
+                  v-model="data.urltwitter"
+                  @change="updateValue('urltwitter', $event.target.value)"
+                >
+                  <v-icon>mdi-twitter </v-icon>
+                </v-text-field>
+              </v-col>
+              <v-col cols="6">
+                <p class="text-subtitle-2 text-medium-emphasis">Facebook</p>
+                <v-text-field
+                  variant="outlined"
+                  density="compact"
+                  v-model="data.urlfacebook"
+                  @change="updateValue('urlfacebook', $event.target.value)"
+                >
+                  <v-icon>mdi-facebook </v-icon>
                 </v-text-field>
               </v-col>
             </v-row>

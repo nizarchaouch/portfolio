@@ -26,13 +26,12 @@ export default {
     this.userAuth();
   },
   methods: {
-    ...mapActions(["loginCandidat", "loginRecruteur", "userAuth"]),
+    ...mapActions(["loginUser", "userAuth"]),
     onSubmit() {
       if (!this.form) return;
       this.loading = true;
       setTimeout(() => {
-        this.loginCandidat(this.data);
-        this.loginRecruteur(this.data);
+        this.loginUser(this.data);
         this.loading = false;
       }, 500);
     },
@@ -40,7 +39,7 @@ export default {
 };
 </script>
 <template>
-  <template v-if="this.user.authenticated">
+  <template v-if="this.user.authenticated ">
     {{ this.$router.push("/") }}
   </template>
   <v-form @submit.prevent="onSubmit" v-model="form">

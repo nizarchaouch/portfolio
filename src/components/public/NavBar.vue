@@ -35,13 +35,17 @@ export default {
               color="deep-purple-accent-4"
             >
               <v-tab to="/">accueil</v-tab>
-              <v-tab to="">templates</v-tab>
+              <v-tab to="template">templates</v-tab>
               <v-tab to="">Offres d'emploi</v-tab>
             </v-tabs>
           </v-col>
 
           <!-- btn login signup -->
-          <template v-if="!this.$store.state.user.authenticated">
+          <template
+            v-if="
+              !this.$store.state.user.authenticated 
+            "
+          >
             <v-col
               xs="1"
               lg="3"
@@ -93,7 +97,7 @@ export default {
       <v-icon @click="drawer = !drawer" class="ma-3">mdi-close</v-icon>
       <v-list density="compact">
         <v-list-item title="accueil" to="/"> </v-list-item>
-        <v-list-item title="templates" to=""></v-list-item>
+        <v-list-item title="templates" to="template"></v-list-item>
         <v-list-item title="Offres d'emploi" to=""></v-list-item>
       </v-list>
     </v-navigation-drawer>

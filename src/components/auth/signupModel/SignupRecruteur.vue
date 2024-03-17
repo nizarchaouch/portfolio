@@ -43,7 +43,7 @@ export default {
   }),
 
   computed: {
-    ...mapState(["signup", "user"]),
+    ...mapState(["signup"]),
 
     currentTitle() {
       switch (this.signup.step) {
@@ -61,7 +61,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions(["SignupRecruteur", "userAuth"]),
+    ...mapActions(["SignupRecruteur"]),
     ...mapMutations(["incrStep", "decrStep"]),
     handleFileChange(event) {
       const file = event.target.files[0];
@@ -86,15 +86,9 @@ export default {
       }, 500);
     },
   },
-  mounted() {
-    this.userAuth();
-  },
 };
 </script>
 <template>
-  <template v-if="this.user.authenticated">
-    {{ this.$router.push("/") }}
-  </template>
   <v-card class="mx-auto" max-width="700">
     <v-card-title class="text-h6">
       <v-snackbar
