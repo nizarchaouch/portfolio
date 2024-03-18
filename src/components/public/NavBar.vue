@@ -36,7 +36,7 @@ export default {
             >
               <v-tab to="/">accueil</v-tab>
               <v-tab to="template">templates</v-tab>
-              <v-tab to="">Offres d'emploi</v-tab>
+              <v-tab to="offer">Offres d'emploi</v-tab>
             </v-tabs>
           </v-col>
 
@@ -98,7 +98,7 @@ export default {
       <v-list density="compact">
         <v-list-item title="accueil" to="/"> </v-list-item>
         <v-list-item title="templates" to="template"></v-list-item>
-        <v-list-item title="Offres d'emploi" to=""></v-list-item>
+        <v-list-item title="Offres d'emploi" to="offer"></v-list-item>
       </v-list>
     </v-navigation-drawer>
   </v-layout>

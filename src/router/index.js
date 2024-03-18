@@ -4,6 +4,7 @@ import Login from "@/views/LoginView.vue";
 import Signup from "@/views/SignupView";
 import ProfilView from "@/views/candidat/ProfilView.vue";
 import TemplateView from "@/views/TemplateView.vue";
+import OfferView from "@/views/OfferView.vue";
 
 const routes = [
   {
@@ -27,9 +28,14 @@ const routes = [
     component: ProfilView,
   },
   {
-    path:"/template",
-    name:"template",
-    component:TemplateView
+    path: "/template",
+    name: "template",
+    component: TemplateView,
+  },
+  {
+    path: "/offer",
+    name: "offer",
+    component: OfferView,
   },
 ];
 
