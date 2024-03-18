@@ -1,14 +1,22 @@
 <script>
 import NavBar from "@/components/public/NavBar.vue";
+import { mapActions } from "vuex";
 export default {
-    components: {
-        NavBar
-    }
+  name: "offer",
+  components: {
+    NavBar,
+  },
+  methods: {
+    ...mapActions(["userAuth"]),
+  },
+  mounted() {
+    this.userAuth();
+  },
 };
 </script>
 
 <template>
-    <NavBar />
+  <NavBar />
   <div></div>
 </template>
 <style lang=""></style>
