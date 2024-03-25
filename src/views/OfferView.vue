@@ -7,8 +7,9 @@ export default {
     NavBar,
   },
   data: () => ({
-    toggle: "card",
+    toggle: "list",
     search: "",
+    tab: 1,
     offer: [
       {
         nomRec: "SWConsulting",
@@ -125,7 +126,7 @@ export default {
               <v-btn-toggle
                 mandatory
                 v-model="toggle"
-                class="float-right"
+                class="float-right d-none d-sm-flex"
                 color="blue"
               >
                 <v-btn icon="mdi-apps" value="card"></v-btn>
@@ -140,7 +141,7 @@ export default {
       </template>
 
       <template v-slot:default="{ items }">
-        <v-container class="pa-2" fluid>
+        <v-container class="pa-2" fluid v-if="toggle === 'card'">
           <v-row dense>
             <v-col
               v-for="item in items"
@@ -153,6 +154,7 @@ export default {
               <v-card class="mb-6 rounded-shaped" border flat>
                 <v-list-item class="mb-2">
                   <v-banner
+                    class="text-h6"
                     :avatar="item.raw.image"
                     lines="one"
                     :text="item.raw.nomRec"
@@ -169,7 +171,51 @@ export default {
                     <v-btn variant="plain" class="text-none">
                       <p class="text-decoration-underline">Voir Details</p>
                       <template v-slot:append>
-                        <v-icon>mdi-arrow-right-drop-circle</v-icon>
+                        <v-icon class="d-none d-lg-block d-print-block"
+                          >mdi-arrow-right-drop-circle</v-icon
+                        >
+                      </template>
+                    </v-btn>
+                  </div>
+                </v-list-item>
+              </v-card>
+            </v-col>
+          </v-row>
+        </v-container>
+        <v-container v-else class="pa-2" value="list">
+          <v-row dense>
+            <v-col
+              v-for="item in items"
+              :key="item.title"
+              cols="12"
+              sm="10"
+              class="mx-auto"
+            >
+              <v-card class="mb-6 rounded-shaped" border>
+                <v-list-item class="mb-2">
+                  <v-banner
+                    class="text-h6"
+                    :avatar="item.raw.image"
+                    lines="one"
+                    :text="item.raw.nomRec"
+                  ></v-banner>
+                  <v-banner class="text-h6" lines="one" :text="item.raw.title">
+                  </v-banner>
+                  <v-banner
+                    lines="three"
+                    :text="item.raw.description"
+                  ></v-banner>
+                  <div class="d-flex justify-space-between mt-3">
+                    <p>
+                      {{ item.raw.date }}
+                    </p>
+                    <p><v-icon>mdi-google-maps</v-icon>{{ item.raw.local }}</p>
+                    <v-btn variant="plain" class="text-none">
+                      <p class="text-decoration-underline">Voir Details</p>
+                      <template v-slot:append>
+                        <v-icon class="d-none d-lg-block d-print-block"
+                          >mdi-arrow-right-drop-circle</v-icon
+                        >
                       </template>
                     </v-btn>
                   </div>
