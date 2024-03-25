@@ -1,24 +1,28 @@
 <script>
+import DialogDetail from "@/components/offer/DialogDetail.vue";
 import NavBar from "@/components/public/NavBar.vue";
 import { mapActions } from "vuex";
 export default {
   name: "offer",
   components: {
     NavBar,
+    DialogDetail,
   },
   data: () => ({
-    toggle: "list",
+    toggle: "card",
     search: "",
     tab: 1,
+    selectedOBJ: null,
     offer: [
       {
         nomRec: "SWConsulting",
-        title: "Conception et development platforem web generate portfolio",
+        title: "Conception et développement plateforme web generate portfolio",
         description:
           "Esse sunt eiusmod commodo consectetur proident anim cillum velit mollit et elit cupidatat. Aliqua proident irure fugiat qui ad quis officia mollit consequat ex occaecat mollit. Minim veniam ex adipisicing non. Cillum minim magna ea aliquip ullamco. Sint eu amet eu occaecat esse ea Lorem culpa ea sit anim laborum nisi labore. Velit eiusmod ullamco Lorem aliquip deserunt deserunt.",
         date: "2022/06/20",
         local: "tunisie,tunisie",
-        image: "https://randomuser.me/api/portraits/women/8.jpg",
+        image:
+          "https://www.keejob.com/media/recruiter/recruiter_17844/logo-17844-20190306-104839.jpg",
       },
       {
         nomRec: "Recruteur 2",
@@ -152,7 +156,7 @@ export default {
               lg="4"
             >
               <v-card class="mb-6 rounded-shaped" border flat>
-                <v-list-item class="mb-2">
+                <v-list-item>
                   <v-banner
                     class="text-h6"
                     :avatar="item.raw.image"
@@ -166,16 +170,13 @@ export default {
                     :text="item.raw.description"
                   ></v-banner>
                   <div class="d-flex justify-space-around mt-3">
-                    {{ item.raw.date }}
+                    <p>
+                      <v-icon>mdi-calendar-range</v-icon>{{ item.raw.date }}
+                    </p>
                     <p><v-icon>mdi-google-maps</v-icon>{{ item.raw.local }}</p>
-                    <v-btn variant="plain" class="text-none">
-                      <p class="text-decoration-underline">Voir Details</p>
-                      <template v-slot:append>
-                        <v-icon class="d-none d-lg-block d-print-block"
-                          >mdi-arrow-right-drop-circle</v-icon
-                        >
-                      </template>
-                    </v-btn>
+                  </div>
+                  <div class="float-right">
+                    <DialogDetail :obj="item" />
                   </div>
                 </v-list-item>
               </v-card>
@@ -210,14 +211,9 @@ export default {
                       {{ item.raw.date }}
                     </p>
                     <p><v-icon>mdi-google-maps</v-icon>{{ item.raw.local }}</p>
-                    <v-btn variant="plain" class="text-none">
-                      <p class="text-decoration-underline">Voir Details</p>
-                      <template v-slot:append>
-                        <v-icon class="d-none d-lg-block d-print-block"
-                          >mdi-arrow-right-drop-circle</v-icon
-                        >
-                      </template>
-                    </v-btn>
+                    <div class="float-right">
+                      <DialogDetail :obj="item" />
+                    </div>
                   </div>
                 </v-list-item>
               </v-card>

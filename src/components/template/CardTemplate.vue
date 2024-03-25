@@ -60,7 +60,7 @@ export default {
       <template v-slot:default="{ items }">
         <v-container class="pa-2" fluid>
           <v-row dense>
-            <v-col v-for="item in items" :key="item.title" cols="auto" md="4">
+            <v-col v-for="item in items" :key="item.title" cols="12" md="4">
               <v-hover v-slot="{ isHovering, props }">
                 <v-card class="mb-6" border flat v-bind="props">
                   <v-img :src="item.raw.img"></v-img>

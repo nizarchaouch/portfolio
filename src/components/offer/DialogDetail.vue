@@ -1,105 +1,114 @@
 <script>
 export default {
+  props: {
+    obj: Object,
+  },
   data() {
     return {
       dialog: false,
-      notifications: false,
-      sound: true,
-      widgets: false,
+      loading: false,
     };
+  },
+  methods: {
+    postuler() {
+      this.loading = true;
+      setTimeout(() => {
+        this.loading = false;
+        this.dialog = false;
+      }, 2000);
+    },
   },
 };
 </script>
 <template>
-  <div class="text-center pa-4">
-    <v-dialog v-model="dialog" transition="dialog-bottom-transition" fullscreen>
-      <template v-slot:activator="{ props: activatorProps }">
+  <v-dialog
+    v-model="dialog"
+    transition="dialog-bottom-transition"
+    max-width="850"
+  >
+    <template v-slot:activator="{ props: activatorProps }">
+      <v-btn variant="plain" class="text-none" v-bind="activatorProps">
+        <p class="text-decoration-underline">Voir Details</p>
+        <template v-slot:append>
+          <v-icon>mdi-arrow-right-drop-circle</v-icon>
+        </template>
+      </v-btn>
+    </template>
+
+    <v-card>
+      <v-toolbar>
+        <v-btn icon="mdi-close" @click="dialog = false"></v-btn>
+
+        <v-spacer></v-spacer>
+
         <v-btn
-          prepend-icon="mdi-cog"
-          size="small"
-          text="Settings"
-          v-bind="activatorProps"
+          text="Postuler maintenant"
+          color="blue-darken-4"
+          variant="tonal"
+          rounded="lg"
+          :loading="loading"
+          @click="postuler()"
         ></v-btn>
-      </template>
+      </v-toolbar>
 
-      <v-card>
-        <v-toolbar>
-          <v-btn icon="mdi-close" @click="dialog = false"></v-btn>
-
-          <v-toolbar-title>Settings</v-toolbar-title>
-
-          <v-spacer></v-spacer>
-
-          <v-toolbar-items>
-            <v-btn text="Save" variant="text" @click="dialog = false"></v-btn>
-          </v-toolbar-items>
-        </v-toolbar>
-
-        <v-list lines="two" subheader>
-          <v-list-subheader>User Controls</v-list-subheader>
-
-          <v-list-item
-            subtitle="Set the content filtering level to restrict apps that can be downloaded"
-            title="Content filtering"
-            link
-          ></v-list-item>
-
-          <v-list-item
-            subtitle="Require password for purchase or use password to restrict purchase"
-            title="Password"
-            link
-          ></v-list-item>
-
-          <v-divider></v-divider>
-
-          <v-list-subheader>General</v-list-subheader>
-
-          <v-list-item
-            subtitle="Notify me about updates to apps or games that I downloaded"
-            title="Notifications"
-            @click="notifications = !notifications"
-          >
-            <template v-slot:prepend>
-              <v-list-item-action start>
-                <v-checkbox-btn
-                  v-model="notifications"
-                  color="primary"
-                ></v-checkbox-btn>
-              </v-list-item-action>
-            </template>
-          </v-list-item>
-
-          <v-list-item
-            subtitle="Auto-update apps at any time. Data charges may apply"
-            title="Sound"
-            @click="sound = !sound"
-          >
-            <template v-slot:prepend>
-              <v-list-item-action start>
-                <v-checkbox-btn
-                  v-model="sound"
-                  color="primary"
-                ></v-checkbox-btn>
-              </v-list-item-action>
-            </template>
-          </v-list-item>
-
-          <v-list-item
-            subtitle="Automatically add home screen widgets"
-            title="Auto-add widgets"
-            @click="widgets = !widgets"
-          >
-            <template v-slot:prepend>
-              <v-list-item-action start>
-                <v-checkbox-btn
-                  v-model="widgets"
-                  color="primary"
-                ></v-checkbox-btn>
-              </v-list-item-action>
-            </template>
-          </v-list-item>
-        </v-list>
-      </v-card>
-    </v-dialog>
-  </div>
+      <v-list lines="two" subheader>
+        <v-container>
+          <v-row>
+            <v-col cols="3">
+              <v-img min_height="auto" rounded :src="obj.raw.image"></v-img>
+            </v-col>
+            <v-col cols="9">
+              <p class="font-weight-bold">{{ obj.raw.nomRec }}</p>
+              <p class="text-h5 font-weight-bold">{{ obj.raw.title }}</p>
+              <p class="text-h6 font-weight-medium text-decoration-underline">
+                Date d'expiration: {{ obj.raw.date }}
+              </p>
+              <v-list-subheader>{{ obj.raw.local }}</v-list-subheader>
+            </v-col>
+          </v-row>
+        </v-container>
+        <v-divider></v-divider>
+        <v-container>
+          <v-row>
+            <v-sheet
+              v-for="index in 6"
+              :key="index"
+              :height="50"
+              :width="250"
+              border
+              rounded
+              class="d-flex ma-2 pa-2 mx-auto"
+              ><p class="d-inline font-weight-bold">Postes vacants:</p>
+              <p class="d-inline"> 1 poste ouvert</p>
+            </v-sheet>
+          </v-row>
+        </v-container>
+        <v-divider></v-divider>
+        <v-container>
+          <v-row>
+            <v-col cols="12">
+              <p class="text-h6 font-weight-bold">Description de l'emploi</p>
+              <p>{{ obj.raw.description }}</p>
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col cols="12">
+              <p class="text-h6 font-weight-bold">Exigences de l'emploi</p>
+              <p>{{ obj.raw.description }}</p>
+            </v-col>
+          </v-row>
+          <v-divider class="my-2"></v-divider>
+          <v-row>
+            <v-col cols="12">
+              <p class="text-h6 font-weight-bold">
+                Mots clés:
+                <v-chip color="red" variant="flat" class="me-2"> web </v-chip>
+                <v-chip color="red" variant="flat" class="me-2"> vueJs </v-chip>
+              </p>
+            </v-col>
+          </v-row>
+        </v-container>
+      </v-list>
+    </v-card>
+  </v-dialog>
 </template>
