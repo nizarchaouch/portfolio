@@ -86,20 +86,20 @@ export default {
         <v-divider></v-divider>
         <v-container>
           <v-row>
-            <v-col cols="12">
+            <v-col cols="11">
               <p class="text-h6 font-weight-bold">Description de l'emploi</p>
               <p>{{ obj.raw.description }}</p>
             </v-col>
           </v-row>
           <v-row>
-            <v-col cols="12">
+            <v-col cols="11">
               <p class="text-h6 font-weight-bold">Exigences de l'emploi</p>
               <p>{{ obj.raw.description }}</p>
             </v-col>
           </v-row>
           <v-divider class="my-2"></v-divider>
           <v-row>
-            <v-col cols="12">
+            <v-col cols="11">
               <p class="text-h6 font-weight-bold">
                 Mots clés:
                 <v-chip color="red" variant="flat" class="me-2"> web </v-chip>
