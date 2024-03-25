@@ -19,7 +19,7 @@ export default {
   <NavBar />
   <div style="margin-top: 140px">
     <v-sheet
-      class="mx-auto px-16 hidden-xs"
+      class="mx-auto px-16 "
       min-height="200"
       max-width="1200"
       color="transparent"
@@ -28,7 +28,7 @@ export default {
         Créer un <span>portfolio d'exception</span> et trouvez des opportunités
       </h1>
       <v-sheet
-        class="mx-auto mt-5 hidden-xs text-h6 text-center"
+        class="mx-auto mt-5  text-h6 text-center"
         max-width="1000"
         color="#FFFFFF00"
       >
@@ -58,7 +58,7 @@ export default {
     </v-sheet>
     <!-- ddd -->
     <v-sheet
-      class="mx-auto px-16 hidden-xs"
+      class="mx-auto px-16 "
       min-height="200"
       max-width="1200"
       color="transparent"
@@ -67,7 +67,7 @@ export default {
         Créer un <span>portfolio d'exception</span> et trouvez des opportunités
       </h1>
       <v-sheet
-        class="mx-auto mt-5 hidden-xs text-h6 text-center"
+        class="mx-auto mt-5  text-h6 text-center"
         max-width="1000"
         color="#FFFFFF00"
       >

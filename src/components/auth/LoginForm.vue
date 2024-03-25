@@ -39,7 +39,7 @@ export default {
 };
 </script>
 <template>
-  <template v-if="this.user.authenticated ">
+  <template v-if="this.user.authenticated">
     {{ this.$router.push("/") }}
   </template>
   <v-form @submit.prevent="onSubmit" v-model="form">

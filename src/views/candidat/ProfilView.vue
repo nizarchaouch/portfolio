@@ -179,7 +179,7 @@ export default {
                 <v-text-field
                   variant="outlined"
                   density="compact"
-                  readonly
+                  disabled
                   v-model="this.user.userData.mail"
                 >
                 </v-text-field>
