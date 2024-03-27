@@ -1,10 +1,10 @@
 import axios from "axios";
 export default {
-  state: { alert: false, offerData:"" },
+  state: { offerData: "" },
   mutations: {
     setOffers(state, offers) {
       state.offerData = offers;
-      console.log("data",state.offerData);
+      console.log("data", state.offerData);
     },
   },
   actions: {
@@ -17,16 +17,9 @@ export default {
             withCredentials: true,
           }
         );
-        // console.log("dataa", response);
-        // if (response.status == 201) {
-        //   console.log("mise à jour réussie");
-        //   ctx.state.alert = true;
-          ctx.commit("setOffers", response.data);
-        // }
+        ctx.commit("setOffers", response.data);
       } catch (error) {
-        console.error("Erreur lors de la mise à jour :", error);
-        ctx.state.alert = true;
-        ctx.commit("setMes", "Erreur lors de la mise à jour");
+        console.error("Erreur lors de l'affichage des offres :", error);
       }
     },
   },
