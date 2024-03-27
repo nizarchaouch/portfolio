@@ -9,7 +9,7 @@ export default {
     },
     SET_DATA_USER(state, data) {
       state.userData = data;
-      console.log("userData:", state.userData);
+      // console.log("userData:", state.userData);
     },
   },
   actions: {
@@ -30,7 +30,7 @@ export default {
         } else {
           await ctx.commit("SET_AUTH", true);
         }
-        console.log("auth", ctx.state.authenticated);
+        // console.log("auth", ctx.state.authenticated);
         ctx.commit("SET_DATA_USER", response.data);
       } catch (error) {
         console.error("Error during user authentication:", error);
