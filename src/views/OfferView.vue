@@ -103,7 +103,7 @@ export default {
                   ></v-banner>
                   <div class="d-flex justify-space-around mt-3">
                     <p>
-                      <v-icon>mdi-calendar-range</v-icon>{{ item.raw.date_creation.split("T")[0] }}
+                      <v-icon class="me-2">mdi-calendar-range</v-icon>{{ item.raw.date_creation.split("T")[0] }}
                     </p>
                     <p><v-icon>mdi-google-maps</v-icon>{{ item.raw.position }}</p>
                   </div>
@@ -130,9 +130,9 @@ export default {
                     class="text-h6"
                     :avatar="item.raw.image"
                     lines="one"
-                    :text="item.raw.nomRec"
+                    :text="item.raw.nomEntreprise"
                   ></v-banner>
-                  <v-banner class="text-h6" lines="one" :text="item.raw.title">
+                  <v-banner class="text-h6" lines="one" :text="item.raw.titre">
                   </v-banner>
                   <v-banner
                     lines="three"
@@ -140,9 +140,9 @@ export default {
                   ></v-banner>
                   <div class="d-flex justify-space-between mt-3">
                     <p>
-                      {{ item.raw.date }}
+                      <v-icon class="me-2">mdi-calendar-range</v-icon>{{ item.raw.date_creation.split("T")[0] }}
                     </p>
-                    <p><v-icon>mdi-google-maps</v-icon>{{ item.raw.local }}</p>
+                    <p><v-icon>mdi-google-maps</v-icon>{{ item.raw.position }}</p>
                     <div class="float-right">
                       <DialogDetail :obj="item" />
                     </div>

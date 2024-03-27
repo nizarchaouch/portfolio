@@ -58,12 +58,12 @@ export default {
               <v-img min_height="auto" rounded :src="obj.raw.image"></v-img>
             </v-col>
             <v-col cols="9">
-              <p class="font-weight-bold">{{ obj.raw.nomRec }}</p>
-              <p class="text-h5 font-weight-bold">{{ obj.raw.title }}</p>
+              <p class="font-weight-bold">{{ obj.raw.nomEntreprise }}</p>
+              <p class="text-h5 font-weight-bold">{{ obj.raw.titre }}</p>
               <p class="text-h6 font-weight-medium text-decoration-underline">
-                Date d'expiration: {{ obj.raw.date }}
+                Date d'expiration: {{ obj.raw.date_expiration/* .split("T")[0] */ }}
               </p>
-              <v-list-subheader>{{ obj.raw.local }}</v-list-subheader>
+              <v-list-subheader>{{ obj.raw.position }}</v-list-subheader>
             </v-col>
           </v-row>
         </v-container>
@@ -79,7 +79,7 @@ export default {
               rounded
               class="d-flex ma-2 pa-2 mx-auto"
               ><p class="d-inline font-weight-bold">Postes vacants:</p>
-              <p class="d-inline"> 1 poste ouvert</p>
+              <p class="d-inline">1 poste ouvert</p>
             </v-sheet>
           </v-row>
         </v-container>
