@@ -1,7 +1,11 @@
 <script>
+/* eslint-disable */
+import iconNotf from "@/assets/not.png";
 export default {
   data: () => ({
+    iconNotf: iconNotf,
     menu: false,
+    not: false,
   }),
 };
 </script>
@@ -13,11 +17,13 @@ export default {
           <v-badge color="error" :content="1">
             <v-icon icon="mdi-bell"></v-icon>
           </v-badge>
-          <v-tooltip activator="parent" location="bottom">Notfication</v-tooltip>
+          <v-tooltip activator="parent" location="bottom"
+            >Notfication</v-tooltip
+          >
         </v-btn>
       </template>
 
-      <v-card>
+      <v-card v-if="not">
         <v-banner
           v-for="n in 30"
           :key="n"
@@ -30,6 +36,23 @@ export default {
             <v-btn color="primary" class="text-none">Voir</v-btn>
           </template>
         </v-banner>
+      </v-card>
+      <v-card v-else>
+        <v-img
+          :width="160"
+          aspect-ratio="16/9"
+          class="mx-auto ma-16"
+          cover
+          :src="iconNotf"
+        ></v-img>
+        <div class="d-flex justify-center">
+          <p class="text-h5">Recevoir vos notifications</p>
+        </div>
+        <div class="d-flex justify-center">
+          <p class="text-center mx-16 my-4">
+            Retrouvez toutes les notifications de réponses des recruteurs ici
+          </p>
+        </div>
       </v-card>
     </v-menu>
   </div>
