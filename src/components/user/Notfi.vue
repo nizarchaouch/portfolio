@@ -5,8 +5,14 @@ export default {
   data: () => ({
     iconNotf: iconNotf,
     menu: false,
-    not: false,
+    count: 10,
+    Badge: false,
   }),
+  created() {
+    if (this.count > 0) {
+      this.Badge = true;
+    }
+  },
 };
 </script>
 <template>
@@ -14,7 +20,7 @@ export default {
     <v-menu v-model="menu" max-width="500px" rounded location="end">
       <template v-slot:activator="{ props }">
         <v-btn v-bind="props" icon>
-          <v-badge color="error" :content="1">
+          <v-badge color="error" :content="count" max="9" v-model="Badge">
             <v-icon icon="mdi-bell"></v-icon>
           </v-badge>
           <v-tooltip activator="parent" location="bottom"
@@ -23,9 +29,9 @@ export default {
         </v-btn>
       </template>
 
-      <v-card v-if="not">
+      <v-card v-if="Badge">
         <v-banner
-          v-for="n in 30"
+          v-for="n in count"
           :key="n"
           avatar="https://randomuser.me/api/portraits/women/8.jpg"
           lines="two"
