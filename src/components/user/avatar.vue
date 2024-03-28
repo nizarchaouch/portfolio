@@ -11,7 +11,7 @@ export default {
     menu: false,
     items: [
       { text: "Mon Profil", icon: "mdi-folder", to: "profil" },
-      { text: "Mon Portfolio", icon: "mdi-star", to: "" },
+      { text: "Mon Portfolio", icon: "mdi-star", to: "portfolio" },
       { text: "Mes Candidatures", icon: "mdi-account-multiple", to: "" },
       { text: "Uploads CV", icon: "mdi-upload", to: "" },
     ],
