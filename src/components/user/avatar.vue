@@ -23,16 +23,16 @@ export default {
 </script>
 <template>
   <div>
-    <v-menu v-model="menu" min-width="200px" rounded >
+    <v-menu v-model="menu" min-width="200px" rounded>
       <template v-slot:activator="{ props }">
         <v-btn v-bind="props" :ripple="false" variant="plain" icon>
-          <v-avatar :image="userData.imageUrl"> </v-avatar>
-          <v-icon color="black" class="mt-6 bad">mdi-chevron-down</v-icon>
+          <v-avatar :image="userData.imageUrl" size="small"> </v-avatar>
+          <v-icon color="black" class="mt-6">mdi-chevron-down</v-icon>
           <v-tooltip activator="parent" location="bottom">Menu</v-tooltip>
         </v-btn>
       </template>
 
-      <v-card >
+      <v-card>
         <v-list>
           <v-list-item
             :title="userData.nom + ' ' + userData.prenom"

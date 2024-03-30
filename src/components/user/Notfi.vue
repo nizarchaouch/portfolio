@@ -5,7 +5,7 @@ export default {
   data: () => ({
     iconNotf: iconNotf,
     menu: false,
-    count: 10,
+    count: 0,
     Badge: false,
   }),
   created() {
@@ -21,7 +21,7 @@ export default {
       <template v-slot:activator="{ props }">
         <v-btn v-bind="props" icon>
           <v-badge color="error" :content="count" max="9" v-model="Badge">
-            <v-icon icon="mdi-bell"></v-icon>
+            <v-icon icon="mdi-bell" size="small"></v-icon>
           </v-badge>
           <v-tooltip activator="parent" location="bottom"
             >Notfication</v-tooltip
