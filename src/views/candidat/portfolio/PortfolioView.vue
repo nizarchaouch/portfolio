@@ -15,11 +15,8 @@ export default {
     this.userAuth();
     setTimeout(() => {
       if (this.user.authenticated === false || this.user.userData.role === "recruteur") {
-        this.$router.push({ name: "login" });
-        console.log(this.user.userData.role);
-      } else {
-        console.log("bbb", this.user.userData.role);
-      }
+        this.$router.push("login");
+      } 
     }, 2);
   },
 };

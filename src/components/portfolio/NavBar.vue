@@ -91,7 +91,7 @@ export default {
         <v-tooltip activator="parent" location="end">Pages portfolio</v-tooltip>
       </v-btn>
       <!--  -->
-      <v-btn class="ma-4" color="#f6b93b" size="small" variant="tonal" icon>
+      <v-btn class="ma-4" color="#f6b93b" size="small" variant="tonal" icon value="text">
         <v-icon size="25">mdi-format-text</v-icon>
         <v-tooltip activator="parent" location="end"
           >Ajouter du texte</v-tooltip
