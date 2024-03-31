@@ -27,7 +27,10 @@ export default {
                 >Aller à la page d'accueil</v-tooltip
               >
             </router-link>
-            <v-divider vertical class="border-opacity-25 ms-5"></v-divider>
+            <v-divider vertical class="border-opacity-25 mx-5"></v-divider>
+              <v-tab to="/">accueil</v-tab>
+              <v-tab to="template">templates</v-tab>
+              <v-tab to="offer">Offres d'emploi</v-tab>
           </v-col>
           <!-- <v-btn-toggle mandatory color="deep-purple" v-model="toggle">
               <v-btn icon="mdi-laptop" value="laptop" ></v-btn>
@@ -82,34 +85,40 @@ export default {
           >Ajouter des éléments</v-tooltip
         >
       </v-btn>
+      <!--  -->
+      <v-btn class="ma-4" color="#e55039" size="small" variant="tonal" icon>
+        <v-icon size="23">mdi-text-box-multiple</v-icon>
+        <v-tooltip activator="parent" location="end">Pages portfolio</v-tooltip>
+      </v-btn>
+      <!--  -->
       <v-btn class="ma-4" color="#f6b93b" size="small" variant="tonal" icon>
         <v-icon size="25">mdi-format-text</v-icon>
         <v-tooltip activator="parent" location="end"
           >Ajouter du texte</v-tooltip
         >
       </v-btn>
-      <v-btn class="ma-4" color="#e55039" size="small" variant="tonal" icon>
+      <!--  -->
+      <v-btn class="ma-4" color="#4a69bd" size="small" variant="tonal" icon>
         <v-icon size="25">mdi-image-area</v-icon>
         <v-tooltip activator="parent" location="end"
           >Ajouter une image</v-tooltip
         >
       </v-btn>
-      <v-btn class="ma-4" color="#4a69bd" size="small" variant="tonal" icon>
-        <v-icon size="23">mdi-text-box-multiple</v-icon>
-        <v-tooltip activator="parent" location="end">Pages portfolio</v-tooltip>
-      </v-btn>
+      <!--  -->
       <v-btn class="ma-4" color="#60a3bc" size="small" variant="tonal" icon>
         <v-icon size="23">mdi-button-cursor</v-icon>
         <v-tooltip activator="parent" location="end"
           >Ajouter un bouton</v-tooltip
         >
       </v-btn>
+      <!--  -->
       <v-btn class="ma-4" color="#78e08f" size="small" variant="tonal" icon>
         <v-icon size="23">mdi-card-text</v-icon>
         <v-tooltip activator="parent" location="end"
           >Ajouter des boîtes de conteneur</v-tooltip
         >
       </v-btn>
+      <!--  -->
       <v-btn class="ma-4" color="#38ada9" size="small" variant="tonal" icon>
         <v-icon size="23">mdi-minus-box-outline</v-icon>
         <v-tooltip activator="parent" location="end"
