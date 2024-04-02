@@ -14,16 +14,25 @@ export default {
   mounted() {
     this.userAuth();
     setTimeout(() => {
-      if (this.user.authenticated === false || this.user.userData.role === "recruteur") {
+      if (
+        this.user.authenticated === false ||
+        this.user.userData.role === "recruteur"
+      ) {
         this.$router.push("login");
-      } 
+      }
     }, 2);
   },
 };
 </script>
 <template>
   <NavBar />
-  <div>aaa</div>
+  <div class="a">
+    <v-btn color="success">text</v-btn>
+  </div>
 </template>
 
-<style lang=""></style>
+<style lang="scss">
+.a {
+  margin: 200px;
+}
+</style>

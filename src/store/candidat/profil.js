@@ -9,6 +9,9 @@ export default {
   actions: {
     async updated(ctx, data) {
       try {
+        // let data= new FormData();
+        // data.append('image',this.)
+
         const response = await axios.put(
           `http://localhost:8000/api/user/update/${data.id}`,
           JSON.stringify(data),
