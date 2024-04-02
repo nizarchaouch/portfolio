@@ -2,8 +2,12 @@
 import logo from "@/assets/logo_text.png";
 import Avatar from "@/components/user/avatar.vue";
 import Notfi from "@/components/user/Notfi.vue";
+import { mapState,mapMutations } from "vuex";
 export default {
   components: { Avatar, Notfi },
+  computed: {
+    ...mapState(["candidat"])
+  },
   data: () => ({
     logo: logo,
     nav: null,
@@ -11,6 +15,9 @@ export default {
     loading: false,
     toggle: "laptop",
   }),
+  methods: {
+    ...mapMutations(["addElement"]),
+  },
 };
 </script>
 
@@ -28,9 +35,9 @@ export default {
               >
             </router-link>
             <v-divider vertical class="border-opacity-25 mx-5"></v-divider>
-              <v-tab to="/">accueil</v-tab>
-              <v-tab to="template">templates</v-tab>
-              <v-tab to="offer">Offres d'emploi</v-tab>
+            <v-tab to="/">accueil</v-tab>
+            <v-tab to="template">templates</v-tab>
+            <v-tab to="offer">Offres d'emploi</v-tab>
           </v-col>
           <!-- <v-btn-toggle mandatory color="deep-purple" v-model="toggle">
               <v-btn icon="mdi-laptop" value="laptop" ></v-btn>
@@ -91,7 +98,15 @@ export default {
         <v-tooltip activator="parent" location="end">Pages portfolio</v-tooltip>
       </v-btn>
       <!--  -->
-      <v-btn class="ma-4" color="#f6b93b" size="small" variant="tonal" icon value="text">
+      <v-btn
+        class="ma-4"
+        color="#f6b93b"
+        size="small"
+        variant="tonal"
+        icon
+        value="text"
+        @click="addElement()"
+      >
         <v-icon size="25">mdi-format-text</v-icon>
         <v-tooltip activator="parent" location="end"
           >Ajouter du texte</v-tooltip
