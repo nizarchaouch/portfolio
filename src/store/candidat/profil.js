@@ -9,10 +9,19 @@ export default {
   actions: {
     async updated(ctx, data) {
       try {
-        // let data= new FormData();
-        // data.append('image',this.)
+        let formData = new FormData();
+        formData.append("image", data.fileForUpload);
 
-        const response = await axios.put(
+        const uploadResponse = await axios.post(
+          "http://localhost:8000/upload",
+          formData
+        );
+        if (uploadResponse.data.imagepath!="") {
+          data.imagePath = uploadResponse.data.imagepath;
+        }
+        console.log("data", data);
+
+        const updateUserResponse = await axios.put(
           `http://localhost:8000/api/user/update/${data.id}`,
           JSON.stringify(data),
           {
@@ -20,9 +29,9 @@ export default {
             withCredentials: true,
           }
         );
-        console.log("dataa", data);
-        if (response.status == 201) {
-          console.log("mise à jour réussie");
+
+        if (updateUserResponse.status === 201) {
+          console.log("Mise à jour réussie");
           ctx.state.alert = true;
           ctx.commit("setMes", "Mise à jour réussie");
         }

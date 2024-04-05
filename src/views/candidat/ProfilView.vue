@@ -9,7 +9,9 @@ export default {
     data() {
       return {
         id: this.user.userData._id,
-        imageUrl: this.user.userData.imageUrl,
+        fileForUpload: null,
+        imageUrl: "http://localhost:8000" + this.user.userData.imagePath,
+        imagePath: "",
         nom: this.user.userData.nom,
         prenom: this.user.userData.prenom,
         dateNais: this.user.userData.dateNais
@@ -34,18 +36,24 @@ export default {
     ...mapActions(["userAuth", "updated"]),
     handleFileChange(event) {
       const file = event.target.files[0];
-      this.data.imageUrl = URL.createObjectURL(file);
-      console.log(this.data.imageUrl);
-      this.userAuth();
-      this.updated(this.data);
-      this.userAuth();
+      if (file && file.type.startsWith("image/")) {
+        this.data.fileForUpload = file;
+        this.updated(this.data);
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
+      } else {
+        // Handle non-image file selection here
+        alert("Veuillez sélectionner un fichier image.");
+      }
     },
 
     updateValue(index, value) {
       this.data[index] = value;
-      this.userAuth();
       this.updated(this.data);
-      this.userAuth();
+      setTimeout(() => {
+        this.userAuth();
+      }, 10);
     },
   },
   mounted() {
@@ -93,6 +101,7 @@ export default {
                 type="file"
                 id="file"
                 class="d-none"
+                accept="image/*"
                 @change="handleFileChange"
               />
             </v-col>

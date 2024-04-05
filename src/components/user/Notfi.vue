@@ -5,7 +5,7 @@ export default {
   data: () => ({
     iconNotf: iconNotf,
     menu: false,
-    count: 0,
+    count: 10,
     Badge: false,
   }),
   created() {
