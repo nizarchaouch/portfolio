@@ -81,17 +81,25 @@ export default {
     </v-sheet>
   </div>
   <div>
-    <v-container>
-      <v-row class="d-flex justify-center align-center">
-        <v-col cols="9">
-          <h1 class="text-h4 font-weight-black text-center mt-14">
-            Créer un portfolio à votre image avec toutes les fonctionnalités
-            dont vous avez besoin.
-          </h1>
-          <p class="text-caption"></p>
-        </v-col>
-      </v-row>
-      <v-row class="d-flex justify-center align-center">
+    <v-row
+      class="d-flex justify-center align-center mt-8 bg-light-blue-darken-1"
+    >
+      <v-col cols="9">
+        <h1 class="text-center font-weight-black mt-10">
+          Design -Faites des modèles de portfolio pour mettre en avant vos
+          meilleurs projets.
+        </h1>
+        <div class="mt-5 text-h6 text-center">
+          Les modèles de sites Web de portfolio de Renderforest sont le moyen
+          idéal de mettre en valeur vos meilleurs projets. Avec un choix de
+          plusieurs modèles époustouflants, vous pouvez créer un site web
+          choisir celui qui reflète le mieux votre marque personnelle et votre
+          style.
+        </div>
+        <p class="text-caption"></p>
+      </v-col>
+    </v-row>
+    <!-- <v-row class="d-flex justify-center align-center">
         <v-col cols="auto" v-for="(item, index) in data.items" :key="index">
           <v-sheet
             min-height="330"
@@ -111,8 +119,7 @@ export default {
             </div>
           </v-sheet>
         </v-col>
-      </v-row>
-    </v-container>
+      </v-row> -->
   </div>
 </template>
 
@@ -139,5 +146,10 @@ span {
       background-position: 0 50%;
     }
   }
+}
+.title {
+  font-size: 48px;
+  line-height: 125%;
+  font-family: Euclid Circular, Arial, sans-serif, Helvetica;
 }
 </style>

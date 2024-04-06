@@ -2,11 +2,11 @@
 import logo from "@/assets/logo_text.png";
 import Avatar from "@/components/user/avatar.vue";
 import Notfi from "@/components/user/Notfi.vue";
-import { mapState,mapMutations } from "vuex";
+import { mapState, mapMutations } from "vuex";
 export default {
   components: { Avatar, Notfi },
   computed: {
-    ...mapState(["candidat"])
+    ...mapState(["candidat"]),
   },
   data: () => ({
     logo: logo,
