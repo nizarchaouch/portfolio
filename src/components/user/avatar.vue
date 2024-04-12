@@ -10,10 +10,10 @@ export default {
   data: () => ({
     menu: false,
     items: [
-      { text: "Mon Profil", icon: "mdi-folder", to: "profil" },
+      { text: "Mon Compte", icon: "mdi-folder", to: "profil" },
       { text: "Mon Portfolio", icon: "mdi-star", to: "portfolio" },
       { text: "Mes Candidatures", icon: "mdi-account-multiple", to: "" },
-      { text: "Uploads CV", icon: "mdi-upload", to: "" },
+      { text: "Télécharger CV", icon: "mdi-upload", to: "" },
     ],
   }),
   methods: {

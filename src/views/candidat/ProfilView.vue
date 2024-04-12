@@ -1,7 +1,7 @@
 <script>
 import { mapState, mapActions } from "vuex";
 import NavBar from "@/components/public/NavBar.vue";
-import DialogPwd from "./DialogPwd.vue";
+import DialogPwd from "@/components/user/candidat/DialogPwd.vue";
 export default {
   name: "profil",
   computed: {
@@ -92,7 +92,7 @@ export default {
             <v-col cols="12" xl="2">
               <label for="file">
                 <v-img
-                  class="mx-auto my-15 rounded-circle"
+                  class="mx-auto my-15 rounded-circle cursor-pointer"
                   width="150"
                   :src="data.imageUrl"
                 ></v-img>

@@ -1,9 +1,11 @@
 <script>
 import NavBar from "@/components/portfolio/NavBar.vue";
+import PagePort from "@/components/portfolio/PagePort";
 import { mapState, mapActions } from "vuex";
 export default {
   components: {
     NavBar,
+    PagePort,
   },
   computed: {
     ...mapState(["user"]),
@@ -26,8 +28,8 @@ export default {
 </script>
 <template>
   <NavBar />
+  <PagePort />
   <div class="a">
-    <v-btn color="success">text</v-btn>
   </div>
 </template>
 
