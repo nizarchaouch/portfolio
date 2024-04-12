@@ -8,6 +8,7 @@ export default {
     loading: false,
     visible: false,
     form: false,
+    dialog: false,
     passwordcheck: "",
     data: {
       password: "",
@@ -36,14 +37,14 @@ export default {
         this.loading = false;
         this.data.password = "";
         this.passwordcheck = "";
-        this.$router.go(-1);
+        this.dialog = false;
       }, 1000);
     },
   },
 };
 </script>
 <template>
-  <v-dialog transition="dialog-bottom-transition" width="600">
+  <v-dialog v-model="dialog" transition="dialog-bottom-transition" width="600">
     <template v-slot:activator="{ props: activatorProps }">
       <v-btn
         color="primary"

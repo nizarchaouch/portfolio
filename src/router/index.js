@@ -6,6 +6,7 @@ import ProfilView from "@/views/candidat/profil/ProfilView.vue";
 import TemplateView from "@/views/TemplateView.vue";
 import OfferView from "@/views/OfferView.vue";
 import PortfolioView from "@/views/candidat/portfolio/PortfolioView.vue";
+import CandidatureView from "@/views/CandidatureView.vue";
 
 const routes = [
   {
@@ -39,9 +40,14 @@ const routes = [
     component: OfferView,
   },
   {
-    path:"/portfolio",
-    name:"portfolio",
-    component:PortfolioView
+    path: "/portfolio",
+    name: "portfolio",
+    component: PortfolioView,
+  },
+  {
+    path: "/candidature",
+    name: "candidature",
+    component: CandidatureView,
   },
 ];
 
