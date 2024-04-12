@@ -34,6 +34,9 @@ export default {
       setTimeout(() => {
         this.updated(passwordData);
         this.loading = false;
+        this.data.password = "";
+        this.passwordcheck = "";
+        this.$router.go(-1);
       }, 1000);
     },
   },

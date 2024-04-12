@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import Login from "@/views/LoginView.vue";
 import Signup from "@/views/SignupView";
-import ProfilView from "@/views/candidat/ProfilView.vue";
+import ProfilView from "@/views/candidat/profil/ProfilView.vue";
 import TemplateView from "@/views/TemplateView.vue";
 import OfferView from "@/views/OfferView.vue";
 import PortfolioView from "@/views/candidat/portfolio/PortfolioView.vue";
