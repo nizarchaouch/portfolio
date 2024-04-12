@@ -1,7 +1,7 @@
 <script>
 import { mapState, mapActions } from "vuex";
 import NavBar from "@/components/public/NavBar.vue";
-import DialogPwd from "@/components/user/candidat/DialogPwd.vue";
+import DialogPwd from "@/components/user/DialogPwd.vue";
 export default {
   name: "profil",
   computed: {
