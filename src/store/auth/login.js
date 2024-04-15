@@ -19,7 +19,7 @@ export default {
         console.log(data);
         if (response.status === 200) {
           console.log("Login successful");
-          await router.push("/");
+          await router.go(-1);
         }
       } catch (error) {
         console.log("Error during login:", error.message);

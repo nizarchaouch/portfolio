@@ -34,7 +34,7 @@ export default {
 
         <v-spacer></v-spacer>
 
-        <DialogPostuler />
+        <DialogPostuler :idoffer="obj.raw._id" />
       </v-toolbar>
 
       <v-list lines="two" subheader>
