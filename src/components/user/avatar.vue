@@ -12,7 +12,7 @@ export default {
     items: [
       { text: "Mon Compte", icon: "mdi-folder", to: "profil" },
       { text: "Mon Portfolio", icon: "mdi-star", to: "portfolio" },
-      { text: "Mes Candidatures", icon: "mdi-account-multiple", to: "" },
+      { text: "Mes Candidatures", icon: "mdi-account-multiple", to: "candidature" },
       { text: "Télécharger CV", icon: "mdi-upload", to: "" },
     ],
   }),

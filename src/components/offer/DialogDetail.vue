@@ -1,22 +1,15 @@
 <script>
+import DialogPostuler from "./DialogPostuler.vue";
 export default {
   props: {
     obj: Object,
   },
+  components: { DialogPostuler },
   data() {
     return {
       dialog: false,
       loading: false,
     };
-  },
-  methods: {
-    postuler() {
-      this.loading = true;
-      setTimeout(() => {
-        this.loading = false;
-        this.dialog = false;
-      }, 2000);
-    },
   },
 };
 </script>
@@ -41,14 +34,7 @@ export default {
 
         <v-spacer></v-spacer>
 
-        <v-btn
-          text="Postuler maintenant"
-          color="blue-darken-4"
-          variant="tonal"
-          rounded="lg"
-          :loading="loading"
-          @click="postuler()"
-        ></v-btn>
+        <DialogPostuler />
       </v-toolbar>
 
       <v-list lines="two" subheader>
@@ -61,7 +47,8 @@ export default {
               <p class="font-weight-bold">{{ obj.raw.nomEntreprise }}</p>
               <p class="text-h5 font-weight-bold">{{ obj.raw.titre }}</p>
               <p class="text-h6 font-weight-medium text-decoration-underline">
-                Date d'expiration: {{ obj.raw.date_expiration/* .split("T")[0] */ }}
+                Date d'expiration:
+                {{ obj.raw.date_expiration /* .split("T")[0] */ }}
               </p>
               <v-list-subheader>{{ obj.raw.position }}</v-list-subheader>
             </v-col>
