@@ -47,7 +47,7 @@ export default {
           <v-text-field
             v-model="search"
             density="comfortable"
-            placeholder="Search"
+            placeholder="Recherche"
             prepend-inner-icon="mdi-magnify"
             style="max-width: 300px"
             variant="solo"

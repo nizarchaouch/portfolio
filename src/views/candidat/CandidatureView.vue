@@ -25,9 +25,9 @@ export default {
 <template>
   <NavBar />
   <!-- Candidatures envoyées -->
-  <v-container class="mt-16">
+  <v-container class="mt-16" fluid>
     <v-row>
-      <v-col cols="12" sm="12" md="10" xl="8" class="mx-auto">
+      <v-col cols="12" sm="12" md="10" xl="8" offset-xl="1">
         <h1>Candidatures envoyées</h1>
         <span
           >Vos candidatures envoyées à l'aide de la fonctionnalité postuler sont
@@ -35,8 +35,100 @@ export default {
         >
       </v-col>
     </v-row>
-  </v-container>
+    <!-- card candid -->
+    <v-tabs v-model="nav" color="deep-purple-accent-4" class="mt-8 mb-2" border>
+      <v-tab border class="bg-white"> tous</v-tab>
+      <v-tab border class="bg-white">en attend</v-tab>
+      <v-tab border class="bg-white">accepte</v-tab>
+      <v-tab border class="bg-white">refuser</v-tab>
+    </v-tabs>
+    <v-card>
+      <v-data-iterator :items="games" :items-per-page="10" :search="search">
+        <template v-slot:header>
+          <v-toolbar class="px-2">
+            <!-- cherhcer -->
+            <v-text-field
+              v-model="search"
+              density="comfortable"
+              placeholder="Recherche"
+              prepend-inner-icon="mdi-magnify"
+              style="max-width: 300px"
+              variant="solo"
+              class="ms-auto"
+              clearable
+              hide-details
+            ></v-text-field>
+          </v-toolbar>
+        </template>
 
+        <template v-slot:default="{ items }">
+          <v-container class="pa-2" fluid>
+            <v-row dense>
+              <v-col v-for="item in items" :key="item.title" cols="12" md="4">
+                <v-hover v-slot="{ isHovering, props }">
+                  <v-card class="mb-6" border flat v-bind="props">
+                    <v-img :src="item.raw.img"></v-img>
+
+                    <v-overlay
+                      :model-value="isHovering"
+                      class="align-center justify-center"
+                      scrim
+                      contained
+                    >
+                      <v-btn
+                        variant="flat"
+                        class="text-none d-flex align-center ma-2 rounded-pill"
+                        size="large"
+                        color="#5865f2"
+                        >Modifier</v-btn
+                      >
+                      <v-btn
+                        variant="outlined"
+                        class="text-none d-flex align-center ma-2 ms-6 rounded-pill"
+                        size="large"
+                        color="white"
+                        >Voir</v-btn
+                      >
+                    </v-overlay>
+                  </v-card>
+                </v-hover>
+
+                <v-list-item class="mb-2">
+                  <div>{{ item.raw.title }}</div>
+                </v-list-item>
+              </v-col>
+            </v-row>
+          </v-container>
+        </template>
+
+        <template v-slot:footer="{ page, pageCount, prevPage, nextPage }">
+          <div class="d-flex align-center justify-center pa-4">
+            <v-btn
+              :disabled="page === 1"
+              density="comfortable"
+              icon="mdi-arrow-left"
+              variant="tonal"
+              rounded
+              @click="prevPage"
+            ></v-btn>
+
+            <div class="mx-2 text-caption">
+              Page {{ page }} sur {{ pageCount }}
+            </div>
+
+            <v-btn
+              :disabled="page >= pageCount"
+              density="comfortable"
+              icon="mdi-arrow-right"
+              variant="tonal"
+              rounded
+              @click="nextPage"
+            ></v-btn>
+          </div>
+        </template>
+      </v-data-iterator>
+    </v-card>
+  </v-container>
 </template>
 
 <style lang="scss" scoped></style>
