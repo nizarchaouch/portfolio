@@ -250,6 +250,7 @@ export default {
               <div class="font-weight-regular mb-2">
                 Veuillez consulter votre boîte de réception/spam ou d'autres
                 dossiers pour trouver notre e-mail de vérification.
+                <!-- Vous êtes connecté à votre compte. Bonne chance pour votre candidature ! -->
               </div>
 
               <!-- <v-btn color="blue" variant="text" to="login">Connexion</v-btn> -->

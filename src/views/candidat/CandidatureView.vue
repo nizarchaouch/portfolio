@@ -27,7 +27,7 @@ export default {
   <!-- Candidatures envoyées -->
   <v-container class="mt-16" fluid>
     <v-row>
-      <v-col cols="12" sm="12" md="10" xl="8" offset-xl="1">
+      <v-col cols="12" sm="12" md="10" xl="8">
         <h1>Candidatures envoyées</h1>
         <span
           >Vos candidatures envoyées à l'aide de la fonctionnalité postuler sont
@@ -36,29 +36,40 @@ export default {
       </v-col>
     </v-row>
     <!-- card candid -->
-    <v-tabs v-model="nav" color="deep-purple-accent-4" class="mt-8 mb-2" border>
-      <v-tab border class="bg-white"> tous</v-tab>
-      <v-tab border class="bg-white">en attend</v-tab>
-      <v-tab border class="bg-white">accepte</v-tab>
-      <v-tab border class="bg-white">refuser</v-tab>
-    </v-tabs>
-    <v-card>
+
+    <v-card class="mt-8 bg-transparent" border>
       <v-data-iterator :items="games" :items-per-page="10" :search="search">
         <template v-slot:header>
-          <v-toolbar class="px-2">
-            <!-- cherhcer -->
-            <v-text-field
-              v-model="search"
-              density="comfortable"
-              placeholder="Recherche"
-              prepend-inner-icon="mdi-magnify"
-              style="max-width: 300px"
-              variant="solo"
-              class="ms-auto"
-              clearable
-              hide-details
-            ></v-text-field>
-          </v-toolbar>
+          <v-row class="ma-6">
+            <v-col cols="12" sm="6">
+              <v-tabs v-model="nav" color="deep-purple-accent-4">
+                <v-tab class="bg-white tab text-none">Tous</v-tab>
+                <v-tab class="bg-white tab text-none">En Attend</v-tab>
+                <v-tab class="bg-white tab text-none">Accepte</v-tab>
+                <v-tab class="bg-white tab text-none">Refuser</v-tab>
+              </v-tabs>
+              <!-- <v-select
+                label="Choisir"
+                :items="['Tous', 'En Attend', 'Accepte', 'Refuser']"
+                variant="solo-filled"
+                class=""
+              ></v-select> -->
+            </v-col>
+            <v-col cols="12" sm="6">
+              <!-- cherhcer -->
+              <v-text-field
+                v-model="search"
+                density="comfortable"
+                placeholder="Recherche"
+                prepend-inner-icon="mdi-magnify"
+                style="max-width: 300px"
+                variant="solo"
+                class="ms-auto"
+                clearable
+                hide-details
+              ></v-text-field>
+            </v-col>
+          </v-row>
         </template>
 
         <template v-slot:default="{ items }">
@@ -131,4 +142,10 @@ export default {
   </v-container>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.tab {
+  border: 1px solid rgb(124, 124, 124);
+  font-family: Georgia, Noto Sans, sans-serif;
+  font-weight: 700;
+}
+</style>
