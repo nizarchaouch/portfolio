@@ -51,12 +51,13 @@ export default {
             <v-col cols="12" sm="5" lg="4">
               <v-text-field
                 density="comfortable"
-                placeholder="Mots Clés"
-                prepend-inner-icon="mdi-magnify"
+                placeholder="Emplacement"
+                prepend-inner-icon="mdi-google-maps"
                 variant="solo"
                 clearable
                 hide-details
-              ></v-text-field>
+              >
+              </v-text-field>
             </v-col>
             <v-col cols="4" sm="2" align-self="end">
               <v-btn-toggle
@@ -87,7 +88,12 @@ export default {
               md="6"
               lg="4"
             >
-              <v-card class="mb-6 rounded-shaped" border flat>
+              <v-card
+                class="mb-6 rounded-xl"
+                border
+                flat
+                style="border: 1px solid gray"
+              >
                 <v-list-item>
                   <v-banner
                     class="text-h6"
@@ -103,9 +109,12 @@ export default {
                   ></v-banner>
                   <div class="d-flex justify-space-around mt-3">
                     <p>
-                      <v-icon class="me-2">mdi-calendar-range</v-icon>{{ item.raw.date_creation.split("T")[0] }}
+                      <v-icon class="me-2">mdi-calendar-range</v-icon
+                      >{{ item.raw.date_creation.split("T")[0] }}
                     </p>
-                    <p><v-icon>mdi-google-maps</v-icon>{{ item.raw.position }}</p>
+                    <p>
+                      <v-icon>mdi-google-maps</v-icon>{{ item.raw.position }}
+                    </p>
                   </div>
                   <div class="float-right">
                     <DialogDetail :obj="item" />
@@ -140,9 +149,12 @@ export default {
                   ></v-banner>
                   <div class="d-flex justify-space-between mt-3">
                     <p>
-                      <v-icon class="me-2">mdi-calendar-range</v-icon>{{ item.raw.date_creation.split("T")[0] }}
+                      <v-icon class="me-2">mdi-calendar-range</v-icon
+                      >{{ item.raw.date_creation.split("T")[0] }}
                     </p>
-                    <p><v-icon>mdi-google-maps</v-icon>{{ item.raw.position }}</p>
+                    <p>
+                      <v-icon>mdi-google-maps</v-icon>{{ item.raw.position }}
+                    </p>
                     <div class="float-right">
                       <DialogDetail :obj="item" />
                     </div>
