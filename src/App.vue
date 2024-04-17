@@ -7,7 +7,7 @@ export default {};
 
 <style lang="scss">
 body {
-  background-color: #e5e5f2;
+  background-color: #e5e5f2a3;
 }
 ::-webkit-scrollbar {
   width: 10px;
