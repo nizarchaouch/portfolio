@@ -23,9 +23,11 @@ export default {
           <v-badge color="error" :content="count" max="9" v-model="Badge">
             <v-icon icon="mdi-bell" size="small"></v-icon>
           </v-badge>
-          <v-tooltip activator="parent" location="bottom"
-            >Notfication</v-tooltip
-          >
+          <v-tooltip
+            activator="parent"
+            location="bottom"
+            text="Notfication"
+          ></v-tooltip>
         </v-btn>
       </template>
 
@@ -34,10 +36,14 @@ export default {
           v-for="n in count"
           :key="n"
           avatar="https://randomuser.me/api/portraits/women/8.jpg"
-          lines="two"
-          text="Lorem ipsum dolor sit amet consectetur adipisicing elit Lorem ipsum dolor sit amet consectetur adipisicing elit"
+          lines="three"
           :stacked="false"
         >
+          <template v-slot:text>
+            <p>2024-02-20</p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit Lorem ipsum
+            dolor sit amet consectetur adipisicing elit
+          </template>
           <template v-slot:actions>
             <v-btn color="primary" class="text-none">Voir</v-btn>
           </template>

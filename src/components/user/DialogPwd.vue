@@ -15,7 +15,7 @@ export default {
     },
     rules: {
       required: (value) => !!value || "Champ requis.",
-      counter: (value) => value.length > 0 || "Minimum 8 caractères",
+      counter: (value) => value.length > 7 || "Minimum 8 caractères",
       passwordMatch: (value, otherValue) => {
         return (
           value === otherValue || "Les mots de passe ne correspondent pas."

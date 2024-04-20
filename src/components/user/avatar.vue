@@ -1,6 +1,8 @@
 <script>
 import { mapState, mapActions } from "vuex";
+import TeleCv from "./TeleCv.vue";
 export default {
+  components: { TeleCv },
   computed: {
     ...mapState(["login", "user"]),
     userData() {
@@ -10,10 +12,13 @@ export default {
   data: () => ({
     menu: false,
     items: [
-      { text: "Mon Compte", icon: "mdi-folder", to: "profil" },
+      { text: "Mon Compte", icon: "mdi-account-settings", to: "profil" },
       { text: "Mon Portfolio", icon: "mdi-star", to: "portfolio" },
-      { text: "Mes Candidatures", icon: "mdi-account-multiple", to: "candidature" },
-      { text: "Télécharger CV", icon: "mdi-upload", to: "" },
+      {
+        text: "Mes Candidatures",
+        icon: "mdi-invoice-text-send",
+        to: "candidature",
+      },
     ],
   }),
   methods: {
@@ -43,7 +48,8 @@ export default {
             :subtitle="userData.mail"
           >
             <template v-slot:prepend>
-              <v-avatar :image="'http://localhost:8000' + userData.imagePath"> </v-avatar>
+              <v-avatar :image="'http://localhost:8000' + userData.imagePath">
+              </v-avatar>
             </template>
           </v-list-item>
         </v-list>
@@ -64,6 +70,14 @@ export default {
             </template>
 
             <v-list-item-title v-text="item.text"></v-list-item-title>
+          </v-list-item>
+
+          <!--  -->
+          <v-list-item color="primary" value="">
+            <template v-slot:prepend>
+              <v-icon icon="mdi-upload"></v-icon>
+            </template>
+            <TeleCv />
           </v-list-item>
         </v-list>
 

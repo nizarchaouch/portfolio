@@ -55,14 +55,14 @@ export default {
   },
   mounted() {
     this.userAuth();
-    // setTimeout(() => {
-    //   if (
-    //     this.user.authenticated === false ||
-    //     this.user.userData.role === "recruteur"
-    //   ) {
-    //     this.$router.push("login");
-    //   }
-    // }, 2);
+    setTimeout(() => {
+      if (
+        this.user.authenticated === false ||
+        this.user.userData.role === "recruteur"
+      ) {
+        this.$router.push("login");
+      }
+    }, 2);
   },
 };
 </script>
@@ -171,4 +171,6 @@ export default {
   </v-container>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+
+</style>

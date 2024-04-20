@@ -7,8 +7,13 @@ import TemplateView from "@/views/TemplateView.vue";
 import OfferView from "@/views/OfferView.vue";
 import PortfolioView from "@/views/candidat/portfolio/PortfolioView.vue";
 import CandidatureView from "@/views/candidat/CandidatureView.vue";
+import TeT from "@/views/TeT"
 
 const routes = [
+  {
+    path: "/t",
+    component: TeT,
+  },
   {
     path: "/",
     name: "home",

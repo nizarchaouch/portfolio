@@ -64,32 +64,32 @@ export default {
         <v-card>
           <template v-slot:text>
             <!-- Nom prenom -->
-            <p>Nom et Prenom</p>
+            <!-- <p>Nom et Prenom</p>
             <v-text-field
               readonly
               :value="userData.nom + ' ' + userData.prenom"
               density="compact"
               placeholder="Nom et Prenom"
               variant="outlined"
-            ></v-text-field>
+            ></v-text-field> -->
             <!-- mail -->
-            <p>Email</p>
+            <!-- <p>Email</p>
             <v-text-field
               readonly
               :value="userData.mail"
               density="compact"
               placeholder="Email"
               variant="outlined"
-            ></v-text-field>
+            ></v-text-field> -->
             <!-- tel -->
-            <p>Téléphone</p>
+            <!-- <p>Téléphone</p>
             <v-text-field
               readonly
               :value="userData.tel"
               density="compact"
               placeholder="Téléphone"
               variant="outlined"
-            ></v-text-field>
+            ></v-text-field> -->
             <!-- cv -->
             <p class="mb-2">Votre CV</p>
             <v-select
