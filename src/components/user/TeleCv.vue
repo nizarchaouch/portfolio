@@ -45,88 +45,82 @@ export default {
 };
 </script>
 <template>
-  <div>
-    <v-list-item-title>
-      Télécharger CV
-      <v-dialog activator="parent" max-width="460" v-model="dialog">
-        <template v-slot:default="{ isActive }">
-          <v-form @submit.prevent="uplaodCv">
-            <v-card rounded="lg">
-              <v-card-title class="d-flex justify-space-between align-center">
-                <div class="text-h5 text-medium-emphasis">
-                  <v-icon class="pa-5 rounded-circle bg-blue" size="27"
-                    >mdi-text-box-plus</v-icon
-                  >
-                  Télécharger votre CV
-                </div>
+  <v-list-item-title>
+    Télécharger CV
+    <v-dialog activator="parent" max-width="460" v-model="dialog">
+      <template v-slot:default="{ isActive }">
+        <v-form @submit.prevent="uplaodCv">
+          <v-card rounded="lg">
+            <v-card-title class="d-flex justify-space-between align-center">
+              <div class="text-h5 text-medium-emphasis">
+                <v-icon class="pa-5 rounded-circle bg-blue" size="27"
+                  >mdi-text-box-plus</v-icon
+                >
+                Télécharger votre CV
+              </div>
 
-                <v-btn
-                  icon="mdi-close"
-                  variant="text"
-                  @click="isActive.value = false"
-                ></v-btn>
-              </v-card-title>
+              <v-btn
+                icon="mdi-close"
+                variant="text"
+                @click="isActive.value = false"
+              ></v-btn>
+            </v-card-title>
 
-              <v-divider class="mb-4"></v-divider>
-              <v-card-text>
-                <input
-                  type="file"
-                  id="file"
-                  class="d-none"
-                  accept=".doc, .docx, .pdf, .txt"
-                  @change="checkFileSize($event)"
-                />
-                <label for="file" class="pa-9 cursor-pointer">
-                  <v-sheet
-                    :min-height="10"
-                    :min-width="20"
-                    class="mx-auto label"
-                  >
-                    <div class="text-center my-6">
-                      <v-icon size="70">mdi-cloud-upload-outline</v-icon>
-                      <p>Cliquez pour Télécharger le fichier</p>
-                      <p class="text-caption">
-                        (.doc, .docx, .pdf, .txt. Taille max. 2MB)
-                      </p>
-                    </div>
-                  </v-sheet>
-                </label>
-                <v-card
-                  v-if="fileName"
-                  :title="fileName"
-                  prepend-icon="mdi-file-document"
-                  variant="tonal"
-                  color="#428ee6"
-                ></v-card>
-              </v-card-text>
+            <v-divider class="mb-4"></v-divider>
+            <v-card-text>
+              <input
+                type="file"
+                id="file"
+                class="d-none"
+                accept=".doc, .docx, .pdf, .txt"
+                @change="checkFileSize($event)"
+              />
+              <label for="file" class="pa-9 cursor-pointer">
+                <v-sheet :min-height="10" :min-width="20" class="mx-auto label">
+                  <div class="text-center my-6">
+                    <v-icon size="70">mdi-cloud-upload-outline</v-icon>
+                    <p>Cliquez pour Télécharger le fichier</p>
+                    <p class="text-caption">
+                      (.doc, .docx, .pdf, .txt. Taille max. 2MB)
+                    </p>
+                  </div>
+                </v-sheet>
+              </label>
+              <v-card
+                v-if="fileName"
+                :title="fileName"
+                prepend-icon="mdi-file-document"
+                variant="tonal"
+                color="#428ee6"
+              ></v-card>
+            </v-card-text>
 
-              <v-divider class="mt-2"></v-divider>
+            <v-divider class="mt-2"></v-divider>
 
-              <v-card-actions class="my-2 d-flex justify-end">
-                <v-btn
-                  class="text-none"
-                  rounded="xl"
-                  text="Annuler"
-                  @click="isActive.value = false"
-                ></v-btn>
+            <v-card-actions class="my-2 d-flex justify-end">
+              <v-btn
+                class="text-none"
+                rounded="xl"
+                text="Annuler"
+                @click="isActive.value = false"
+              ></v-btn>
 
-                <v-btn
-                  class="text-none"
-                  color="primary"
-                  rounded="xl"
-                  text="Télécharger"
-                  variant="flat"
-                  type="submit"
-                  :disabled="!disabled"
-                  :loading="loading"
-                ></v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-form>
-        </template>
-      </v-dialog>
-    </v-list-item-title>
-  </div>
+              <v-btn
+                class="text-none"
+                color="primary"
+                rounded="xl"
+                text="Télécharger"
+                variant="flat"
+                type="submit"
+                :disabled="!disabled"
+                :loading="loading"
+              ></v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-form>
+      </template>
+    </v-dialog>
+  </v-list-item-title>
 </template>
 <style lang="scss" scoped>
 .label {
