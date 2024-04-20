@@ -2,23 +2,24 @@
 import { mapState, mapActions } from "vuex";
 export default {
   computed: {
-    ...mapState(["user"]),
+    ...mapState(["user", "candidat"]),
   },
   data: () => ({
     loading: false,
     disabled: false,
     dialog: false,
     fileName: "",
+    fileForUpload: null,
   }),
   methods: {
-    ...mapActions([""]),
+    ...mapActions(["upload"]),
     uplaodCv() {
       this.loading = true;
       const cvData = {
         id: this.user.userData._id,
-        file: this.fileName,
+        file: this.fileForUpload,
+        cvPath: "",
       };
-      console.log("Données du mot de passe à envoyer:", this.fileName);
       setTimeout(() => {
         this.upload(cvData);
         this.loading = false;
@@ -34,10 +35,11 @@ export default {
         // Affichez un message d'erreur à l'utilisateur
         alert("La taille du fichier dépasse la limite maximale de 2MB.");
         // Réinitialisez le nom du fichier affiché
-        this.fileName = "";
+        // this.fileName = "";
       } else {
         // Stockez le nom du fichier sélectionné
         this.fileName = file.name;
+        this.fileForUpload = file;
         this.disabled = true;
       }
     },
@@ -45,6 +47,14 @@ export default {
 };
 </script>
 <template>
+  <v-snackbar
+    :timeout="7000"
+    color="blue-darken-2 mt-16"
+    v-model="candidat.alert"
+    location="top"
+  >
+    {{ candidat.message }}
+  </v-snackbar>
   <v-list-item-title>
     Télécharger CV
     <v-dialog activator="parent" max-width="460" v-model="dialog">
