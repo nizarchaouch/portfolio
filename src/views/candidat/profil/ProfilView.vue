@@ -92,7 +92,7 @@ export default {
         <v-card class="pa-3 ma-3" rounded="xl">
           <!-- image profil -->
           <v-col cols="auto" class="d-flex justify-center">
-            <label for="file" class="cursor-pointer">
+            <label for="image" class="cursor-pointer">
               <v-tooltip text="Click pour change l'image" location="top">
                 <template v-slot:activator="{ props }">
                   <v-badge
@@ -113,7 +113,7 @@ export default {
             </label>
             <input
               type="file"
-              id="file"
+              id="image"
               class="d-none"
               accept="image/*"
               @change="handleFileChange"

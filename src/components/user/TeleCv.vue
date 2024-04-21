@@ -103,6 +103,16 @@ export default {
                 variant="tonal"
                 color="#428ee6"
               ></v-card>
+              <v-card
+                v-if="!fileName"
+                :title="this.user.userData.cvPath.slice(14)"
+                prepend-icon="mdi-file-document"
+                append-icon="mdi-eye"
+                :href="'http://localhost:8000/' + this.user.userData.cvPath"
+                target="_blank"
+                variant="tonal"
+                color="#428ee6"
+              ></v-card>
             </v-card-text>
 
             <v-divider class="mt-2"></v-divider>
