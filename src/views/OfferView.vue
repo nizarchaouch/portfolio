@@ -35,12 +35,14 @@ export default {
 <template>
   <NavBar />
   <v-card class="mt-16 bg-transparent">
-    <FilterOffer />
     <v-data-iterator :items="offerShow" :items-per-page="6" :search="search">
       <template v-slot:header>
         <v-container fluid>
           <v-row>
-            <v-col cols="12" sm="5" lg="4" offset-lg="2">
+            <v-col cols="12" sm="2" lg="2" >
+              <FilterOffer />
+            </v-col>
+            <v-col cols="12" sm="5" lg="4" >
               <v-text-field
                 v-model="search"
                 density="comfortable"
@@ -54,8 +56,8 @@ export default {
             <v-col cols="12" sm="5" lg="4">
               <v-text-field
                 density="comfortable"
-                placeholder="Emplacement"
-                prepend-inner-icon="mdi-google-maps"
+                placeholder="Mots clés"
+                prepend-inner-icon="mdi-map-marker"
                 variant="solo"
                 clearable
                 hide-details
@@ -116,7 +118,7 @@ export default {
                       >{{ item.raw.date_creation.split("T")[0] }}
                     </p>
                     <p>
-                      <v-icon>mdi-google-maps</v-icon>{{ item.raw.position }}
+                      <v-icon class="pb-1">mdi-map-marker</v-icon>{{ item.raw.position }}
                     </p>
                   </div>
                   <div class="float-right">

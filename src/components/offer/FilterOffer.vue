@@ -6,9 +6,10 @@ export default {
 };
 </script>
 <template>
-  <div class="text-center">
-    <v-btn class="mt-4" size="50" @click="sheet = !sheet">
-      <v-icon size="35">mdi-tune</v-icon></v-btn
+  <div>
+    <v-btn @click="sheet = !sheet" class="text-none">
+      <v-icon size="20">mdi-tune</v-icon>
+      <p class="ms-2">Filtres</p></v-btn
     >
 
     <v-layout>
