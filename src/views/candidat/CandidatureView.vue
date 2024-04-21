@@ -11,25 +11,25 @@ export default {
       {
         title: " nizar",
         date: "2024-06-20",
-        etat: "En Attend",
-        reponse: "En Attend",
+        etat: "en attend",
+        reponse: "en attend",
       },
       {
         title: " Conception et développement plateforme web generate portfolio",
         date: "2024-06-20",
-        etat: "Accepte",
+        etat: "accepte",
         reponse: "Accepte",
       },
       {
         title: " Conception et développement plateforme web generate portfolio",
         date: "2024-06-20",
-        etat: "Refuser",
+        etat: "refuser",
         reponse: "Refuser",
       },
       {
         title: " Conception et développement plateforme web generate portfolio",
         date: "2024-06-20",
-        etat: "En Attend",
+        etat: "en attend",
         reponse: "En Attend",
       },
     ],
@@ -105,7 +105,11 @@ export default {
           <v-select
             label="Etat"
             density="comfortable"
-            :items="['Tous', 'En Attend', 'Accepte', 'Refuser']"
+            :items="
+              ['tous', 'en attend', 'accepte', 'refuser'].map(
+                (item) => item.charAt(0).toUpperCase() + item.slice(1)
+              )
+            "
             v-model="selectedEtat"
             variant="outlined"
             style="max-width: 300px"
@@ -135,22 +139,28 @@ export default {
                 </div>
                 <template v-slot:actions>
                   <v-chip
-                    color=""
+                    class="text-capitalize"
                     variant="outlined"
-                    v-if="item.etat === 'En Attend'"
+                    v-if="item.etat === 'en attend'"
                   >
                     <v-icon icon="mdi-timer-sand-complete" start></v-icon>
                     {{ item.etat }}
                   </v-chip>
                   <v-chip
+                    class="text-capitalize"
                     color="green"
                     variant="outlined"
-                    v-else-if="item.etat === 'Accepte'"
+                    v-else-if="item.etat === 'accepte'"
                   >
                     <v-icon icon="mdi-check-circle" start></v-icon>
                     {{ item.etat }}
                   </v-chip>
-                  <v-chip color="error" variant="outlined" v-else>
+                  <v-chip
+                    class="text-capitalize"
+                    color="error"
+                    variant="outlined"
+                    v-else
+                  >
                     <v-icon icon="mdi-alert-circle" start></v-icon>
                     {{ item.etat }}
                   </v-chip>
@@ -171,6 +181,4 @@ export default {
   </v-container>
 </template>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>
