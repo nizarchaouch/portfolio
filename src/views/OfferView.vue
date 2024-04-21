@@ -1,6 +1,7 @@
 <script>
 import DialogDetail from "@/components/offer/DialogDetail.vue";
 import NavBar from "@/components/public/NavBar.vue";
+import FilterOffer from "@/components/offer/FilterOffer.vue";
 import { mapState, mapActions } from "vuex";
 export default {
   name: "offer",
@@ -13,6 +14,7 @@ export default {
   components: {
     NavBar,
     DialogDetail,
+    FilterOffer,
   },
   data: () => ({
     toggle: "card",
@@ -33,6 +35,7 @@ export default {
 <template>
   <NavBar />
   <v-card class="mt-16 bg-transparent">
+    <FilterOffer />
     <v-data-iterator :items="offerShow" :items-per-page="6" :search="search">
       <template v-slot:header>
         <v-container fluid>

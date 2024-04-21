@@ -89,9 +89,9 @@ export default {
   <v-layout>
     <v-navigation-drawer
       v-model="drawer"
-      temporary
       location="top"
       elevation="10"
+      temporary
       permanent
     >
       <v-icon @click="drawer = !drawer" class="ma-3">mdi-close</v-icon>
