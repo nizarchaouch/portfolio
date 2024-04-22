@@ -32,15 +32,47 @@ export default {
           ></v-btn>
         </v-row>
         <v-divider></v-divider>
-
-        <v-list density="compact">
-          <v-list-item title="accueil" to="/"> </v-list-item>
-          <v-list-item title="templates" to="template"></v-list-item>
-          <v-list-item title="Offres d'emploi" to="offer"></v-list-item>
-        </v-list>
+        <div class="px-7 py-4">
+          <p class="label">Localité</p>
+          <v-combobox
+            clearable
+            chips
+            multiple
+            density="compact"
+            :items="['Tunisie', 'Sousse', 'Monastir', 'Gafsa']"
+            variant="outlined"
+          ></v-combobox>
+        </div>
+        <div class="px-7 py-4">
+          <p class="label">Type de contrat</p>
+          <v-combobox
+            clearable
+            chips
+            multiple
+            density="compact"
+            :items="['CDI', 'CDD', 'Stage']"
+            variant="outlined"
+          ></v-combobox>
+        </div>
+        <div class="px-7 py-4">
+          <p class="label">Langue</p>
+          <v-combobox
+            clearable
+            chips
+            multiple
+            density="compact"
+            :items="['Français', 'Anglais']"
+            variant="outlined"
+          ></v-combobox>
+        </div>
       </v-navigation-drawer>
     </v-layout>
   </div>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.label {
+  font-size: medium;
+  font-family: sans-serif;
+}
+</style>
