@@ -2,6 +2,7 @@
 export default {
   data: () => ({
     sheet: true,
+    filter: { localite: null, typeContrat: null, langue: null },
   }),
 };
 </script>
@@ -35,6 +36,7 @@ export default {
         <div class="px-7 py-4">
           <p class="label">Localité</p>
           <v-combobox
+            v-model="filter.localite"
             clearable
             chips
             multiple
@@ -46,6 +48,7 @@ export default {
         <div class="px-7 py-4">
           <p class="label">Type de contrat</p>
           <v-combobox
+            v-model="filter.typeContrat"
             clearable
             chips
             multiple
@@ -57,6 +60,7 @@ export default {
         <div class="px-7 py-4">
           <p class="label">Langue</p>
           <v-combobox
+            v-model="filter.langue"
             clearable
             chips
             multiple
