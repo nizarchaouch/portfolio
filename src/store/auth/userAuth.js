@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export default {
-  state: { authenticated: false, authenticatedr: false , userData: ""},
+  state: { authenticated: false, authenticatedr: false, userData: "" },
   getters: {},
   mutations: {
     SET_AUTH(state, auth) {
@@ -15,13 +15,10 @@ export default {
   actions: {
     async userAuth(ctx) {
       try {
-        const response = await axios.get(
-          "http://localhost:8000/api/user",
-          {
-            headers: { "Content-type": "application/json" },
-            withCredentials: true,
-          }
-        );
+        const response = await axios.get("http://localhost:8000/api/user", {
+          headers: { "Content-type": "application/json" },
+          withCredentials: true,
+        });
 
         // console.log("content: ", content.message);
         // console.log("cookiea", document.cookie);

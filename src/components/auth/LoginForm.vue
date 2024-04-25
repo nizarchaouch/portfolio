@@ -56,7 +56,7 @@ export default {
           v-model="login.alert"
           location="top"
         >
-          E-mail ou Mot de passe incorrect
+          {{ login.message }}
         </v-snackbar>
         <v-img class="mx-auto my-6" max-width="228" :src="logo"></v-img>
         <div class="text-subtitle-1 text-medium-emphasis">E-mail</div>

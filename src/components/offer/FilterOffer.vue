@@ -1,17 +1,34 @@
 <script>
 export default {
   data: () => ({
-    sheet: true,
+    sheet: false,
     filter: { localite: null, typeContrat: null, langue: null },
   }),
+  methods: {
+    // Méthode pour émettre un événement lorsqu'un filtre est modifié
+    emitFilterUpdate() {
+      this.$emit("filter-update", this.filter);
+    },
+  },
+  watch: {
+    // Observer les changements dans les filtres et émettre l'événement correspondant
+    filter: {
+      deep: true,
+      handler() {
+        this.emitFilterUpdate();
+      },
+    },
+  },
 };
 </script>
 <template>
   <div>
-    <v-btn @click="sheet = !sheet" class="text-none">
-      <v-icon size="20">mdi-tune</v-icon>
-      <p class="ms-2">Filtres</p></v-btn
-    >
+    <button class="bn39 sm-6" @click="sheet = !sheet">
+      <span class="bn39span"
+        ><v-icon size="25">mdi-tune</v-icon>
+        <p class="ms-2 text-h6">Filtres</p></span
+      >
+    </button>
 
     <v-layout>
       <v-navigation-drawer
@@ -78,5 +95,35 @@ export default {
 .label {
   font-size: medium;
   font-family: sans-serif;
+}
+
+.bn39 {
+  background-image: linear-gradient(135deg, #008aff, #86d472);
+  border-radius: 6px;
+  color: #000000;
+  height: 50px;
+  font-size: 1.4em;
+  font-weight: 600;
+  padding: 2px;
+  width: 7em;
+
+  &:hover {
+    color: #fff;
+  }
+
+  .bn39span {
+    align-items: center;
+    background: #ffffff;
+    border-radius: 6px;
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    transition: background 0.5s ease;
+    width: 100%;
+  }
+
+  &:hover .bn39span {
+    background: transparent;
+  }
 }
 </style>

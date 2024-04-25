@@ -59,7 +59,7 @@ export default {
         }
       } catch (error) {
         console.error("Erreur lors de l'inscription :", error);
-        if (error.message === "Request failed with status code 400") {
+        if (error.response.status === 400) {
           ctx.state.alert = true;
           ctx.commit("setMes", "recruteur existe déjà!");
         } else {

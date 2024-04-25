@@ -21,9 +21,13 @@ export default {
     search: "",
     tab: 1,
     selectedOBJ: null,
+    filter: { localite: null, typeContrat: null, langue: null },
   }),
   methods: {
     ...mapActions(["userAuth", "showOffer"]),
+    updateFilter(newFilter) {
+      this.filter = newFilter;
+    },
   },
   mounted() {
     this.userAuth();
@@ -39,10 +43,12 @@ export default {
       <template v-slot:header>
         <v-container fluid>
           <v-row>
-            <v-col cols="12" sm="2" lg="2" >
-              <FilterOffer />
+            <!-- filter -->
+            <v-col cols="12" sm="2" lg="2">
+              <FilterOffer @filter-update="updateFilter" />
             </v-col>
-            <v-col cols="12" sm="5" lg="4" >
+            <!-- cherche -->
+            <v-col cols="12" md="4" lg="4">
               <v-text-field
                 v-model="search"
                 density="comfortable"
@@ -53,16 +59,16 @@ export default {
                 hide-details
               ></v-text-field>
             </v-col>
-            <v-col cols="12" sm="5" lg="4">
+            <!-- mots cles -->
+            <v-col cols="12" md="4" lg="4">
               <v-text-field
-                density="comfortable"
+                prepend-inner-icon="mdi-script-text-key"
                 placeholder="Mots clés"
-                prepend-inner-icon="mdi-map-marker"
+                density="comfortable"
                 variant="solo"
                 clearable
                 hide-details
-              >
-              </v-text-field>
+              ></v-text-field>
             </v-col>
             <v-col cols="4" sm="2" align-self="end">
               <v-btn-toggle
@@ -118,7 +124,8 @@ export default {
                       >{{ item.raw.date_creation.split("T")[0] }}
                     </p>
                     <p>
-                      <v-icon class="pb-1">mdi-map-marker</v-icon>{{ item.raw.position }}
+                      <v-icon class="pb-1">mdi-map-marker</v-icon
+                      >{{ item.raw.position }}
                     </p>
                   </div>
                   <div class="float-right">
@@ -135,7 +142,8 @@ export default {
               v-for="item in items"
               :key="item.title"
               cols="12"
-              sm="10"
+              lg="10"
+              xl="8"
               class="mx-auto"
             >
               <v-card class="mb-6 rounded-shaped" border>

@@ -2,9 +2,13 @@ import router from "@/router";
 import axios from "axios";
 
 export default {
-  state: { alert: false },
+  state: { alert: false, message: "" },
   getters: {},
-  mutations: {},
+  mutations: {
+    setMes(state, message) {
+      state.message = message;
+    },
+  },
   actions: {
     async loginUser(ctx, data) {
       try {
@@ -24,6 +28,17 @@ export default {
       } catch (error) {
         console.log("Error during login:", error.message);
         ctx.state.alert = true;
+        if (error.response.status === 401) {
+          ctx.state.alert = true;
+          ctx.commit("setMes", "Vérifier votre mail");
+        } else if (error.response.status === 400) {
+          ctx.state.alert = true;
+          ctx.commit("setMes", "E-mail ou Mot de passe incorrect");
+        }
+        else{
+          ctx.state.alert = true;
+          ctx.commit("setMes", "utilisateur non trouvé");
+        }
       }
     },
 
