@@ -1,15 +1,23 @@
 <script>
 import DialogPostuler from "./DialogPostuler.vue";
+import { mapState, mapActions } from "vuex";
 export default {
   props: {
     obj: Object,
   },
+  computed: { ...mapState(["user"]) },
   components: { DialogPostuler },
   data() {
     return {
       dialog: false,
       loading: false,
     };
+  },
+  methods: {
+    ...mapActions(["userAuth"]),
+  },
+  mounted() {
+    this.userAuth();
   },
 };
 </script>
@@ -34,7 +42,10 @@ export default {
 
         <v-spacer></v-spacer>
 
-        <DialogPostuler :idoffer="obj.raw._id" />
+        <DialogPostuler
+          :idoffer="obj.raw._id"
+          v-if="!(this.user.userData.role === 'recruteur')"
+        />
       </v-toolbar>
 
       <v-list lines="two" subheader>
