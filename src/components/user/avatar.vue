@@ -11,7 +11,7 @@ export default {
   },
   data: () => ({
     menu: false,
-    items: [
+    itemsCand: [
       { text: "Mon Compte", icon: "mdi-account-settings", to: "profil" },
       { text: "Mon Portfolio", icon: "mdi-star", to: "portfolio" },
       {
@@ -19,6 +19,12 @@ export default {
         icon: "mdi-invoice-text-send",
         to: "candidature",
       },
+    ],
+    itemsRec: [
+      { text: "Tableau de bord", icon: "mdi-view-dashboard", to: "" },
+      { text: "Mes emplois", icon: "mdi-briefcase-variant", to: "" },
+      { text: "Poster un emploi", icon: "mdi-plus-circle", to: "" },
+      { text: "Paramétres", icon: "mdi-cog", to: "" },
     ],
   }),
   methods: {
@@ -57,9 +63,14 @@ export default {
         <v-divider class="mb-3"></v-divider>
 
         <v-spacer></v-spacer>
-        <v-list density="compact" nav>
+        <!-- meun candidat -->
+        <v-list
+          density="compact"
+          nav
+          v-if="this.user.userData.role === 'candidat'"
+        >
           <v-list-item
-            v-for="(item, i) in items"
+            v-for="(item, i) in itemsCand"
             :key="i"
             :value="item"
             color="primary"
@@ -80,7 +91,22 @@ export default {
             <TeleCv />
           </v-list-item>
         </v-list>
+        <!-- menu recruter -->
+        <v-list density="compact" nav v-else>
+          <v-list-item
+            v-for="(item, i) in itemsRec"
+            :key="i"
+            :value="item"
+            color="primary"
+            :to="item.to"
+          >
+            <template v-slot:prepend>
+              <v-icon :icon="item.icon"></v-icon>
+            </template>
 
+            <v-list-item-title v-text="item.text"></v-list-item-title>
+          </v-list-item>
+        </v-list>
         <v-card-actions>
           <!--  -->
           <v-btn

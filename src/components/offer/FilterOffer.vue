@@ -23,8 +23,8 @@ export default {
 </script>
 <template>
   <div>
-    <button class="bn39 sm-6" @click="sheet = !sheet">
-      <span class="bn39span"
+    <button class="btn ms-6" @click="sheet = !sheet">
+      <span
         ><v-icon size="25">mdi-tune</v-icon>
         <p class="ms-2 text-h6">Filtres</p></span
       >
@@ -97,7 +97,7 @@ export default {
   font-family: sans-serif;
 }
 
-.bn39 {
+.btn {
   background-image: linear-gradient(135deg, #008aff, #86d472);
   border-radius: 6px;
   color: #000000;
@@ -111,7 +111,7 @@ export default {
     color: #fff;
   }
 
-  .bn39span {
+  span {
     align-items: center;
     background: #ffffff;
     border-radius: 6px;
@@ -122,7 +122,7 @@ export default {
     width: 100%;
   }
 
-  &:hover .bn39span {
+  &:hover span {
     background: transparent;
   }
 }
