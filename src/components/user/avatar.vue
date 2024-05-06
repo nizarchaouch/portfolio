@@ -21,7 +21,7 @@ export default {
       },
     ],
     itemsRec: [
-      { text: "Tableau de bord", icon: "mdi-view-dashboard", to: "" },
+      { text: "Tableau de bord", icon: "mdi-view-dashboard", to: "dashboard" },
       { text: "Mes emplois", icon: "mdi-briefcase-variant", to: "" },
       { text: "Poster un emploi", icon: "mdi-plus-circle", to: "" },
       { text: "Paramétres", icon: "mdi-cog", to: "" },

@@ -7,6 +7,7 @@ import TemplateView from "@/views/TemplateView.vue";
 import OfferView from "@/views/OfferView.vue";
 import PortfolioView from "@/views/candidat/portfolio/PortfolioView.vue";
 import CandidatureView from "@/views/candidat/CandidatureView.vue";
+import DashView from "@/views/recruteur/DashView.vue";
 
 const routes = [
   {
@@ -48,6 +49,11 @@ const routes = [
     path: "/candidature",
     name: "candidature",
     component: CandidatureView,
+  },
+  {
+    path: "/dashboard",
+    name: "dashboard",
+    component: DashView,
   },
 ];
 
