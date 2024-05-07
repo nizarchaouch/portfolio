@@ -56,7 +56,7 @@ export default {
           text="Postuler maintenant"
           color="blue-darken-4"
           variant="tonal"
-          rounded="lg"
+          rounded="xl"
         ></v-btn>
       </template>
 
