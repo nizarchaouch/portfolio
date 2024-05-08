@@ -68,11 +68,11 @@ export default {
         <v-divider></v-divider>
 
         <v-container>
-          <v-row no-gutters>
-            <v-col cols="4" order="last">
+          <v-row >
+            <v-col cols="12" sm="4" order-sm="last">
               <v-sheet
                 :height="auto"
-                :width="250"
+                :max-width="480"
                 border
                 rounded
                 class="ma-2 pa-2 mx-auto"
@@ -97,7 +97,7 @@ export default {
                 </div>
               </v-sheet>
             </v-col>
-            <v-col cols="8" order="first">
+            <v-col cols="12" sm="8" order-sm="first">
               <v-row no-gutters>
                 <v-col cols="12" class="mb-2">
                   <p class="text-h6 font-weight-bold">

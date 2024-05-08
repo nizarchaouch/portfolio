@@ -84,7 +84,7 @@ export default {
           </v-list-item>
 
           <!--  -->
-          <v-list-item color="primary" value="">
+          <v-list-item color="primary" link>
             <template v-slot:prepend>
               <v-icon icon="mdi-upload"></v-icon>
             </template>
