@@ -10,11 +10,11 @@ export default {
   data: () => ({
     itemsRec: [
       { text: "Aperçu", icon: "mdi-chart-bar", to: "dashboard" },
-      { text: "Poster un emploi", icon: "mdi-plus-circle", to: "" },
-      { text: "Mon Profil", icon: "mdi-account-circle", to: "" },
-      { text: "Mes emplois", icon: "mdi-briefcase-variant", to: "" },
-      { text: "Trouver candidats", icon: "mdi-account-search", to: "" },
-      { text: "Paramétres", icon: "mdi-cog", to: "" },
+      { text: "Mon Profil", icon: "mdi-account-circle", to: "MonProfil" },
+      { text: "Poster un emploi", icon: "mdi-plus-circle", to: "PosterEmploi" },
+      { text: "Mes emplois", icon: "mdi-briefcase-variant", to: "MesEmplois" },
+      { text: "Trouver candidats", icon: "mdi-account-search", to: "TrouveCandidat" },
+      { text: "Paramétres", icon: "mdi-cog", to: "ParametreRec" },
     ],
   }),
 };

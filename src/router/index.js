@@ -8,6 +8,11 @@ import OfferView from "@/views/OfferView.vue";
 import PortfolioView from "@/views/candidat/portfolio/PortfolioView.vue";
 import CandidatureView from "@/views/candidat/CandidatureView.vue";
 import DashView from "@/views/recruteur/DashView.vue";
+import PosterEmploi from "@/components/user/recruteur/PosterEmploi.vue";
+import MonProfil from "@/components/user/recruteur/MonProfil.vue";
+import MesEmplois from "@/components/user/recruteur/MesEmplois.vue";
+import TrouveCandidat from "@/components/user/recruteur/TrouveCandidat.vue";
+import ParametreRec from "@/components/user/recruteur/ParametreRec.vue";
 
 const routes = [
   {
@@ -54,6 +59,31 @@ const routes = [
     path: "/dashboard",
     name: "dashboard",
     component: DashView,
+  },
+  {
+    path: "/PosterEmploi",
+    name: "posteremploi",
+    component: PosterEmploi,
+  },
+  {
+    path: "/MonProfil",
+    name: "monprofil",
+    component: MonProfil,
+  },
+  {
+    path: "/MesEmplois",
+    name: "MesEmplois",
+    component: MesEmplois,
+  },
+  {
+    path: "/TrouveCandidat",
+    name: "TrouveCandidat",
+    component: TrouveCandidat,
+  },
+  {
+    path: "/ParametreRec",
+    name: "ParametreRec",
+    component: ParametreRec,
   },
 ];
 
