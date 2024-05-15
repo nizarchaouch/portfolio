@@ -15,7 +15,7 @@ export default {
       drawer: true,
       desserts: [
         {
-          name: "laraval",
+          name: "Vue Developer",
           date: "20/06/2024",
           applications: "4",
         },
@@ -58,7 +58,7 @@ export default {
 };
 </script>
 <template>
-  <NavBar />
+  <NavBar hidea=" " />
   <SideBar />
   <v-container class="bg-white" fluid>
     <v-row class="mt-16">
@@ -166,7 +166,7 @@ export default {
         </v-row>
         <!-- charts -->
         <v-row class="mt-10">
-          <v-col cols="8">
+          <v-col cols="12" md="8">
             <v-sheet class="rounded-lg pa-3 ma-3" rounded border>
               <h4>Graphique à barres</h4>
               <canvas
@@ -175,7 +175,7 @@ export default {
               ></canvas>
             </v-sheet>
           </v-col>
-          <v-col cols="4">
+          <v-col cols="12" md="4">
             <v-sheet
               :width="auto"
               class="rounded-lg mx-auto pa-3 ma-3"
@@ -191,27 +191,68 @@ export default {
           </v-col>
         </v-row>
         <!-- tableau emploi -->
-        <v-row class="d-flex justify-space-between px-4">
-          <h4>Emplois récents</h4>
-          <v-btn variant="plain" class="text-none" append-icon="mdi-arrow-right">Voir tout</v-btn>
+        <v-row>
+          <v-col
+            cols="12"
+            class="d-flex justify-space-between px-14"
+          >
+            <h4>Emplois récents</h4>
+            <v-btn
+              variant="plain"
+              class="text-none"
+              append-icon="mdi-arrow-right"
+              :ripple="false"
+              >Voir tout</v-btn
+            >
+          </v-col>
         </v-row>
-        <v-row class="mb-16">
-          <v-col>
-            <v-table>
+        <v-row class="mb-16" no-gutters>
+          <v-col cols="12" class="px-5">
+            <v-table hover>
               <thead>
-                <tr class="bg-grey-lighten-2 rounded-pill">
-                  <th class="text-left">Emploi</th>
-                  <th class="text-left">Date de création</th>
-                  <th class="text-left">Applications</th>
-                  <th class="text-left">Action</th>
+                <tr class="bg-grey-lighten-2">
+                  <th class="text-left" style="width: 30%">Emploi</th>
+                  <th class="text-left" style="width: 20%">Date de création</th>
+                  <th class="text-left" style="width: 20%">Applications</th>
+                  <th class="text-left ps-14">Action</th>
                 </tr>
               </thead>
               <tbody>
                 <tr v-for="item in desserts" :key="item.name">
-                  <td>{{ item.name }}</td>
-                  <td>{{ item.date }}</td>
-                  <td>{{ item.applications }}</td>
-                  <td><v-btn color="success">text</v-btn></td>
+                  <td class="text-subtitle-1 font-weight-bold">
+                    {{ item.name }}
+                  </td>
+                  <td class="text-subtitle-1">Publié: {{ item.date }}</td>
+                  <td class="text-subtitle-1 text-medium-emphasis">
+                    <v-icon>mdi-account-multiple</v-icon>
+                    {{ item.applications }} Applications
+                  </td>
+                  <td>
+                    <!-- setting -->
+                    <v-btn variant="plain" class="float-end mt-4">
+                      <v-icon size="30">mdi-cog-outline</v-icon>
+                      <v-menu activator="parent">
+                        <v-list>
+                          <v-list-item>
+                            <v-list-item-title> aa </v-list-item-title>
+                          </v-list-item>
+                        </v-list>
+                      </v-menu>
+                    </v-btn>
+                    <!-- btn voir candidats -->
+                    <v-btn
+                      class="pa-3 ma-3 text-none"
+                      width="282"
+                      height="51"
+                      variant="tonal"
+                      color="light-blue-darken-4"
+                    >
+                      <p class="text-subtitle-1 font-weight-bold voir">
+                        Voir les candidatures
+                      </p>
+                    </v-btn>
+                    
+                  </td>
                 </tr>
               </tbody>
             </v-table>
@@ -221,8 +262,4 @@ export default {
     </v-row>
   </v-container>
 </template>
-<style lang="scss" scoped>
-.bgchart {
-  background-color: rgba(128, 128, 128, 0.079);
-}
-</style>
+<style lang="scss" scoped></style>

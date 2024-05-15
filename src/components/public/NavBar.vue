@@ -4,17 +4,19 @@ import Avatar from "@/components/user/avatar.vue";
 import Notfi from "@/components/user/Notfi.vue";
 export default {
   components: { Avatar, Notfi },
+  props: { hidea: String },
   data: () => ({
     logo: logo,
     nav: null,
     drawer: false,
+    hide: "hide",
   }),
 };
 </script>
 
 <template>
   <v-layout row wrap>
-    <v-app-bar scroll-behavior="hide">
+    <v-app-bar :scroll-behavior="hidea ? ' ' : hide">
       <template v-slot:prepend>
         <v-app-bar-nav-icon
           class="hidden-md-and-up"
@@ -41,11 +43,7 @@ export default {
           </v-col>
 
           <!-- btn login signup -->
-          <template
-            v-if="
-              !this.$store.state.user.authenticated 
-            "
-          >
+          <template v-if="!this.$store.state.user.authenticated">
             <v-col
               xs="1"
               lg="3"
