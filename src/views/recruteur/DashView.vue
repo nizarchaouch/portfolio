@@ -77,6 +77,7 @@ export default {
             >
           </v-col>
         </v-row>
+        <!-- cards -->
         <v-row>
           <v-col cols="12" sm="6" md="4">
             <v-sheet
@@ -192,10 +193,7 @@ export default {
         </v-row>
         <!-- tableau emploi -->
         <v-row>
-          <v-col
-            cols="12"
-            class="d-flex justify-space-between px-14"
-          >
+          <v-col cols="12" class="d-flex justify-space-between px-14">
             <h4>Emplois récents</h4>
             <v-btn
               variant="plain"
@@ -233,9 +231,21 @@ export default {
                       <v-icon size="30">mdi-cog-outline</v-icon>
                       <v-menu activator="parent">
                         <v-list>
-                          <v-list-item>
-                            <v-list-item-title> aa </v-list-item-title>
-                          </v-list-item>
+                          <v-list-item
+                            link
+                            title="Voir les détails"
+                            prepend-icon="mdi-eye"
+                          ></v-list-item>
+                          <v-list-item
+                            link
+                            title="Modifier"
+                            prepend-icon="mdi-pencil"
+                          ></v-list-item>
+                          <v-list-item
+                            link
+                            title="Supprimer"
+                            prepend-icon="mdi-delete-empty"
+                          ></v-list-item>
                         </v-list>
                       </v-menu>
                     </v-btn>
@@ -251,7 +261,6 @@ export default {
                         Voir les candidatures
                       </p>
                     </v-btn>
-                    
                   </td>
                 </tr>
               </tbody>
