@@ -13,9 +13,36 @@ export default {
   data() {
     return {
       drawer: true,
+      form: false,
+      typeEmploi: [
+        "CDI",
+        "CDD",
+        "CIVP",
+        "Karama",
+        "Temps plein",
+        "Saisonnier",
+        "Freelance / Indépendant",
+        "Temps partiel",
+      ],
+      rules: {
+        required: (value) => !!value || "Champ requis.",
+        counter: (value) => value.length >= 2 || "Minimum 200 caractères",
+      },
     };
   },
-  methods: { ...mapActions(["userAuth"]) },
+  methods: {
+    ...mapActions(["userAuth"]),
+    az() {
+      console.log("ok");
+    },
+    submitForm() {
+      if (this.form) {
+        this.az();
+      } else {
+        console.log("Form is invalid");
+      }
+    },
+  },
   mounted() {
     this.userAuth();
     setTimeout(() => {
@@ -30,7 +57,162 @@ export default {
 };
 </script>
 <template>
-  <NavBar />
+  <NavBar hidea=" " />
   <SideBar />
+  <v-container class="bg-white" fluid>
+    <v-row class="mt-16">
+      <v-col cols="12" lg="10" xl="10" offset-lg="2">
+        <v-row no-gutters>
+          <v-col cols="10" offset-md="1">
+            <h2>Poster un emploi</h2>
+          </v-col>
+        </v-row>
+        <!--  -->
+        <v-form @submit.prevent="submitForm" v-model="form">
+          <v-row>
+            <v-col cols="12" md="9" offset-md="1">
+              <p class="text-subtitle-2 text-medium-emphasis">
+                Titre de l'emploi <span class="text-red">*</span>
+              </p>
+              <v-text-field
+                variant="outlined"
+                color="blue"
+                :rules="[rules.required]"
+              >
+              </v-text-field>
+            </v-col>
+          </v-row>
+          <!--  -->
+          <v-row>
+            <v-col cols="12" md="3" offset-md="1">
+              <p class="text-subtitle-2 text-medium-emphasis">Éducation</p>
+              <v-text-field variant="outlined" color="blue" hide-details>
+              </v-text-field>
+            </v-col>
+            <v-col cols="12" md="3">
+              <p class="text-subtitle-2 text-medium-emphasis">Expérience</p>
+              <v-text-field variant="outlined" color="blue" hide-details>
+              </v-text-field>
+            </v-col>
+            <v-col cols="12" md="3">
+              <p class="text-subtitle-2 text-medium-emphasis">Langue</p>
+              <v-text-field variant="outlined" color="blue" hide-details>
+              </v-text-field>
+            </v-col>
+          </v-row>
+          <!--  -->
+          <v-row>
+            <v-col cols="12" md="3" offset-md="1">
+              <p class="text-subtitle-2 text-medium-emphasis">
+                Salaire personnalisé
+              </p>
+              <v-text-field variant="outlined" color="blue" hide-details>
+              </v-text-field>
+            </v-col>
+            <v-col cols="12" md="3">
+              <p class="text-subtitle-2 text-medium-emphasis">
+                Nombre total de postes vacants
+              </p>
+              <v-text-field
+                variant="outlined"
+                color="blue"
+                type="Number"
+                hide-details
+              >
+              </v-text-field>
+            </v-col>
+            <v-col cols="12" md="3">
+              <p class="text-subtitle-2 text-medium-emphasis">
+                Type d'emploi <span class="text-red">*</span>
+              </p>
+              <v-select
+                variant="outlined"
+                color="blue"
+                :items="typeEmploi"
+                :rules="[rules.required]"
+              >
+              </v-select>
+            </v-col>
+          </v-row>
+          <!--  -->
+          <v-row>
+            <v-col cols="12" md="3" offset-md="1">
+              <p class="text-subtitle-2 text-medium-emphasis">Genre</p>
+              <v-select
+                variant="outlined"
+                color="blue"
+                :items="['homme', 'femme']"
+                hide-details
+              >
+              </v-select>
+            </v-col>
+            <v-col cols="12" md="3">
+              <p class="text-subtitle-2 text-medium-emphasis">
+                Date limite expirée *
+              </p>
+              <v-text-field
+                variant="outlined"
+                color="blue"
+                :rules="[rules.required]"
+                type="date"
+              >
+              </v-text-field>
+            </v-col>
+          </v-row>
+          <!--  -->
+          <v-row>
+            <v-col cols="12" md="5" offset-sm="1">
+              <h3 class="mb-3">
+                Description de l'emploi <span class="text-red">*</span>
+              </h3>
+              <v-textarea
+                clearable
+                counter
+                rows="10"
+                variant="outlined"
+                color="blue"
+                :rules="[rules.required, rules.counter]"
+              ></v-textarea>
+            </v-col>
+            <v-col cols="12" md="5">
+              <h3 class="mb-3">
+                Exigences de l'emploi <span class="text-red">*</span>
+              </h3>
+              <v-textarea
+                clearable
+                counter
+                rows="10"
+                variant="outlined"
+                color="blue"
+                :rules="[rules.required, rules.counter]"
+              ></v-textarea>
+            </v-col>
+          </v-row>
+          <v-col cols="12">
+            <v-btn
+              color="blue"
+              type="submit"
+              class="text-none font-weight-bold mx-auto float-right"
+              size="large"
+              append-icon="mdi-arrow-right-thick"
+            >
+              Poster un emploi
+            </v-btn>
+          </v-col>
+        </v-form>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
-<style lang="scss" scoped></style>
+<style lang="scss">
+input[type="date"]::-webkit-calendar-picker-indicator {
+  bottom: 0;
+  cursor: pointer;
+  height: 20px;
+  left: 85%;
+  position: fixed;
+  right: 0px;
+  top: 30%;
+  width: auto;
+}
+</style>
