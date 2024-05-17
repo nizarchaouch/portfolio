@@ -1,10 +1,13 @@
 import axios from "axios";
 export default {
-  state: { offerData: "" },
+  state: { offerData: "", alert: false, message: "" },
   mutations: {
     setOffers(state, offers) {
       state.offerData = offers;
       console.log("data", state.offerData);
+    },
+    setMes(state, message) {
+      state.message = message;
     },
   },
   actions: {
@@ -20,6 +23,27 @@ export default {
         ctx.commit("setOffers", response.data);
       } catch (error) {
         console.error("Erreur lors de l'affichage des offres :", error);
+      }
+    },
+    async addOffer(ctx, data) {
+      try {
+        const AddOfferResponse = await axios.post(
+          `http://localhost:8000/api/offer/add`,
+          JSON.stringify(data),
+          {
+            headers: { "Content-type": "application/json" },
+            withCredentials: true,
+          }
+        );
+        if (AddOfferResponse.status === 201) {
+          console.log("Add offer successful");
+          ctx.state.alert = true;
+          ctx.commit("setMes", "Add offer successful");
+        }
+      } catch (error) {
+        console.error("Erreur lors de l'ajout de l'offre :", error);
+        ctx.state.alert = true;
+        ctx.commit("setMes", "Erreur lors de l'ajout de l'offre :");
       }
     },
   },

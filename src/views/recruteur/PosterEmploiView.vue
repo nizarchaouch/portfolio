@@ -31,13 +31,10 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["userAuth"]),
-    az() {
-      console.log("ok");
-    },
+    ...mapActions(["userAuth", "addOffer"]),
     submitForm() {
       if (this.form) {
-        this.az();
+        this.addOffer();
       } else {
         console.log("Form is invalid");
       }
@@ -148,7 +145,7 @@ export default {
             </v-col>
             <v-col cols="12" md="3">
               <p class="text-subtitle-2 text-medium-emphasis">
-                Date limite expirée *
+                Date limite expirée <span class="text-red">*</span>
               </p>
               <v-text-field
                 variant="outlined"
