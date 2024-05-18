@@ -29,7 +29,7 @@ export default {
         idRec: "",
         nomEntreprise: "",
         logo: "",
-        postion: "",
+        position: "",
         titre: "",
         niveauCand: "",
         experience: "",
@@ -55,7 +55,7 @@ export default {
         this.data.idRec = this.userData._id;
         this.data.nomEntreprise = this.userData.nomEntreprise;
         this.data.logo = this.userData.logo;
-        this.data.postion = this.userData.adress;
+        this.data.position = this.userData.adress;
         this.addOffer(this.data);
         setTimeout(() => {
           location.reload();

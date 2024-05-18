@@ -20,7 +20,6 @@ export default {
     toggle: "card",
     search: "",
     tab: 1,
-    selectedOBJ: null,
     filter: { localite: null, typeContrat: null, langue: null },
   }),
   methods: {
@@ -108,7 +107,7 @@ export default {
                 <v-list-item>
                   <v-banner
                     class="text-h6"
-                    :avatar="item.raw.image"
+                    :avatar="'http://localhost:8000' + item.raw.logo"
                     lines="one"
                     :text="item.raw.nomEntreprise"
                   ></v-banner>
@@ -150,7 +149,7 @@ export default {
                 <v-list-item class="mb-2">
                   <v-banner
                     class="text-h6"
-                    :avatar="item.raw.image"
+                    :avatar="'http://localhost:8000' + item.raw.logo"
                     lines="one"
                     :text="item.raw.nomEntreprise"
                   ></v-banner>

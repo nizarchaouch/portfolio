@@ -40,7 +40,7 @@ export default {
       <v-btn icon="mdi-close" variant="text" @click="dialog = false"></v-btn>
 
       <v-avatar size="100" class="ava position-fixed mx-auto">
-        <v-img min_height="auto" circle :src="obj.raw.image"></v-img>
+        <v-img min_height="auto" circle :src="'http://localhost:8000' + obj.raw.logo"></v-img>
       </v-avatar>
 
       <v-list>
