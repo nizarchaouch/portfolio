@@ -40,7 +40,11 @@ export default {
       <v-btn icon="mdi-close" variant="text" @click="dialog = false"></v-btn>
 
       <v-avatar size="100" class="ava position-fixed mx-auto">
-        <v-img min_height="auto" circle :src="'http://localhost:8000' + obj.raw.logo"></v-img>
+        <v-img
+          min_height="auto"
+          circle
+          :src="'http://localhost:8000' + obj.raw.logo"
+        ></v-img>
       </v-avatar>
 
       <v-list>
@@ -68,7 +72,7 @@ export default {
         <v-divider></v-divider>
 
         <v-container>
-          <v-row >
+          <v-row>
             <v-col cols="12" sm="4" order-sm="last">
               <v-sheet
                 :height="auto"
@@ -77,23 +81,92 @@ export default {
                 rounded
                 class="ma-2 pa-2 mx-auto"
               >
-                <div class="mb-3 mx-6">
+                <div class="mb-3 mx-6" v-if="obj.raw.date_expiration">
                   <p
                     class="text-subtitle-2 text-grey-darken-1 font-weight-bold"
                   >
                     Date d'expiration
                   </p>
                   <p class="font-weight-bold">
-                    {{ obj.raw.date_expiration/* split("T")[0] */ }}
+                    {{ obj.raw.date_expiration.split("T")[0] }}
                   </p>
                 </div>
-                <div v-for="index in 5" :key="index" class="mb-3 mx-6">
+                <!--  -->
+                <div class="mb-3 mx-6" v-if="obj.raw.niveauCand">
                   <p
                     class="text-subtitle-2 text-grey-darken-1 font-weight-bold"
                   >
-                  Non requis - travail à distance possible
+                    Date d'expiration
                   </p>
-                  <p class="font-weight-bold">1 poste ouvert</p>
+                  <p class="font-weight-bold">
+                    {{ obj.raw.niveauCand }}
+                  </p>
+                </div>
+                <!--  -->
+                <div class="mb-3 mx-6" v-if="obj.raw.experience">
+                  <p
+                    class="text-subtitle-2 text-grey-darken-1 font-weight-bold"
+                  >
+                    Expérience :
+                  </p>
+                  <p class="font-weight-bold">
+                    {{ obj.raw.experience }}
+                  </p>
+                </div>
+                <!--  -->
+                <div class="mb-3 mx-6" v-if="obj.raw.langue">
+                  <p
+                    class="text-subtitle-2 text-grey-darken-1 font-weight-bold"
+                  >
+                    Langue :
+                  </p>
+                  <p class="font-weight-bold">
+                    {{ obj.raw.langue }}
+                  </p>
+                </div>
+                <!--  -->
+                <div class="mb-3 mx-6" v-if="obj.raw.salaire">
+                  <p
+                    class="text-subtitle-2 text-grey-darken-1 font-weight-bold"
+                  >
+                    Salaire personnalisé :
+                  </p>
+                  <p class="font-weight-bold">
+                    {{ obj.raw.salaire }}
+                  </p>
+                </div>
+                <!--  -->
+                <div class="mb-3 mx-6" v-if="obj.raw.vacants">
+                  <p
+                    class="text-subtitle-2 text-grey-darken-1 font-weight-bold"
+                  >
+                    Postes vacants :
+                  </p>
+                  <p class="font-weight-bold">
+                    {{ obj.raw.vacants }}
+                  </p>
+                </div>
+                <!--  -->
+                <div class="mb-3 mx-6" v-if="obj.raw.typeOffer">
+                  <p
+                    class="text-subtitle-2 text-grey-darken-1 font-weight-bold"
+                  >
+                    Type d'emploi désiré :
+                  </p>
+                  <p class="font-weight-bold">
+                    {{ obj.raw.typeOffer }}
+                  </p>
+                </div>
+                <!--  -->
+                <div class="mb-3 mx-6" v-if="obj.raw.genre">
+                  <p
+                    class="text-subtitle-2 text-grey-darken-1 font-weight-bold"
+                  >
+                    Genre :
+                  </p>
+                  <p class="font-weight-bold">
+                    {{ obj.raw.genre }}
+                  </p>
                 </div>
               </v-sheet>
             </v-col>
@@ -103,7 +176,12 @@ export default {
                   <p class="text-h6 font-weight-bold">
                     Description de l'emploi
                   </p>
-                  <p class="text-justify" style="font-family: Verdana, Geneva, Tahoma, sans-serif">{{ obj.raw.description }}</p>
+                  <p
+                    class="text-justify"
+                    style="font-family: Verdana, Geneva, Tahoma, sans-serif"
+                  >
+                    {{ obj.raw.description }}
+                  </p>
                 </v-col>
               </v-row>
               <v-row no-gutters>
