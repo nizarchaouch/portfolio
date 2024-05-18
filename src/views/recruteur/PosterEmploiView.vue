@@ -5,7 +5,7 @@ import { mapState, mapActions } from "vuex";
 export default {
   components: { NavBar, SideBar },
   computed: {
-    ...mapState(["user"]),
+    ...mapState(["user", "offer"]),
     userData() {
       return this.user.userData;
     },
@@ -23,7 +23,22 @@ export default {
         "Saisonnier",
         "Freelance / Indépendant",
         "Temps partiel",
+        "Stage",
       ],
+      data: {
+        idRec: "",
+        titre: "",
+        niveauCand: "",
+        experience: "",
+        langue: "",
+        salaire: "",
+        vacants: 1,
+        typeOffer: "",
+        genre: "",
+        date_expiration: "",
+        description: "",
+        exigence: "",
+      },
       rules: {
         required: (value) => !!value || "Champ requis.",
         counter: (value) => value.length >= 2 || "Minimum 200 caractères",
@@ -34,7 +49,11 @@ export default {
     ...mapActions(["userAuth", "addOffer"]),
     submitForm() {
       if (this.form) {
-        this.addOffer();
+        this.data.idRec = this.userData._id;
+        this.addOffer(this.data);
+        setTimeout(() => {
+          location.reload();
+        }, 3000);
       } else {
         console.log("Form is invalid");
       }
@@ -57,6 +76,14 @@ export default {
   <NavBar hidea=" " />
   <SideBar />
   <v-container class="bg-white" fluid>
+    <v-snackbar
+      :timeout="3000"
+      color="blue-darken-2 mt-16"
+      v-model="offer.alert"
+      location="top"
+    >
+      {{ offer.message }}
+    </v-snackbar>
     <v-row class="mt-16">
       <v-col cols="12" lg="10" xl="10" offset-lg="2">
         <v-row no-gutters>
@@ -72,6 +99,7 @@ export default {
                 Titre de l'emploi <span class="text-red">*</span>
               </p>
               <v-text-field
+                v-model="data.titre"
                 variant="outlined"
                 color="blue"
                 :rules="[rules.required]"
@@ -83,17 +111,32 @@ export default {
           <v-row>
             <v-col cols="12" md="3" offset-md="1">
               <p class="text-subtitle-2 text-medium-emphasis">Éducation</p>
-              <v-text-field variant="outlined" color="blue" hide-details>
+              <v-text-field
+                v-model="data.niveauCand"
+                variant="outlined"
+                color="blue"
+                hide-details
+              >
               </v-text-field>
             </v-col>
             <v-col cols="12" md="3">
               <p class="text-subtitle-2 text-medium-emphasis">Expérience</p>
-              <v-text-field variant="outlined" color="blue" hide-details>
+              <v-text-field
+                v-model="data.experience"
+                variant="outlined"
+                color="blue"
+                hide-details
+              >
               </v-text-field>
             </v-col>
             <v-col cols="12" md="3">
               <p class="text-subtitle-2 text-medium-emphasis">Langue</p>
-              <v-text-field variant="outlined" color="blue" hide-details>
+              <v-text-field
+                v-model="data.langue"
+                variant="outlined"
+                color="blue"
+                hide-details
+              >
               </v-text-field>
             </v-col>
           </v-row>
@@ -103,7 +146,12 @@ export default {
               <p class="text-subtitle-2 text-medium-emphasis">
                 Salaire personnalisé
               </p>
-              <v-text-field variant="outlined" color="blue" hide-details>
+              <v-text-field
+                v-model="data.salaire"
+                variant="outlined"
+                color="blue"
+                hide-details
+              >
               </v-text-field>
             </v-col>
             <v-col cols="12" md="3">
@@ -111,6 +159,7 @@ export default {
                 Nombre total de postes vacants
               </p>
               <v-text-field
+                v-model="data.vacants"
                 variant="outlined"
                 color="blue"
                 type="Number"
@@ -123,6 +172,7 @@ export default {
                 Type d'emploi <span class="text-red">*</span>
               </p>
               <v-select
+                v-model="data.typeOffer"
                 variant="outlined"
                 color="blue"
                 :items="typeEmploi"
@@ -136,6 +186,7 @@ export default {
             <v-col cols="12" md="3" offset-md="1">
               <p class="text-subtitle-2 text-medium-emphasis">Genre</p>
               <v-select
+                v-model="data.genre"
                 variant="outlined"
                 color="blue"
                 :items="['homme', 'femme']"
@@ -148,6 +199,7 @@ export default {
                 Date limite expirée <span class="text-red">*</span>
               </p>
               <v-text-field
+                v-model="data.date_expiration"
                 variant="outlined"
                 color="blue"
                 :rules="[rules.required]"
@@ -163,6 +215,7 @@ export default {
                 Description de l'emploi <span class="text-red">*</span>
               </h3>
               <v-textarea
+                v-model="data.description"
                 clearable
                 counter
                 rows="10"
@@ -176,6 +229,7 @@ export default {
                 Exigences de l'emploi <span class="text-red">*</span>
               </h3>
               <v-textarea
+                v-model="data.exigences"
                 clearable
                 counter
                 rows="10"
