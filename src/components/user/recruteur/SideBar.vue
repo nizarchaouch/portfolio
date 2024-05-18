@@ -24,7 +24,7 @@ export default {
     <v-navigation-drawer class="mt-16" elevation="10">
       <v-list-item align="center">
         <v-avatar
-          :image="'http://localhost:8000' + userData.imagePath"
+          :image="'http://localhost:8000' + userData.logo"
           size="100"
         >
         </v-avatar>

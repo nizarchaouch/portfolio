@@ -27,6 +27,9 @@ export default {
       ],
       data: {
         idRec: "",
+        nomEntreprise: "",
+        logo: "",
+        postion: "",
         titre: "",
         niveauCand: "",
         experience: "",
@@ -50,10 +53,13 @@ export default {
     submitForm() {
       if (this.form) {
         this.data.idRec = this.userData._id;
+        this.data.nomEntreprise = this.userData.nomEntreprise;
+        this.data.logo = this.userData.logo;
+        this.data.postion = this.userData.adress;
         this.addOffer(this.data);
         setTimeout(() => {
           location.reload();
-        }, 3000);
+        }, 2000);
       } else {
         console.log("Form is invalid");
       }
@@ -77,7 +83,7 @@ export default {
   <SideBar />
   <v-container class="bg-white" fluid>
     <v-snackbar
-      :timeout="3000"
+      :timeout="2000"
       color="blue-darken-2 mt-16"
       v-model="offer.alert"
       location="top"
