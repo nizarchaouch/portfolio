@@ -21,7 +21,7 @@ export default {
     updateItemsData() {
       this.items = this.candOffer.candData.map((item, index) => {
         return {
-          img: this.candOffer.infoData[index].image,
+          img: this.candOffer.infoData[index].logo,
           nomEntreprise: this.candOffer.infoData[index].nomEntreprise,
           titre: this.candOffer.infoData[index].titre,
           date: item.date.split("T")[0],
@@ -122,7 +122,11 @@ export default {
           >
             <v-expansion-panel>
               <v-expansion-panel-title>
-                <v-avatar :image="item.img" class="me-2"></v-avatar>
+                <v-avatar
+                  :image="'http://localhost:8000' + item.img"
+                  class="me-2 me-4"
+                  size="x-large"
+                ></v-avatar>
                 <div>
                   <p>
                     {{ item.nomEntreprise }}
@@ -168,7 +172,9 @@ export default {
                 <p class="text-h6">En Attend de réponse à votre demande</p>
               </v-expansion-panel-text>
               <v-expansion-panel-text v-else>
-                <p class="text-h6">{{ item.nomEntreprise }} répond à votre demande: accepte</p>
+                <p class="text-h6">
+                  {{ item.nomEntreprise }} répond à votre demande: accepte
+                </p>
               </v-expansion-panel-text>
             </v-expansion-panel>
           </v-expansion-panels>
