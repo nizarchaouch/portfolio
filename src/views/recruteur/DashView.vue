@@ -1,11 +1,12 @@
 <script>
 import NavBar from "@/components/public/NavBar.vue";
 import SideBar from "@/components/user/recruteur/SideBar.vue";
-import { mapState, mapActions } from "vuex";
+import { mapState, mapActions, mapGetters } from "vuex";
 export default {
   components: { NavBar, SideBar },
   computed: {
     ...mapState(["user"]),
+    ...mapGetters(["latestOffers"]),
     userData() {
       return this.user.userData;
     },
@@ -217,14 +218,14 @@ export default {
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="item in desserts" :key="item.name">
+                <tr v-for="item in latestOffers" :key="item.name">
                   <td class="text-subtitle-1 font-weight-bold">
-                    {{ item.name }}
+                    {{ item.titre }}
                   </td>
-                  <td class="text-subtitle-1">Publié: {{ item.date }}</td>
+                  <td class="text-subtitle-1">Publié: {{ item.date_creation.split("T")[0] }}</td>
                   <td class="text-subtitle-1 text-medium-emphasis">
                     <v-icon>mdi-account-multiple</v-icon>
-                    {{ item.applications }} Applications
+                    {{ item.applications }} 4 Applications
                   </td>
                   <td>
                     <!-- setting -->

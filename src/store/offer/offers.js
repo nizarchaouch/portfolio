@@ -1,15 +1,17 @@
 import axios from "axios";
 export default {
-  state: { offerData: "", alert: false, message: "" },
+  state: { offerData: [], alert: false, message: "" },
   getters: {
     offerCount(state) {
       return state.offerData.length;
+    },
+    latestOffers(state) {
+      return state.offerData.slice(-5).reverse();
     },
   },
   mutations: {
     setOffers(state, offers) {
       state.offerData = offers;
-      console.log("data", state.offerData);
     },
     setMes(state, message) {
       state.message = message;

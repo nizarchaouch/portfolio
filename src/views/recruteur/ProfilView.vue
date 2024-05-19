@@ -32,8 +32,8 @@ export default {
   },
   mounted() {
     this.userAuth();
-    this.getOfferRec(this.user.userData._id);
     setTimeout(() => {
+      this.getOfferRec(this.user.userData._id);
       if (
         this.user.authenticated === false ||
         this.user.userData.role === "candidat"
