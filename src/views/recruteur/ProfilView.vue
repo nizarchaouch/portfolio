@@ -183,7 +183,7 @@ export default {
               </p>
             </v-sheet>
           </v-col>
-          <!--  -->
+          <!-- fondee && taille -->
           <v-col cols="12" sm="3">
             <v-sheet :elevation="2" class="rounded-lg pa-7">
               <v-row justify="space-between">
@@ -212,7 +212,7 @@ export default {
                 </v-col>
               </v-row>
             </v-sheet>
-            <!--  -->
+            <!-- local tel mail -->
             <v-sheet :elevation="2" class="rounded-lg px-3 mt-4">
               <h3 class="py-4">Informations de contact</h3>
               <v-row justify="space-between">
@@ -285,7 +285,12 @@ export default {
             </v-sheet>
           </v-col>
         </v-row>
-        <!--  -->
+        <!-- offer d'emploi  -->
+        <v-row>
+          <v-col cols="11">
+            <h3 class="ms-15">Offres d'emploi (12)</h3>
+          </v-col>
+        </v-row>
       </v-col>
     </v-row>
   </v-container>
