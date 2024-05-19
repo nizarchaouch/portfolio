@@ -164,7 +164,7 @@ export default {
                     class="text-none font-weight-bold mt-3"
                     size="large"
                     append-icon="mdi-arrow-right"
-                    to="#"
+                    href="#"
                   >
                     Poster ouvert
                   </v-btn>
