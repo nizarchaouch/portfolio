@@ -115,12 +115,7 @@ export default {
                         </svg>
                       </v-btn>
                       <!-- btn linekdin -->
-                      <v-btn
-                        size="40"
-                        variant="text"
-                        class="mx-1"
-                        color="blue"
-                      >
+                      <v-btn size="40" variant="text" class="mx-1" color="blue">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           x="0px"
@@ -140,7 +135,12 @@ export default {
                         </svg>
                       </v-btn>
                       <!-- btn twitter -->
-                      <v-btn size="40" variant="text" class="mx-1" color="black">
+                      <v-btn
+                        size="40"
+                        variant="text"
+                        class="mx-1"
+                        color="black"
+                      >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           x="0px"
@@ -176,7 +176,7 @@ export default {
         <!-- Description de l'entreprise -->
         <v-row class="d-flex justify-center">
           <v-col cols="12" sm="8">
-            <v-sheet :elevation="4" class="rounded-lg pa-8">
+            <v-sheet :elevation="2" class="rounded-lg pa-8">
               <h4>Description de l'entreprise</h4>
               <p class="text-medium-emphasis text-justify mt-1">
                 {{ this.user.userData.description }}
@@ -185,7 +185,7 @@ export default {
           </v-col>
           <!--  -->
           <v-col cols="12" sm="3">
-            <v-sheet :elevation="4" class="rounded-lg pa-7">
+            <v-sheet :elevation="2" class="rounded-lg pa-7">
               <v-row justify="space-between">
                 <v-col cols="auto">
                   <v-icon size="x-large" color="blue-lighten-2" class="mb-2">
@@ -213,7 +213,7 @@ export default {
               </v-row>
             </v-sheet>
             <!--  -->
-            <v-sheet :elevation="4" class="rounded-lg px-3 mt-4">
+            <v-sheet :elevation="2" class="rounded-lg px-3 mt-4">
               <h3 class="py-4">Informations de contact</h3>
               <v-row justify="space-between">
                 <v-col cols="auto">
@@ -238,23 +238,25 @@ export default {
                       <p class="text-body-2">Bouhjar, Tunisie</p>
                     </v-col>
                     <!--  Téléphone -->
-                    <v-col cols="1" class="ms-2">
-                      <v-icon
-                        size="large"
-                        color="blue-lighten-2"
-                        class="mt-2 pe-2"
-                      >
-                        mdi-phone-in-talk
-                      </v-icon>
-                    </v-col>
-                    <v-col cols="auto">
-                      <span
-                        class="mb-2 text-caption text-medium-emphasis text-uppercase"
-                      >
-                        Téléphone
-                      </span>
-                      <p class="text-body-2">+216 52641659</p>
-                    </v-col>
+                    <div class="d-flex">
+                      <v-col cols="1" class="mx-2">
+                        <v-icon
+                          size="large"
+                          color="blue-lighten-2"
+                          class="mt-2 pe-2"
+                        >
+                          mdi-phone-in-talk
+                        </v-icon>
+                      </v-col>
+                      <v-col cols="auto">
+                        <span
+                          class="mb-2 text-caption text-medium-emphasis text-uppercase"
+                        >
+                          Téléphone
+                        </span>
+                        <p class="text-body-2">+216 52641659</p>
+                      </v-col>
+                    </div>
                   </v-row>
                   <!-- row mail -->
                   <v-row>
@@ -274,7 +276,7 @@ export default {
                       >
                         Adresse e-mail
                       </span>
-                      <p class="text-body-2">chaouchnizar1@gmail.com</p>
+                      <p class="mb-2 text-body-2">chaouchnizar1@gmail.com</p>
                     </v-col>
                   </v-row>
                 </v-col>
