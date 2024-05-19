@@ -43,7 +43,9 @@ export default {
       ],
     };
   },
-  methods: { ...mapActions(["userAuth", "initializeChart", "showOfferRec"]) },
+  methods: {
+    ...mapActions(["userAuth", "initializeChart", "showOfferRec"]),
+  },
   mounted() {
     this.userAuth();
     this.initializeChart();
@@ -73,10 +75,9 @@ export default {
             </h3>
           </v-col>
           <v-col cols="12">
-            <span
-              >Voici vos activités quotidiennes et vos opportunités de
-              carrière</span
-            >
+            <span>
+              Voici vos activités quotidiennes et vos opportunités de carrière
+            </span>
           </v-col>
         </v-row>
         <!-- cards -->
