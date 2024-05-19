@@ -32,7 +32,7 @@ export default {
         console.error("Erreur lors de l'affichage des offres :", error);
       }
     },
-    async getOfferRec(ctx, id) {
+    async showOfferRec(ctx, id) {
       try {
         const response = await axios.get(
           `http://localhost:8000/api/offer/show/${id}`,

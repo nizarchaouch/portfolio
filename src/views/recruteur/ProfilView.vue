@@ -22,7 +22,7 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["userAuth", "getOfferRec"]),
+    ...mapActions(["userAuth", "showOfferRec"]),
     scrollToOffer() {
       const element = document.getElementById("listeOffer");
       if (element) {
@@ -33,7 +33,7 @@ export default {
   mounted() {
     this.userAuth();
     setTimeout(() => {
-      this.getOfferRec(this.user.userData._id);
+      this.showOfferRec(this.user.userData._id);
       if (
         this.user.authenticated === false ||
         this.user.userData.role === "candidat"
@@ -45,7 +45,7 @@ export default {
 };
 </script>
 <template>
-  <NavBar />
+  <NavBar hidea=" " />
   <SideBar />
   <v-container fluid>
     <v-row class="mt-16">

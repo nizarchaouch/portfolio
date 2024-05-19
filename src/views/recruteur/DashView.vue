@@ -6,7 +6,7 @@ export default {
   components: { NavBar, SideBar },
   computed: {
     ...mapState(["user"]),
-    ...mapGetters(["latestOffers"]),
+    ...mapGetters(["latestOffers", "offerCount"]),
     userData() {
       return this.user.userData;
     },
@@ -43,11 +43,12 @@ export default {
       ],
     };
   },
-  methods: { ...mapActions(["userAuth", "initializeChart"]) },
+  methods: { ...mapActions(["userAuth", "initializeChart", "showOfferRec"]) },
   mounted() {
     this.userAuth();
     this.initializeChart();
     setTimeout(() => {
+      this.showOfferRec(this.user.userData._id);
       if (
         this.user.authenticated === false ||
         this.user.userData.role === "candidat"
@@ -92,7 +93,7 @@ export default {
                 <v-row>
                   <v-col cols="9">
                     <v-row>
-                      <h2 class="ms-4 mt-4">76</h2>
+                      <h2 class="ms-4 mt-4">{{ offerCount }}</h2>
                     </v-row>
                     <v-row>
                       <span class="ms-4 text-body-2 text-medium-emphasis"
@@ -222,7 +223,9 @@ export default {
                   <td class="text-subtitle-1 font-weight-bold">
                     {{ item.titre }}
                   </td>
-                  <td class="text-subtitle-1">Publié: {{ item.date_creation.split("T")[0] }}</td>
+                  <td class="text-subtitle-1">
+                    Publié: {{ item.date_creation.split("T")[0] }}
+                  </td>
                   <td class="text-subtitle-1 text-medium-emphasis">
                     <v-icon>mdi-account-multiple</v-icon>
                     {{ item.applications }} 4 Applications
