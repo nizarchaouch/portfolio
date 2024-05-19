@@ -181,7 +181,7 @@ export default {
                     append-icon="mdi-arrow-right"
                     @click="scrollToOffer()"
                   >
-                    Poster ouvert
+                    Offres d'emploi
                   </v-btn>
                 </v-col>
               </v-row>
