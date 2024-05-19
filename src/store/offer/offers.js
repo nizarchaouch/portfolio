@@ -1,6 +1,11 @@
 import axios from "axios";
 export default {
   state: { offerData: "", alert: false, message: "" },
+  getters: {
+    offerCount(state) {
+      return state.offerData.length;
+    },
+  },
   mutations: {
     setOffers(state, offers) {
       state.offerData = offers;
@@ -25,7 +30,7 @@ export default {
         console.error("Erreur lors de l'affichage des offres :", error);
       }
     },
-    async getOfferRec(ctx,id) {
+    async getOfferRec(ctx, id) {
       try {
         const response = await axios.get(
           `http://localhost:8000/api/offer/show/${id}`,

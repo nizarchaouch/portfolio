@@ -1,23 +1,38 @@
 <script>
+import DialogDetail from "@/components/offer/DialogDetail.vue";
 import NavBar from "@/components/public/NavBar.vue";
 import SideBar from "@/components/user/recruteur/SideBar.vue";
-import { mapState, mapActions } from "vuex";
+import { mapState, mapActions, mapGetters } from "vuex";
 export default {
-  components: { NavBar, SideBar },
+  components: { NavBar, SideBar, DialogDetail },
   computed: {
-    ...mapState(["user"]),
+    ...mapState(["user", "offer"]),
+    ...mapGetters(["offerCount"]),
     userData() {
       return this.user.userData;
+    },
+    showOffer() {
+      return this.offer.offerData;
     },
   },
   data() {
     return {
       drawer: true,
+      page: 1,
     };
   },
-  methods: { ...mapActions(["userAuth"]) },
+  methods: {
+    ...mapActions(["userAuth", "getOfferRec"]),
+    scrollToOffer() {
+      const element = document.getElementById("listeOffer");
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
+    },
+  },
   mounted() {
     this.userAuth();
+    this.getOfferRec(this.user.userData._id);
     setTimeout(() => {
       if (
         this.user.authenticated === false ||
@@ -164,7 +179,7 @@ export default {
                     class="text-none font-weight-bold mt-3"
                     size="large"
                     append-icon="mdi-arrow-right"
-                    href="#"
+                    @click="scrollToOffer()"
                   >
                     Poster ouvert
                   </v-btn>
@@ -288,11 +303,89 @@ export default {
         <!-- offer d'emploi  -->
         <v-row>
           <v-col cols="11">
-            <h3 class="ms-15">Offres d'emploi (12)</h3>
+            <h3 class="ms-15 mb-6 mt-2">Offres d'emploi ({{ offerCount }})</h3>
           </v-col>
         </v-row>
+        <!-- liste offer -->
+        <v-col cols="11" class="mx-auto">
+          <v-data-iterator
+            :items="showOffer"
+            :items-per-page="6"
+            v-model:page="page"
+            id="listeOffer"
+          >
+            <template v-slot:default="{ items }">
+              <v-container class="pa-2">
+                <v-row dense>
+                  <v-col
+                    v-for="item in items"
+                    :key="item.title"
+                    cols="12"
+                    sm="6"
+                    md="6"
+                    lg="4"
+                  >
+                    <v-card
+                      class="mb-6 rounded-xl"
+                      border
+                      flat
+                      style="border: 1px solid gray"
+                    >
+                      <v-list-item>
+                        <v-banner
+                          class="text-h6"
+                          lines="one"
+                          :text="item.raw.titre"
+                        >
+                        </v-banner>
+                        <v-banner
+                          lines="three"
+                          :text="item.raw.description"
+                        ></v-banner>
+                        <div class="d-flex justify-space-around mt-3">
+                          <p>
+                            <v-icon class="me-2 text-body-1"
+                              >mdi-calendar-range</v-icon
+                            >{{ item.raw.date_creation.split("T")[0] }}
+                          </p>
+                          <p>
+                            <v-icon class="pb-1 text-body-1"
+                              >mdi-map-marker</v-icon
+                            >{{ item.raw.position }}
+                          </p>
+                        </div>
+                        <div class="float-right">
+                          <DialogDetail :obj="item" />
+                        </div>
+                      </v-list-item>
+                    </v-card>
+                  </v-col>
+                </v-row>
+              </v-container>
+            </template>
+
+            <template v-slot:footer="{ pageCount }">
+              <v-pagination
+                v-if="pageCount != 1"
+                v-model="page"
+                :length="pageCount"
+                :total-visible="10"
+                rounded="circle"
+                color="indigo"
+                prev-icon="mdi-arrow-left"
+                next-icon="mdi-arrow-right"
+              ></v-pagination>
+            </template>
+          </v-data-iterator>
+        </v-col>
       </v-col>
     </v-row>
   </v-container>
 </template>
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+h3 {
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  font-weight: 500;
+}
+</style>
