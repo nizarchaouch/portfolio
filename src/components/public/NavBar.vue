@@ -10,6 +10,18 @@ export default {
     nav: null,
     drawer: false,
     hide: "hide",
+    itemsRec: [
+      { text: "Aperçu", icon: "mdi-chart-bar", to: "dashboard" },
+      { text: "Mon Profil", icon: "mdi-account-circle", to: "MonProfil" },
+      { text: "Poster un emploi", icon: "mdi-plus-circle", to: "PosterEmploi" },
+      { text: "Mes emplois", icon: "mdi-briefcase-variant", to: "MesEmplois" },
+      {
+        text: "Trouver candidats",
+        icon: "mdi-account-search",
+        to: "TrouveCandidat",
+      },
+      { text: "Paramétres", icon: "mdi-cog", to: "ParametreRec" },
+    ],
   }),
 };
 </script>
@@ -30,7 +42,7 @@ export default {
             <v-img :src="logo" alt="Logo" height="35"></v-img>
           </v-col>
           <!-- tab nav -->
-          <v-col md="6" lg="6" class="hidden-sm-and-down">
+          <v-col md="6" lg="6" class="hidden-sm-and-down" v-if="hidea != ' '">
             <v-tabs
               v-model="nav"
               align-tabs="start"
@@ -83,9 +95,10 @@ export default {
       </v-container>
     </v-app-bar>
   </v-layout>
-  <!-- nav drawer -->
+  <!-- nav drawer candidat  -->
   <v-layout>
     <v-navigation-drawer
+      v-if="hidea != ' '"
       v-model="drawer"
       location="top"
       elevation="10"
@@ -98,6 +111,38 @@ export default {
         <v-list-item title="templates" to="template"></v-list-item>
         <v-list-item title="Offres d'emploi" to="offer"></v-list-item>
       </v-list>
+    </v-navigation-drawer>
+    <!-- nav drawer recruteur  -->
+    <v-navigation-drawer
+      v-else
+      v-model="drawer"
+      location="top"
+      elevation="10"
+      temporary
+      permanent
+    >
+      <v-row>
+        <v-col cols="10">
+          <v-list density="compact" lines="one">
+            <v-list-item
+              v-for="(item, i) in itemsRec"
+              :key="i"
+              :value="item"
+              color="primary"
+              :to="item.to"
+            >
+              <template v-slot:prepend>
+                <v-icon :icon="item.icon"></v-icon>
+              </template>
+
+              <v-list-item-title v-text="item.text"></v-list-item-title>
+            </v-list-item>
+          </v-list>
+        </v-col>
+        <v-col cols="1">
+          <v-icon @click="drawer = !drawer" class="ma-3">mdi-close</v-icon>
+        </v-col>
+      </v-row>
     </v-navigation-drawer>
   </v-layout>
 </template>
