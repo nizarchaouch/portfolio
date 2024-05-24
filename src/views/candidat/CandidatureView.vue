@@ -141,6 +141,7 @@ export default {
                 <template v-slot:actions>
                   <v-chip
                     class="text-capitalize"
+                    color="deep-orange-darken-1"
                     variant="outlined"
                     v-if="item.etat === 'En Attend'"
                   >
