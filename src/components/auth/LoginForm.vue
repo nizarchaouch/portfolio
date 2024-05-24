@@ -39,8 +39,15 @@ export default {
 };
 </script>
 <template>
-  <template v-if="this.user.authenticated">
-    {{ this.$router.push("/") }}
+  <template
+    v-if="this.user.authenticated && this.user.userData.role === 'recruteur'"
+  >
+    {{ this.$router.push("/dashboard") }}
+  </template>
+  <template
+    v-if="this.user.authenticated && this.user.userData.role === 'candidat'"
+  >
+    {{ this.$router.push("/profil") }}
   </template>
   <v-form @submit.prevent="onSubmit" v-model="form">
     <div>

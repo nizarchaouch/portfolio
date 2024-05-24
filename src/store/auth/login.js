@@ -2,11 +2,14 @@ import router from "@/router";
 import axios from "axios";
 
 export default {
-  state: { alert: false, message: "" },
+  state: { alert: false, message: "", userData: "" },
   getters: {},
   mutations: {
     setMes(state, message) {
       state.message = message;
+    },
+    setUserData(state, data) {
+      state.userData = data;
     },
   },
   actions: {
@@ -23,7 +26,8 @@ export default {
         console.log(data);
         if (response.status === 200) {
           console.log("Login successful");
-          await router.go(-1);
+
+          await router.push("/profil");
         }
       } catch (error) {
         console.log("Error during login:", error.message);
@@ -34,8 +38,7 @@ export default {
         } else if (error.response.status === 400) {
           ctx.state.alert = true;
           ctx.commit("setMes", "E-mail ou Mot de passe incorrect");
-        }
-        else{
+        } else {
           ctx.state.alert = true;
           ctx.commit("setMes", "utilisateur non trouvé");
         }

@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export default {
-  state: { authenticated: false, authenticatedr: false, userData: "" },
+  state: { authenticated: false, userData: "" },
   getters: {},
   mutations: {
     SET_AUTH(state, auth) {
