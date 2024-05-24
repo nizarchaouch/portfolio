@@ -21,7 +21,7 @@ export default {
 </script>
 <template>
   <v-layout>
-    <v-navigation-drawer class="mt-16" elevation="10">
+    <v-navigation-drawer  elevation="2" style="margin-top: 65px">
       <v-list-item align="center">
         <v-avatar
           :image="'http://localhost:8000' + userData.logo"

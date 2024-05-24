@@ -31,7 +31,13 @@ export default {
     <v-app-bar :scroll-behavior="hidea ? ' ' : hide">
       <template v-slot:prepend>
         <v-app-bar-nav-icon
+          v-if="hidea != ' '"
           class="hidden-md-and-up"
+          @click="drawer = !drawer"
+        ></v-app-bar-nav-icon>
+        <v-app-bar-nav-icon
+          v-else
+          class="hidden-lg-and-up"
           @click="drawer = !drawer"
         ></v-app-bar-nav-icon>
       </template>

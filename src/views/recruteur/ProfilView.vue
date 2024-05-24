@@ -51,7 +51,11 @@ export default {
     <v-row class="mt-16">
       <v-col cols="12" lg="10" xl="10" offset-lg="2">
         <v-row>
-          <v-col cols="11">
+          <v-col
+            cols="12"
+            sm="11"
+            class="mx-xs-auto mx-sm-auto mx-md-auto mx-lg-auto mx-xl-0"
+          >
             <h3>Détails de l'entreprise</h3>
           </v-col>
         </v-row>
@@ -85,6 +89,7 @@ export default {
                       </span>
                     </v-col>
                     <v-col cols="auto" class="ms-2">
+                      <!-- icon facebook -->
                       <v-btn
                         size="40"
                         variant="text"
@@ -160,8 +165,8 @@ export default {
                           xmlns="http://www.w3.org/2000/svg"
                           x="0px"
                           y="0px"
-                          width="39"
-                          height="39"
+                          width="37"
+                          height="37"
                           viewBox="0 0 50 50"
                         >
                           <path
@@ -190,7 +195,7 @@ export default {
         </v-row>
         <!-- Description de l'entreprise -->
         <v-row class="d-flex justify-center">
-          <v-col cols="12" sm="8">
+          <v-col cols="12" sm="7" md="8">
             <v-sheet :elevation="2" class="rounded-lg pa-8">
               <h4>Description de l'entreprise</h4>
               <p class="text-medium-emphasis text-justify mt-1">
@@ -199,7 +204,7 @@ export default {
             </v-sheet>
           </v-col>
           <!-- fondee && taille -->
-          <v-col cols="12" sm="3">
+          <v-col cols="12" sm="4" md="3">
             <v-sheet :elevation="2" class="rounded-lg pa-7">
               <v-row justify="space-between">
                 <v-col cols="auto">
@@ -228,7 +233,10 @@ export default {
               </v-row>
             </v-sheet>
             <!-- local tel mail -->
-            <v-sheet :elevation="2" class="rounded-lg px-3 mt-4">
+            <v-sheet
+              :elevation="2"
+              class="rounded-lg pa-2 mt-4 overflow-hidden"
+            >
               <h3 class="py-4">Informations de contact</h3>
               <v-row justify="space-between">
                 <v-col cols="auto">
