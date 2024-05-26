@@ -14,33 +14,6 @@ export default {
   data() {
     return {
       drawer: true,
-      desserts: [
-        {
-          name: "Vue Developer",
-          date: "20/06/2024",
-          applications: "4",
-        },
-        {
-          name: "vue js",
-          date: "20/06/2024",
-          applications: "4",
-        },
-        {
-          name: "react js",
-          date: "20/06/2024",
-          applications: "4",
-        },
-        {
-          name: "node js",
-          date: "20/06/2024",
-          applications: "4",
-        },
-        {
-          name: "web",
-          date: "20/06/2024",
-          applications: "4",
-        },
-      ],
     };
   },
   methods: {
@@ -232,41 +205,43 @@ export default {
                     {{ item.applications }} 4 Applications
                   </td>
                   <td>
-                    <!-- setting -->
-                    <v-btn variant="plain" class="float-end mt-4">
-                      <v-icon size="30">mdi-cog-outline</v-icon>
-                      <v-menu activator="parent">
-                        <v-list>
-                          <v-list-item
-                            link
-                            title="Voir les détails"
-                            prepend-icon="mdi-eye"
-                          ></v-list-item>
-                          <v-list-item
-                            link
-                            title="Modifier"
-                            prepend-icon="mdi-pencil"
-                          ></v-list-item>
-                          <v-list-item
-                            link
-                            title="Supprimer"
-                            prepend-icon="mdi-delete-empty"
-                          ></v-list-item>
-                        </v-list>
-                      </v-menu>
-                    </v-btn>
-                    <!-- btn voir candidats -->
-                    <v-btn
-                      class="pa-3 ma-3 text-none"
-                      width="282"
-                      height="51"
-                      variant="tonal"
-                      color="light-blue-darken-4"
-                    >
-                      <p class="text-subtitle-1 font-weight-bold voir">
-                        Voir les candidatures
-                      </p>
-                    </v-btn>
+                    <div class="d-flex">
+                      <!-- btn voir candidats -->
+                      <v-btn
+                        class="pa-3 ma-3 text-none responsive-"
+                        width="282"
+                        height="51"
+                        variant="tonal"
+                        color="light-blue-darken-4"
+                      >
+                        <p class="text-subtitle-1 font-weight-bold">
+                          Voir les candidatures
+                        </p>
+                      </v-btn>
+                      <!-- setting -->
+                      <v-btn variant="plain" class="float-end mt-4">
+                        <v-icon size="30">mdi-cog-outline</v-icon>
+                        <v-menu activator="parent">
+                          <v-list>
+                            <v-list-item
+                              link
+                              title="Voir les détails"
+                              prepend-icon="mdi-eye"
+                            ></v-list-item>
+                            <v-list-item
+                              link
+                              title="Modifier"
+                              prepend-icon="mdi-pencil"
+                            ></v-list-item>
+                            <v-list-item
+                              link
+                              title="Supprimer"
+                              prepend-icon="mdi-delete-empty"
+                            ></v-list-item>
+                          </v-list>
+                        </v-menu>
+                      </v-btn>
+                    </div>
                   </td>
                 </tr>
               </tbody>
