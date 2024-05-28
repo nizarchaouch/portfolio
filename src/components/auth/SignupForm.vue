@@ -8,7 +8,7 @@ export default {
     Recruteur,
   },
   data: () => ({
-    tab: 2,
+    tab: 1,
   }),
   computed: {
     ...mapState(["user"]),
@@ -45,8 +45,6 @@ export default {
     </v-tabs>
     <v-window v-model="tab">
       <v-window-item :value="1"> <Candidat /> </v-window-item>
-    </v-window>
-    <v-window v-model="tab">
       <v-window-item :value="2"> <Recruteur /> </v-window-item>
     </v-window>
   </v-card>

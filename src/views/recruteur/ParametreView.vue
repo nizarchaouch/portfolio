@@ -13,6 +13,7 @@ export default {
   data() {
     return {
       drawer: true,
+      tab: 1,
     };
   },
   methods: { ...mapActions(["userAuth"]) },
@@ -33,12 +34,20 @@ export default {
 <template>
   <NavBar />
   <SideBar />
-  <v-container fluid class="bg-white h-screen">
-    <v-col cols="12" lg="10" offset-lg="1">
-      <v-row class="mt-12">
-        <v-col cols="12" offset-lg="1"></v-col>
-      </v-row>
-    </v-col>
+  <v-container fluid>
+    <v-row class="mt-14">
+      <v-col cols="12" lg="10" offset-lg="2">
+        <v-row>
+          <v-col
+            cols="12"
+            sm="11"
+            class="mx-xs-auto mx-sm-auto mx-md-auto mx-lg-auto mx-xl-0"
+          >
+            <h2>Paramètres</h2>
+          </v-col>
+        </v-row>
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 <style lang="scss" scoped></style>
