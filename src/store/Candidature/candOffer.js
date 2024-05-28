@@ -1,12 +1,27 @@
 import axios from "axios";
+
 export default {
-  state: { candData: [], infoData: [] },
+  state: {
+    candData: [],
+    infoData: [],
+    countApp: [],
+    totalCandOffers: 0,
+  },
   mutations: {
     setCandData(state, candata) {
       state.candData = candata;
     },
     setInfoData(state, infodata) {
       state.infoData = infodata;
+    },
+    setCountApp(state, { id, count }) {
+      state.countApp.push({ id, count });
+      state.totalCandOffers += count;
+      console.log("Total candOffers count:", state.totalCandOffers);
+    },
+    RestCountApp(state) {
+      state.countApp = [];
+      state.totalCandOffers = 0; // Reset the total count when countApp is reset
     },
   },
   actions: {
@@ -22,11 +37,11 @@ export default {
         );
         console.log("store", data);
         if (response.status === 200) {
-          console.log("postuler successful");
+          console.log("Postuler successful");
         }
       } catch (error) {
         console.log("Error during login:", error.message);
-        // ctx.state.alert = true;
+         // ctx.state.alert = true;
       }
     },
     async getAll(ctx, id) {
@@ -38,10 +53,25 @@ export default {
             withCredentials: true,
           }
         );
-        // console.log("candOffers",response.data.candOffers);
+         // console.log("candOffers",response.data.candOffers);
         // console.log("infOffers",response.data.infOffers);
         ctx.commit("setCandData", response.data.candOffers);
         ctx.commit("setInfoData", response.data.infOffers);
+      } catch (error) {
+        console.error("Erreur lors de l'affichage des candidateurs :", error);
+      }
+    },
+    async getOfferApp(ctx, id) {
+      try {
+        const response = await axios.get(
+          `http://localhost:8000/api/candidature/showOfferApp/${id}`,
+          {
+            headers: { "Content-type": "application/json" },
+            withCredentials: true,
+          }
+        );
+        const count = response.data.candOffers.length || 0;
+        ctx.commit("setCountApp", { id, count });
       } catch (error) {
         console.error("Erreur lors de l'affichage des candidateurs :", error);
       }

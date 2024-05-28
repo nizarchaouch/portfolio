@@ -1,14 +1,20 @@
 <script>
 import NavBar from "@/components/public/NavBar.vue";
 import SideBar from "@/components/user/recruteur/SideBar.vue";
-import { mapState, mapActions, mapGetters } from "vuex";
+import { mapState, mapMutations, mapActions, mapGetters } from "vuex";
 export default {
   components: { NavBar, SideBar },
   computed: {
-    ...mapState(["user"]),
+    ...mapState(["user", "offer", "candOffer"]),
     ...mapGetters(["latestOffers", "offerCount"]),
     userData() {
       return this.user.userData;
+    },
+    offerData() {
+      return this.offer.offerData;
+    },
+    countApp() {
+      return this.candOffer.countApp || [];
     },
   },
   data() {
@@ -17,20 +23,33 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["userAuth", "initializeChart", "showOfferRec"]),
+    ...mapActions([
+      "userAuth",
+      "initializeChart",
+      "showOfferRec",
+      "getOfferApp",
+    ]),
+    ...mapMutations(["RestCountApp"]),
+    extractOfferIds() {
+      this.RestCountApp();
+      this.offerIds = this.offerData.map((offer) => offer._id);
+      this.offerIds.forEach((id) => {
+        this.getOfferApp(id);
+      });
+    },
   },
-  mounted() {
-    this.userAuth();
-    this.initializeChart();
-    setTimeout(() => {
-      this.showOfferRec(this.user.userData._id);
-      if (
-        this.user.authenticated === false ||
-        this.user.userData.role === "candidat"
-      ) {
-        this.$router.push("login");
-      }
-    }, 2);
+  async mounted() {
+    await this.userAuth();
+    if (
+      this.user.authenticated === false ||
+      this.user.userData.role === "candidat"
+    ) {
+      this.$router.push("login");
+    } else {
+      await this.showOfferRec(this.user.userData._id);
+      this.initializeChart();
+      this.extractOfferIds();
+    }
   },
 };
 </script>
@@ -95,7 +114,7 @@ export default {
                 <v-row>
                   <v-col cols="9">
                     <v-row>
-                      <h2 class="ms-4 mt-4">76</h2>
+                      <h2 class="ms-4 mt-4">{{ this.candOffer.totalCandOffers }}</h2>
                     </v-row>
                     <v-row>
                       <span class="ms-4 text-body-2 text-medium-emphasis"
@@ -202,7 +221,11 @@ export default {
                   </td>
                   <td class="text-subtitle-1 text-medium-emphasis">
                     <v-icon>mdi-account-multiple</v-icon>
-                    {{ item.applications }} 4 Applications
+                    <template v-for="app in countApp" :key="app.id">
+                      <span v-if="app.id === item._id">
+                        {{ app.count }} Applications
+                      </span>
+                    </template>
                   </td>
                   <td>
                     <div class="d-flex">

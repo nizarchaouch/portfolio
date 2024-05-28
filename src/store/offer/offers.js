@@ -45,7 +45,7 @@ export default {
       } catch (error) {
         console.error("Erreur lors de l'affichage des offres :", error);
       }
-    },
+    },    
     async addOffer(ctx, data) {
       try {
         const AddOfferResponse = await axios.post(

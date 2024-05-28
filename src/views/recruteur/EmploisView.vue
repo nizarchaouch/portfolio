@@ -1,17 +1,20 @@
 <script>
 import NavBar from "@/components/public/NavBar.vue";
 import SideBar from "@/components/user/recruteur/SideBar.vue";
-import { mapState, mapGetters, mapActions } from "vuex";
+import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
 export default {
   components: { NavBar, SideBar },
   computed: {
-    ...mapState(["user", "offer"]),
+    ...mapState(["user", "offer", "candOffer"]),
     ...mapGetters(["offerCount", "latestOffers"]),
     userData() {
       return this.user.userData;
     },
     offerData() {
       return this.offer.offerData;
+    },
+    countApp() {
+      return this.candOffer.countApp || [];
     },
   },
   data() {
@@ -31,18 +34,29 @@ export default {
       ],
     };
   },
-  methods: { ...mapActions(["userAuth", "showOfferRec"]) },
-  mounted() {
-    this.userAuth();
-    setTimeout(() => {
-      this.showOfferRec(this.user.userData._id);
-      if (
-        this.user.authenticated === false ||
-        this.user.userData.role === "candidat"
-      ) {
-        this.$router.push("login");
-      }
-    }, 2);
+  methods: {
+    ...mapActions(["userAuth", "showOfferRec", "getOfferApp"]),
+    ...mapMutations(["RestCountApp"]),
+    extractOfferIds() {
+      this.RestCountApp();
+      this.offerIds = this.offerData.map((offer) => offer._id);
+      this.offerIds.forEach((id) => {
+        this.getOfferApp(id);
+      });
+    },
+  },
+  async mounted() {
+    await this.userAuth();
+
+    if (
+      this.user.authenticated === false ||
+      this.user.userData.role === "candidat"
+    ) {
+      this.$router.push("login");
+    } else {
+      await this.showOfferRec(this.user.userData._id);
+      this.extractOfferIds();
+    }
   },
 };
 </script>
@@ -55,21 +69,26 @@ export default {
         <v-col cols="12" offset-lg="1">
           <v-card flat>
             <v-card-title class="d-flex align-center pe-2">
-              <h3 class="mb-6 mt-2">
-                Mes emplois
-                <span class="text-grey-darken-2">({{ offerCount }})</span>
-              </h3>
-              <v-spacer></v-spacer>
-              <v-text-field
-                v-model="search"
-                label="Titre d'emploi, description etc..."
-                prepend-inner-icon="mdi-magnify"
-                variant="outlined"
-                hide-details
-                single-line
-              ></v-text-field>
+              <v-row>
+                <v-col cols="12" md="4"
+                  ><h3 class="mb-6 mt-2">
+                    Mes emplois
+                    <span class="text-grey-darken-2">({{ offerCount }})</span>
+                  </h3>
+                </v-col>
+                <v-spacer></v-spacer>
+                <v-col cols="12" md="4">
+                  <v-text-field
+                    v-model="search"
+                    label="Titre d'emploi, description etc..."
+                    prepend-inner-icon="mdi-magnify"
+                    variant="outlined"
+                    hide-details
+                    single-line
+                  ></v-text-field>
+                </v-col>
+              </v-row>
             </v-card-title>
-
             <v-data-table
               v-model:sort-by="sortBy"
               :loading="loading"
@@ -100,18 +119,22 @@ export default {
               <!--  -->
               <template v-slot:item="{ item }">
                 <tr>
-                  <td
-                    class="text-subtitle-1 font-weight-bold"
-                    
-                  >
+                  <td class="text-subtitle-1 font-weight-bold">
                     {{ item.titre }}
                   </td>
                   <td class="text-subtitle-1" style="width: 15%">
                     Publié: {{ item.date_creation.split("T")[0] }}
                   </td>
-                  <td class="text-subtitle-1 text-medium-emphasis" style="width: 15%">
-                    <v-icon>mdi-account-multiple</v-icon>
-                    {{ item.applications }} 4 Applications
+                  <td
+                    class="text-subtitle-1 text-medium-emphasis"
+                    style="width: 15%"
+                  >
+                    <v-icon>mdi-account-multiple</v-icon> &thinsp;
+                    <template v-for="app in countApp" :key="app.id">
+                      <span v-if="app.id === item._id">
+                        {{ app.count }} Applications
+                      </span>
+                    </template>
                   </td>
                   <td style="width: 10%">
                     <div class="d-flex">
@@ -161,17 +184,4 @@ export default {
     </v-col>
   </v-container>
 </template>
-<style lang="scss" scoped>
-@media (max-width: 1727px) {
-  .responsive-btn {
-    width: 28px !important; /* Full width on mobile */
-    height: 40px !important; /* Adjust height on mobile */
-  }
-}
-@media (min-width: 1729px) {
-  .responsive-btn {
-    width: 282px !important; /* Default width */
-    height: 51px !important; /* Default height */
-  }
-}
-</style>
+<style lang="scss" scoped></style>
