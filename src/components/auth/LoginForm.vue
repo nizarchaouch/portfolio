@@ -22,9 +22,6 @@ export default {
       },
     },
   }),
-  mounted() {
-    this.userAuth();
-  },
   methods: {
     ...mapActions(["loginUser", "userAuth"]),
     onSubmit() {
@@ -36,19 +33,18 @@ export default {
       }, 500);
     },
   },
+  async mounted() {
+    await this.userAuth();
+    if (this.user.authenticated && this.user.userData.role === "recruteur") {
+      this.$router.push("/dashboard");
+    }
+    if (this.user.authenticated && this.user.userData.role === "candidat") {
+      this.$router.push("/profil");
+    }
+  },
 };
 </script>
 <template>
-  <template
-    v-if="this.user.authenticated && this.user.userData.role === 'recruteur'"
-  >
-    {{ this.$router.push("/dashboard") }}
-  </template>
-  <template
-    v-if="this.user.authenticated && this.user.userData.role === 'candidat'"
-  >
-    {{ this.$router.push("/profil") }}
-  </template>
   <v-form @submit.prevent="onSubmit" v-model="form">
     <div>
       <v-card

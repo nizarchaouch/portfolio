@@ -11,20 +11,23 @@ export default {
     tab: 2,
   }),
   computed: {
-    ...mapState([ "user"]),
+    ...mapState(["user"]),
   },
   methods: {
     ...mapActions(["userAuth"]),
   },
-  mounted() {
-    this.userAuth();
+  async mounted() {
+    await this.userAuth();
+    if (this.user.authenticated && this.user.userData.role === "recruteur") {
+      this.$router.push("/dashboard");
+    }
+    if (this.user.authenticated && this.user.userData.role === "candidat") {
+      this.$router.push("/profil");
+    }
   },
 };
 </script>
 <template>
-  <template v-if="this.user.authenticated">
-    {{ this.$router.push("/") }}
-  </template>
   <v-card class="mx-auto mt-16" max-width="700">
     <v-tabs v-model="tab" align-tabs="center" color="deep-purple-accent-4">
       <v-tab :value="1"
