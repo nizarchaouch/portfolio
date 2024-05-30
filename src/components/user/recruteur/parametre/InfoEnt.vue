@@ -2,13 +2,12 @@
 import { mapState, mapActions } from "vuex";
 export default {
   computed: {
-    ...mapState(["user"]),
+    ...mapState(["user", "profilRec"]),
     data() {
       return {
         id: this.user.userData._id,
-        fileForUpload: null,
-        logo: "http://localhost:8000" + this.user.userData.logo,
-        imagePath: "",
+        logoForUpload: null,
+        logoUrl: "http://localhost:8000" + this.user.userData.logoPath,
         nomEntreprise: this.user.userData.nomEntreprise,
         secteur: this.user.userData.secteur,
         description: this.user.userData.description,
@@ -30,12 +29,12 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["userAuth"]),
+    ...mapActions(["userAuth","updated","upload"]),
     handleFileChange(event) {
       const file = event.target.files[0];
       if (file && file.type.startsWith("image/")) {
-        this.data.fileForUpload = file;
-        // this.updated(this.data);
+        this.data.logoForUpload = file;
+        this.upload(this.data);
         setTimeout(() => {
           window.location.reload();
         }, 1000);
@@ -57,6 +56,14 @@ export default {
 };
 </script>
 <template>
+  <v-snackbar
+    :timeout="7000"
+    color="blue-darken-2 mt-16"
+    v-model="profilRec.alert"
+    location="top"
+  >
+    {{ profilRec.message }}
+  </v-snackbar>
   <v-form v-model="form">
     <v-sheet :elevation="2" class="rounded-lg pa-7">
       <v-row no-gutters>
@@ -80,7 +87,7 @@ export default {
                   offset-y="8"
                   offset-x="5"
                 >
-                  <v-avatar size="150" rounded="0" :image="data.logo">
+                  <v-avatar size="150" rounded="0" :image="data.logoUrl">
                   </v-avatar>
                 </v-badge>
               </template>

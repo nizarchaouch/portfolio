@@ -44,13 +44,13 @@ export default {
     async upload(ctx, data) {
       try {
         let formData = new FormData();
-        formData.append("file", data.file);
+        formData.append("logo", data.logoForUpload);
 
         const uploadResponse = await axios.post(
-          "http://localhost:8000/uploadCv",
+          "http://localhost:8000/upload/logo",
           formData
         );
-        data.cvPath = uploadResponse.data.cvpath;
+        data.logoPath = uploadResponse.data.logopath;
         const updateUserResponse = await axios.put(
           `http://localhost:8000/api/user/update/${data.id}`,
           JSON.stringify(data),
@@ -60,14 +60,13 @@ export default {
           }
         );
         if (updateUserResponse.status === 201) {
-          console.log("Télécharger un CV réussi");
           ctx.state.alert = true;
-          ctx.commit("setMes", "Télécharger un CV réussi");
+          ctx.commit("setMes", "Changement de logo réussi");
         }
       } catch (error) {
-        console.error("Erreur lors du téléchargement d'un CV :", error);
+        console.error("Erreur lors du changement de logo :", error);
         ctx.state.alert = true;
-        ctx.commit("setMes", "Erreur lors du téléchargement d'un CV");
+        ctx.commit("setMes", "Erreur lors du changement de logo");
       }
     },
   },

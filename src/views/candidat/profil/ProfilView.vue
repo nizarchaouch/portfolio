@@ -6,7 +6,7 @@ import DialogPwd from "@/components/user/DialogPwd.vue";
 export default {
   name: "profil",
   computed: {
-    ...mapState(["user", "usersUpdate"]),
+    ...mapState(["user", "candidat"]),
     data() {
       return {
         id: this.user.userData._id,
@@ -42,7 +42,7 @@ export default {
         this.data.fileForUpload = file;
         this.updated(this.data);
         setTimeout(() => {
-          window.location.reload();
+          // window.location.reload();
         }, 1000);
       } else {
         alert("Veuillez sélectionner un fichier image.");
@@ -75,10 +75,10 @@ export default {
     <v-snackbar
       :timeout="7000"
       color="blue-darken-2 mt-16"
-      v-model="usersUpdate.alert"
+      v-model="candidat.alert"
       location="top"
     >
-      {{ usersUpdate.message }}
+      {{ candidat.message }}
     </v-snackbar>
     <v-row>
       <v-col cols="12" sm="12" md="10" xl="8" class="pa-5 ma-3 ms-8">
