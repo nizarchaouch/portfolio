@@ -7,6 +7,7 @@ import offer from "./offer/offers";
 import portfolio from "./portfolio/elements";
 import candOffer from "./Candidature/candOffer";
 import chartRec from "./recruteur/chart";
+import usersUpdate from "./users/profil";
 
 export default createStore({
   state: { apiUrl: "http://localhost:8000/api/" },
@@ -21,5 +22,6 @@ export default createStore({
     portfolio,
     candOffer,
     chartRec,
+    usersUpdate,
   },
 });

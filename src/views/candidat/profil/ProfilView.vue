@@ -6,7 +6,7 @@ import DialogPwd from "@/components/user/DialogPwd.vue";
 export default {
   name: "profil",
   computed: {
-    ...mapState(["user", "candidat"]),
+    ...mapState(["user", "usersUpdate"]),
     data() {
       return {
         id: this.user.userData._id,
@@ -75,10 +75,10 @@ export default {
     <v-snackbar
       :timeout="7000"
       color="blue-darken-2 mt-16"
-      v-model="candidat.alert"
+      v-model="usersUpdate.alert"
       location="top"
     >
-      {{ candidat.message }}
+      {{ usersUpdate.message }}
     </v-snackbar>
     <v-row>
       <v-col cols="12" sm="12" md="10" xl="8" class="pa-5 ma-3 ms-8">
