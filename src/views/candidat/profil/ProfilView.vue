@@ -42,7 +42,7 @@ export default {
         this.data.fileForUpload = file;
         this.updated(this.data);
         setTimeout(() => {
-          // window.location.reload();
+          window.location.reload();
         }, 1000);
       } else {
         alert("Veuillez sélectionner un fichier image.");
