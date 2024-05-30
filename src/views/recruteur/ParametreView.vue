@@ -2,8 +2,9 @@
 import NavBar from "@/components/public/NavBar.vue";
 import SideBar from "@/components/user/recruteur/SideBar.vue";
 import { mapState, mapActions } from "vuex";
+import InfoEnt from "@/components/user/recruteur/parametre/InfoEnt.vue";
 export default {
-  components: { NavBar, SideBar },
+  components: { NavBar, SideBar, InfoEnt },
   computed: {
     ...mapState(["user"]),
     userData() {
@@ -46,8 +47,38 @@ export default {
             <h2>Paramètres</h2>
           </v-col>
         </v-row>
+        <v-row>
+          <v-col cols="11">
+            <v-card class="bg-tabs" border>
+              <v-tabs v-model="tab" color="deep-purple-accent-4">
+                <v-tab :value="1" class="text-none">
+                  <v-icon size="x-large">mdi-account-supervisor-circle</v-icon
+                  >&nbsp; Informations sur l'entreprise
+                </v-tab>
+                <v-tab :value="2" class="text-none">
+                  <v-icon size="x-large">mdi-account-circle</v-icon>&nbsp;
+                  Informations sur la fondation
+                </v-tab>
+                <v-tab :value="3" class="text-none">
+                  <v-icon size="x-large">mdi-cog</v-icon>&nbsp; Paramètres du
+                  compte
+                </v-tab>
+              </v-tabs>
+              <v-window v-model="tab">
+                <v-window-item :value="1">
+                  <InfoEnt />
+                </v-window-item>
+                <v-window-item :value="2"> <Recruteur /> </v-window-item>
+              </v-window>
+            </v-card>
+          </v-col>
+        </v-row>
       </v-col>
     </v-row>
   </v-container>
 </template>
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.bg-tabs {
+  background-color: rgba(245, 245, 245, 0.482);
+}
+</style>

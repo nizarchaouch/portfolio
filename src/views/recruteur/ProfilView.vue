@@ -30,17 +30,16 @@ export default {
       }
     },
   },
-  mounted() {
-    this.userAuth();
-    setTimeout(() => {
+  async mounted() {
+    await this.userAuth();
+    if (
+      this.user.authenticated === false ||
+      this.user.userData.role === "candidat"
+    ) {
+      this.$router.push("login");
+    } else {
       this.showOfferRec(this.user.userData._id);
-      if (
-        this.user.authenticated === false ||
-        this.user.userData.role === "candidat"
-      ) {
-        this.$router.push("login");
-      }
-    }, 2);
+    }
   },
 };
 </script>
@@ -283,7 +282,6 @@ export default {
                   </v-row>
                   <!-- row mail -->
                   <v-row>
-                    <!-- EMPLACEMENT -->
                     <v-col cols="1" class="ms-2">
                       <v-icon
                         size="large"
@@ -302,8 +300,27 @@ export default {
                       <p class="mb-2 text-body-2">chaouchnizar1@gmail.com</p>
                     </v-col>
                   </v-row>
+                  <!-- row site web
+                  <v-row>
+                    <v-col cols="1" class="ms-2">
+                      <v-icon
+                        size="large"
+                        color="blue-lighten-2"
+                        class="mt-2 pe-2"
+                      >
+                        mdi-web
+                      </v-icon>
+                    </v-col>
+                    <v-col cols="auto">
+                      <span
+                        class="mb-2 text-caption text-medium-emphasis text-uppercase"
+                      >
+                        Site web
+                      </span>
+                      <p class="mb-2 text-body-2">chaouchnizar1@gmail.com</p>
+                    </v-col>
+                  </v-row> -->
                 </v-col>
-                <!--  -->
               </v-row>
             </v-sheet>
           </v-col>

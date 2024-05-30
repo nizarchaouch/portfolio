@@ -57,24 +57,19 @@ export default {
         this.data.logo = this.userData.logo;
         this.data.position = this.userData.adress;
         this.addOffer(this.data);
-        setTimeout(() => {
-          location.reload();
-        }, 2000);
       } else {
         console.log("Form is invalid");
       }
     },
   },
-  mounted() {
-    this.userAuth();
-    setTimeout(() => {
-      if (
-        this.user.authenticated === false ||
-        this.user.userData.role === "candidat"
-      ) {
-        this.$router.push("login");
-      }
-    }, 2);
+  async mounted() {
+    await this.userAuth();
+    if (
+      this.user.authenticated === false ||
+      this.user.userData.role === "candidat"
+    ) {
+      this.$router.push("login");
+    }
   },
 };
 </script>
@@ -98,7 +93,7 @@ export default {
           </v-col>
         </v-row>
         <!--  -->
-        <v-form @submit.prevent="submitForm" v-model="form">
+        <v-form @submit="submitForm" v-model="form">
           <v-row>
             <v-col cols="12" md="9" offset-md="1">
               <p class="text-subtitle-2 text-medium-emphasis">

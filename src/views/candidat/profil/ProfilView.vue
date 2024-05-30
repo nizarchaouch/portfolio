@@ -57,16 +57,14 @@ export default {
       }, 10);
     },
   },
-  mounted() {
-    this.userAuth();
-    setTimeout(() => {
-      if (
-        this.user.authenticated === false ||
-        this.user.userData.role === "recruteur"
-      ) {
-        this.$router.push("login");
-      }
-    }, 2);
+  async mounted() {
+    await this.userAuth();
+    if (
+      this.user.authenticated === false ||
+      this.user.userData.role === "recruteur"
+    ) {
+      this.$router.push("login");
+    }
   },
 };
 </script>
@@ -128,7 +126,7 @@ export default {
               {{ data.titre_emploi }}
             </h3>
           </v-col>
-          <!--   -->
+          <!-- contact  -->
           <v-col cols="auto" class="ms-3">
             <p class="mt-4 text-capitalize">
               <v-icon>mdi-email-outline</v-icon> {{ this.user.userData.mail }}
