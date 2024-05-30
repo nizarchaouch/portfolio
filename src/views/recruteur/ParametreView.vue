@@ -48,7 +48,7 @@ export default {
           </v-col>
         </v-row>
         <v-row>
-          <v-col cols="11">
+          <v-col cols="12" xl="11">
             <v-card class="bg-tabs" border>
               <v-tabs v-model="tab" color="deep-purple-accent-4">
                 <v-tab :value="1" class="text-none">
@@ -79,6 +79,7 @@ export default {
 </template>
 <style lang="scss" scoped>
 .bg-tabs {
-  background-color: rgba(245, 245, 245, 0.482);
+  // background-color: rgba(245, 245, 245, 0.482);
+  background-color: rgba(0, 187, 255, 0.122);
 }
 </style>

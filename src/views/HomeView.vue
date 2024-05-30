@@ -73,7 +73,6 @@ export default {
         <v-img
           cover
           aspect-ratio="4/3"
-          min_height="auto"
           rounded
           src="https://zyro.com/cdn-cgi/image/w=1920,q=85,f=auto/images/portfolioWebsite/shop-template.png"
         ></v-img>

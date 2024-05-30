@@ -230,7 +230,7 @@ export default {
                 Exigences de l'emploi <span class="text-red">*</span>
               </h3>
               <v-textarea
-                v-model="data.exigences"
+                v-model="data.exigence"
                 clearable
                 counter
                 rows="10"
@@ -244,7 +244,7 @@ export default {
             <v-btn
               color="blue"
               type="submit"
-              class="text-none font-weight-bold mx-auto float-right"
+              class="text-none font-weight-bold float-right"
               size="large"
               append-icon="mdi-arrow-right-thick"
             >
