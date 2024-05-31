@@ -13,23 +13,22 @@ export default {
         description: this.user.userData.description,
         adress: this.user.userData.adress,
         tel: this.user.userData.tel,
-        fondee: this.user.userData.fondee || 2016,
-        taill_ent: this.user.userData.taill_ent || 500,
+        fondee: this.user.userData.fondee,
+        taill_ent: this.user.userData.taill_ent,
       };
     },
   },
   data() {
     return {
       form: false,
-      typeEmploi: [],
+      loading: false,
       rules: {
         required: (value) => !!value || "Champ requis.",
-        counter: (value) => value.length >= 2 || "Minimum 200 caractères",
       },
     };
   },
   methods: {
-    ...mapActions(["userAuth","updated","upload"]),
+    ...mapActions(["userAuth", "updated", "upload"]),
     handleFileChange(event) {
       const file = event.target.files[0];
       if (file && file.type.startsWith("image/")) {
@@ -41,6 +40,15 @@ export default {
       } else {
         alert("Veuillez sélectionner un fichier image.");
       }
+    },
+    onSubmit() {
+      if (!this.form) return;
+      this.loading = true;
+      this.updated(this.data);
+      setTimeout(() => {
+        window.location.reload();
+        this.loading = false;
+      }, 500);
     },
   },
   async mounted() {
@@ -64,7 +72,7 @@ export default {
   >
     {{ profilRec.message }}
   </v-snackbar>
-  <v-form v-model="form">
+  <v-form v-model="form" @submit="onSubmit">
     <v-sheet :elevation="2" class="rounded-lg pa-7">
       <v-row no-gutters>
         <v-col cols="9" md="10" xl="11">
@@ -147,7 +155,6 @@ export default {
             v-model="data.taill_ent"
             variant="outlined"
             color="blue"
-            :rules="[rules.required]"
           >
           </v-text-field>
           <!-- tel -->
@@ -178,7 +185,7 @@ export default {
             clearable
             counter
             variant="outlined"
-            :rules="[rules.required, rules.counter]"
+            :rules="[rules.required]"
           ></v-textarea>
         </v-col>
         <!-- btn submit -->
@@ -188,6 +195,7 @@ export default {
             type="submit"
             class="text-none font-weight-bold float-right"
             size="large"
+            :loading="loading"
           >
             Enregistrer les modifications
           </v-btn>

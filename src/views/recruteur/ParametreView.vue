@@ -60,8 +60,8 @@ export default {
                   Informations sur la fondation
                 </v-tab>
                 <v-tab :value="3" class="text-none">
-                  <v-icon size="x-large">mdi-cog</v-icon>&nbsp; Paramètres du
-                  compte
+                  <v-icon size="x-large">mdi-web</v-icon>&nbsp; Profil sur les
+                  réseaux sociaux
                 </v-tab>
               </v-tabs>
               <v-window v-model="tab">
