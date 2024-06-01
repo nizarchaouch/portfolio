@@ -4,8 +4,9 @@ import SideBar from "@/components/user/recruteur/SideBar.vue";
 import { mapState, mapActions } from "vuex";
 import InfoEnt from "@/components/user/recruteur/parametre/InfoEnt.vue";
 import InfoFond from "@/components/user/recruteur/parametre/InfoFond.vue";
+import LinkRes from "@/components/user/recruteur/parametre/LinkRes.vue";
 export default {
-  components: { NavBar, SideBar, InfoEnt, InfoFond },
+  components: { NavBar, SideBar, InfoEnt, InfoFond, LinkRes },
   computed: {
     ...mapState(["user"]),
     userData() {
@@ -71,6 +72,9 @@ export default {
                 </v-window-item>
                 <v-window-item :value="2">
                   <InfoFond />
+                </v-window-item>
+                <v-window-item :value="3">
+                  <LinkRes />
                 </v-window-item>
               </v-window>
             </v-card>

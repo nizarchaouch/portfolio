@@ -24,9 +24,6 @@ export default {
     return {
       form: false,
       loading: false,
-      rules: {
-        required: (value) => !!value || "Champ requis.",
-      },
     };
   },
   methods: {
@@ -117,7 +114,7 @@ export default {
             v-model="data.nom"
             variant="outlined"
             color="blue"
-            :rules="[rules.required]"
+            required
           >
           </v-text-field>
           <!-- prenom -->
@@ -130,12 +127,12 @@ export default {
           >
           </v-text-field>
         </v-col>
-        <!-- fondee & adress -->
+        <!-- prenom -->
         <v-col cols="12" md="3">
           <h4 class="mb-4 text-medium-emphasis">Prénom</h4>
           <v-text-field v-model="data.prenom" variant="outlined" color="blue">
           </v-text-field>
-          <!-- adress -->
+          <!-- mail -->
           <h4 class="mb-4 text-medium-emphasis">E-mail</h4>
           <v-text-field
             v-model="data.mail"
@@ -145,7 +142,7 @@ export default {
           >
           </v-text-field>
         </v-col>
-        <!-- tail & tel -->
+        <!-- Date de Naissance -->
         <v-col cols="12" md="3">
           <h4 class="mb-4 text-medium-emphasis">Date de Naissance</h4>
           <v-text-field
