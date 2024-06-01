@@ -1,20 +1,22 @@
 <script>
 import { mapState, mapActions } from "vuex";
+import DialogPwd from "@/components/user/DialogPwd.vue";
 export default {
+  components: { DialogPwd },
   computed: {
     ...mapState(["user", "profilRec"]),
     data() {
       return {
         id: this.user.userData._id,
-        logoForUpload: null,
-        logoUrl: "http://localhost:8000" + this.user.userData.logoPath,
-        nomEntreprise: this.user.userData.nomEntreprise,
-        secteur: this.user.userData.secteur,
-        description: this.user.userData.description,
-        adress: this.user.userData.adress,
+        fileForUpload: null,
+        imageUrl: "http://localhost:8000" + this.user.userData.imagePath,
+        nom: this.user.userData.nom,
+        prenom: this.user.userData.prenom,
+        dateNais: this.user.userData.dateNais
+          ? this.user.userData.dateNais.split("T")[0]
+          : "",
         tel: this.user.userData.tel,
-        fondee: this.user.userData.fondee,
-        taill_ent: this.user.userData.taill_ent,
+        mail: this.user.userData.mail,
       };
     },
   },
@@ -28,15 +30,14 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["userAuth", "updated", "upload"]),
+    ...mapActions(["userAuth", "updated"]),
     handleFileChange(event) {
       const file = event.target.files[0];
       if (file && file.type.startsWith("image/")) {
-        this.data.logoForUpload = file;
-        this.upload(this.data);
-        setTimeout(() => {
-          window.location.reload();
-        }, 1000);
+        const imagePreviewUrl = URL.createObjectURL(file);
+        this.data.fileForUpload = file;
+        this.imagePreviewUrl = imagePreviewUrl;
+        this.updated(this.data);
       } else {
         alert("Veuillez sélectionner un fichier image.");
       }
@@ -76,16 +77,16 @@ export default {
   <v-form v-model="form" @submit.prevent="onSubmit">
     <v-sheet :elevation="2" class="rounded-lg pa-7">
       <v-row no-gutters>
-        <v-col cols="9" md="10" xl="11">
-          <h2>Paramètres voter informations sur l'entreprise</h2>
+        <v-col cols="9" md="10" xl="12" class="d-flex justify-space-between">
+          <h2>Paramètres de vote pour les informations personnelles</h2>
+          <DialogPwd />
         </v-col>
       </v-row>
       <v-row>
-        <!-- col logo -->
-        <v-col cols="12" md="3" lg="2">
-          <h4 class="mb-4 ms-7 text-medium-emphasis">Image du logo</h4>
-          <label for="logo" class="cursor-pointer">
-            <v-tooltip text="Click pour change l'image" location="left">
+        <!-- Image fond -->
+        <v-col cols="12" md="3" lg="2" class="pt-16">
+          <label for="image" class="cursor-pointer">
+            <v-tooltip text="Click pour change l'image" location="top">
               <template v-slot:activator="{ props }">
                 <v-badge
                   v-bind="props"
@@ -93,72 +94,33 @@ export default {
                   floating
                   color="blue"
                   icon="mdi-image-edit-outline"
-                  offset-y="8"
-                  offset-x="5"
+                  offset-y="10"
+                  offset-x="25"
                 >
-                  <v-avatar size="150" rounded="0" :image="data.logoUrl">
-                  </v-avatar>
+                  <v-avatar size="140" :image="imagePreviewUrl || data.imageUrl"> </v-avatar>
                 </v-badge>
               </template>
             </v-tooltip>
           </label>
           <input
             type="file"
-            id="logo"
+            id="image"
             class="d-none"
             accept="image/*"
             @change="handleFileChange"
           />
         </v-col>
-        <!-- nom & secteur -->
+        <!-- nom & prenom -->
         <v-col cols="12" md="3">
-          <h4 class="mb-4 text-medium-emphasis">
-            Nom de l'entreprise <span class="text-red">*</span>
-          </h4>
+          <h4 class="mb-4 text-medium-emphasis">Nom</h4>
           <v-text-field
-            v-model="data.nomEntreprise"
+            v-model="data.nom"
             variant="outlined"
             color="blue"
             :rules="[rules.required]"
           >
           </v-text-field>
-          <!-- secteur -->
-          <h4 class="mb-4 text-medium-emphasis">
-            Secteur <span class="text-red">*</span>
-          </h4>
-          <v-text-field
-            v-model="data.secteur"
-            variant="outlined"
-            color="blue"
-            :rules="[rules.required]"
-          >
-          </v-text-field>
-        </v-col>
-        <!-- fondee & adress -->
-        <v-col cols="12" md="3">
-          <h4 class="mb-4 text-medium-emphasis">Année de création</h4>
-          <v-text-field
-            v-model="data.fondee"
-            variant="outlined"
-            color="blue"
-            type="Number"
-          >
-          </v-text-field>
-          <!-- adress -->
-          <h4 class="mb-4 text-medium-emphasis">Emplacement de l'entreprise</h4>
-          <v-text-field v-model="data.adress" variant="outlined" color="blue">
-          </v-text-field>
-        </v-col>
-        <!-- tail & tel -->
-        <v-col cols="12" md="3">
-          <h4 class="mb-4 text-medium-emphasis">Taille de l'entreprise</h4>
-          <v-text-field
-            v-model="data.taill_ent"
-            variant="outlined"
-            color="blue"
-          >
-          </v-text-field>
-          <!-- tel -->
+          <!-- prenom -->
           <h4 class="mb-4 text-medium-emphasis">Téléphone</h4>
           <v-text-field
             v-model="data.tel"
@@ -168,26 +130,31 @@ export default {
           >
           </v-text-field>
         </v-col>
-      </v-row>
-    </v-sheet>
-    <!-- decription -->
-    <v-sheet :elevation="2" class="rounded-lg pa-7 mt-4">
-      <v-row no-gutters>
-        <v-col cols="9" md="10" xl="11">
-          <h3>À propos de nous</h3>
-        </v-col>
-      </v-row>
-      <v-row>
-        <v-col cols="12">
-          <v-textarea
-            v-model="data.description"
-            color="blue"
-            rows="15"
-            clearable
-            counter
+        <!-- fondee & adress -->
+        <v-col cols="12" md="3">
+          <h4 class="mb-4 text-medium-emphasis">Prénom</h4>
+          <v-text-field v-model="data.prenom" variant="outlined" color="blue">
+          </v-text-field>
+          <!-- adress -->
+          <h4 class="mb-4 text-medium-emphasis">E-mail</h4>
+          <v-text-field
+            v-model="data.mail"
             variant="outlined"
-            :rules="[rules.required]"
-          ></v-textarea>
+            color="gray"
+            readonly
+          >
+          </v-text-field>
+        </v-col>
+        <!-- tail & tel -->
+        <v-col cols="12" md="3">
+          <h4 class="mb-4 text-medium-emphasis">Date de Naissance</h4>
+          <v-text-field
+            v-model="data.dateNais"
+            variant="outlined"
+            color="blue"
+            type="Date"
+          >
+          </v-text-field>
         </v-col>
         <!-- btn submit -->
         <v-col cols="12">

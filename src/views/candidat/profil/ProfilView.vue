@@ -12,7 +12,6 @@ export default {
         id: this.user.userData._id,
         fileForUpload: null,
         imageUrl: "http://localhost:8000" + this.user.userData.imagePath,
-        imagePath: "",
         nom: this.user.userData.nom,
         prenom: this.user.userData.prenom,
         dateNais: this.user.userData.dateNais
