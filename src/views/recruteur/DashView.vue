@@ -28,6 +28,7 @@ export default {
       "initializeChart",
       "showOfferRec",
       "getOfferApp",
+      "delOffer",
     ]),
     ...mapMutations(["RestCountApp"]),
     extractOfferIds() {
@@ -36,6 +37,12 @@ export default {
       this.offerIds.forEach((id) => {
         this.getOfferApp(id);
       });
+    },
+    delet(id) {
+      this.delOffer(id);
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
     },
   },
   async mounted() {
@@ -54,6 +61,14 @@ export default {
 };
 </script>
 <template>
+  <v-snackbar
+    :timeout="1000"
+    color="blue-darken-2 mt-16"
+    v-model="offer.alert"
+    location="top"
+  >
+    {{ offer.message }}
+  </v-snackbar>
   <NavBar hidea=" " />
   <SideBar />
   <v-container class="bg-white" fluid>
@@ -114,7 +129,9 @@ export default {
                 <v-row>
                   <v-col cols="9">
                     <v-row>
-                      <h2 class="ms-4 mt-4">{{ this.candOffer.totalCandOffers }}</h2>
+                      <h2 class="ms-4 mt-4">
+                        {{ this.candOffer.totalCandOffers }}
+                      </h2>
                     </v-row>
                     <v-row>
                       <span class="ms-4 text-body-2 text-medium-emphasis"
@@ -260,6 +277,7 @@ export default {
                               link
                               title="Supprimer"
                               prepend-icon="mdi-delete-empty"
+                              @click="delet(item._id)"
                             ></v-list-item>
                           </v-list>
                         </v-menu>
