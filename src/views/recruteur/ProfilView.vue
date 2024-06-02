@@ -151,7 +151,7 @@ export default {
                       </v-btn>
                       <!-- btn Instagram -->
                       <v-btn
-                        v-if="link.platform === 'Instagram'"
+                        v-if="link.platform === 'Autre'"
                         :href="link.url"
                         size="40"
                         variant="text"
