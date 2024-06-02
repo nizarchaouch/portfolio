@@ -78,23 +78,19 @@ export default {
           v-model="link.platform"
           :items="platformOptions"
           label="Sélectionner une option"
-          hide-details
-          dense
         ></v-select>
       </v-col>
       <v-col cols="9">
         <v-text-field
           v-model="link.url"
           label="Lien de profil / URL..."
-          dense
-          hide-details
         ></v-text-field>
       </v-col>
       <v-col cols="auto">
         <v-icon
           @click="removeLink(index)"
           size="x-large"
-          class="ms-3"
+          class="ms-3 mb-4"
           color="red"
           >mdi-close-circle-outline</v-icon
         >
