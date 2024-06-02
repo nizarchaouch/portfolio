@@ -1,11 +1,13 @@
 <script>
+import { mapState, mapActions } from "vuex";
 export default {
+  computed: {
+    ...mapState(["user", "profilRec"]),
+  },
   data() {
     return {
-      socialLinks: [
-        { platform: "Twitter", url: "" },
-        { platform: "", url: "" },
-      ],
+      loading: false,
+      socialLinks: [],
       platformOptions: [
         "Twitter",
         "Facebook",
@@ -16,6 +18,7 @@ export default {
     };
   },
   methods: {
+    ...mapActions(["userAuth", "updated"]),
     addLink() {
       this.socialLinks.push({ platform: "", url: "" });
     },
@@ -23,39 +26,104 @@ export default {
       this.socialLinks.splice(index, 1);
     },
     saveChanges() {
-      // Implémenter la logique pour enregistrer les modifications
-      console.log(this.socialLinks);
+      const data = {
+        id: this.user.userData._id,
+        socialLinks: this.socialLinks,
+      };
+      this.loading = true;
+      this.userAuth();
+      this.updated(data);
+      this.userAuth();
+      setTimeout(() => {
+        this.loading = false;
+      }, 500);
     },
+  },
+  async created() {
+    await this.userAuth();
+    this.socialLinks = this.user.userData.socialLinks || [
+      { platform: "LinkedIn", url: "" },
+    ];
+  },
+  async mounted() {
+    await this.userAuth();
+
+    if (
+      this.user.authenticated === false ||
+      this.user.userData.role === "candidat"
+    ) {
+      this.$router.push("login");
+    }
   },
 };
 </script>
 <template>
-  <div>
-    <div v-for="(link, index) in socialLinks" :key="index" class="social-link">
-      <v-select
-        v-model="link.platform"
-        :items="platformOptions"
-        label="Sélectionner une option"
-        dense
-        outlined
-      ></v-select>
-      <v-text-field
-        v-model="link.url"
-        label="Lien de profil / URL..."
-        dense
-        outlined
-      ></v-text-field>
-      <v-btn icon @click="removeLink(index)">
-        <v-icon>mdi-close</v-icon>
-      </v-btn>
-    </div>
-    <v-btn @click="addLink" class="mt-4">
-      Ajouter un nouveau lien social
-    </v-btn>
-    <v-btn @click="saveChanges" color="blue" class="mt-4">
-      Enregistrer les modifications
-    </v-btn>
-  </div>
+  <v-snackbar
+    :timeout="7000"
+    color="blue-darken-2 mt-16"
+    v-model="profilRec.alert"
+    location="top"
+  >
+    {{ profilRec.message }}
+  </v-snackbar>
+  <v-sheet :elevation="2" class="rounded-lg pa-7">
+    <v-row
+      v-for="(link, index) in socialLinks"
+      :key="index"
+      class="social-link"
+      no-gutters
+    >
+      <v-col cols="2">
+        <v-select
+          v-model="link.platform"
+          :items="platformOptions"
+          label="Sélectionner une option"
+          hide-details
+          dense
+        ></v-select>
+      </v-col>
+      <v-col cols="9">
+        <v-text-field
+          v-model="link.url"
+          label="Lien de profil / URL..."
+          dense
+          hide-details
+        ></v-text-field>
+      </v-col>
+      <v-col cols="auto">
+        <v-icon
+          @click="removeLink(index)"
+          size="x-large"
+          class="ms-3"
+          color="red"
+          >mdi-close-circle-outline</v-icon
+        >
+      </v-col>
+    </v-row>
+    <v-row justify="center">
+      <v-col cols="12">
+        <div
+          @click="addLink"
+          class="bg-grey-lighten-2 pa-3 me-9 text-center cursor-pointer"
+        >
+          <v-icon class="mb-1">mdi-plus-circle-outline</v-icon> &nbsp;
+          <span class="text- -1">Ajouter un nouveau lien social</span>
+        </div>
+      </v-col>
+      <!-- btn submit -->
+      <v-col cols="12">
+        <v-btn
+          @click="saveChanges"
+          color="blue"
+          class="text-none font-weight-bold float-right"
+          size="large"
+          :loading="loading"
+        >
+          Enregistrer les modifications
+        </v-btn>
+      </v-col>
+    </v-row>
+  </v-sheet>
 </template>
 
 <style scoped>

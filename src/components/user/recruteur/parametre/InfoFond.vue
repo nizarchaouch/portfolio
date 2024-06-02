@@ -114,7 +114,6 @@ export default {
             v-model="data.nom"
             variant="outlined"
             color="blue"
-            required
           >
           </v-text-field>
           <!-- prenom -->
