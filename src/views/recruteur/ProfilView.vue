@@ -189,7 +189,7 @@ export default {
             <v-sheet :elevation="2" class="rounded-lg pa-8">
               <h4>Description de l'entreprise</h4>
               <p class="text-medium-emphasis text-justify mt-1">
-                {{ this.user.userData.description }}
+                {{ userData.description }}
               </p>
             </v-sheet>
           </v-col>
@@ -206,7 +206,7 @@ export default {
                   >
                     Fondée en
                   </p>
-                  <p class="text-body-2">2016</p>
+                  <p class="text-body-2"> {{ userData.fondee }}</p>
                 </v-col>
                 <!--  -->
                 <v-col cols="auto">
@@ -218,7 +218,7 @@ export default {
                   >
                     Taille de l'entreprise
                   </p>
-                  <p class="text-body-2">11-50 employés</p>
+                  <p class="text-body-2">{{ userData.taill_ent }}</p>
                 </v-col>
               </v-row>
             </v-sheet>
@@ -248,7 +248,7 @@ export default {
                       >
                         emplacement
                       </span>
-                      <p class="text-body-2">Bouhjar, Tunisie</p>
+                      <p class="text-body-2">{{ userData.adress }}</p>
                     </v-col>
                     <!--  Téléphone -->
                     <div class="d-flex">
@@ -267,7 +267,7 @@ export default {
                         >
                           Téléphone
                         </span>
-                        <p class="text-body-2">+216 52641659</p>
+                        <p class="text-body-2">+216 {{ userData.tel }}</p>
                       </v-col>
                     </div>
                   </v-row>
@@ -288,7 +288,7 @@ export default {
                       >
                         Adresse e-mail
                       </span>
-                      <p class="mb-2 text-body-2">chaouchnizar1@gmail.com</p>
+                      <p class="mb-2 text-body-2">{{ userData.mail }}</p>
                     </v-col>
                   </v-row>
                   <!-- row site web
