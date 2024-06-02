@@ -3,25 +3,20 @@ import { mapState, mapActions } from "vuex";
 export default {
   computed: {
     ...mapState(["user", "profilRec"]),
-    data() {
-      return {
-        id: this.user.userData._id,
-        logoForUpload: null,
-        logoUrl: "http://localhost:8000" + this.user.userData.logoPath,
-        nomEntreprise: this.user.userData.nomEntreprise,
-        secteur: this.user.userData.secteur,
-        description: this.user.userData.description,
-        adress: this.user.userData.adress,
-        tel: this.user.userData.tel,
-        fondee: this.user.userData.fondee,
-        taill_ent: this.user.userData.taill_ent,
-      };
-    },
   },
   data() {
     return {
       form: false,
       loading: false,
+      logoForUpload: null,
+      logoUrl: "",
+      nomEntreprise: "",
+      secteur: "",
+      description: "",
+      adress: "",
+      tel: null,
+      fondee: "",
+      taill_ent: "",
       rules: {
         required: (value) => !!value || "Champ requis.",
       },
@@ -32,8 +27,12 @@ export default {
     handleFileChange(event) {
       const file = event.target.files[0];
       if (file && file.type.startsWith("image/")) {
-        this.data.logoForUpload = file;
-        this.upload(this.data);
+        this.logoForUpload = file;
+        const data = {
+          id: this.user.userData._id,
+          logoForUpload: this.logoForUpload,
+        };
+        this.upload(data);
         setTimeout(() => {
           window.location.reload();
         }, 1000);
@@ -43,14 +42,35 @@ export default {
     },
     onSubmit() {
       if (!this.form) return;
+      const data = {
+        id: this.user.userData._id,
+        nomEntreprise: this.nomEntreprise,
+        secteur: this.secteur,
+        description: this.description,
+        adress: this.adress,
+        tel: this.tel,
+        fondee: this.fondee,
+        taill_ent: this.taill_ent,
+      };
       this.loading = true;
       this.userAuth();
-      this.updated(this.data);
+      this.updated(data);
       this.userAuth();
       setTimeout(() => {
         this.loading = false;
       }, 500);
     },
+  },
+  async created() {
+    await this.userAuth();
+    this.logoUrl = "http://localhost:8000" + this.user.userData.logoPath;
+    this.nomEntreprise = this.user.userData.nomEntreprise;
+    this.secteur = this.user.userData.secteur;
+    this.description = this.user.userData.description;
+    this.adress = this.user.userData.adress;
+    this.tel = this.user.userData.tel;
+    this.fondee = this.user.userData.fondee;
+    this.taill_ent = this.user.userData.taill_ent;
   },
   async mounted() {
     await this.userAuth();
@@ -96,8 +116,7 @@ export default {
                   offset-y="8"
                   offset-x="5"
                 >
-                  <v-avatar size="150" rounded="0" :image="data.logoUrl">
-                  </v-avatar>
+                  <v-avatar size="150" rounded="0" :image="logoUrl"> </v-avatar>
                 </v-badge>
               </template>
             </v-tooltip>
@@ -116,7 +135,7 @@ export default {
             Nom de l'entreprise <span class="text-red">*</span>
           </h4>
           <v-text-field
-            v-model="data.nomEntreprise"
+            v-model="nomEntreprise"
             variant="outlined"
             color="blue"
             :rules="[rules.required]"
@@ -127,7 +146,7 @@ export default {
             Secteur <span class="text-red">*</span>
           </h4>
           <v-text-field
-            v-model="data.secteur"
+            v-model="secteur"
             variant="outlined"
             color="blue"
             :rules="[rules.required]"
@@ -138,30 +157,33 @@ export default {
         <v-col cols="12" md="3">
           <h4 class="mb-4 text-medium-emphasis">Année de création</h4>
           <v-text-field
-            v-model="data.fondee"
+            v-model="fondee"
             variant="outlined"
             color="blue"
             type="Number"
           >
           </v-text-field>
           <!-- adress -->
-          <h4 class="mb-4 text-medium-emphasis">Emplacement de l'entreprise</h4>
-          <v-text-field v-model="data.adress" variant="outlined" color="blue">
+          <h4 class="mb-4 text-medium-emphasis">
+            Emplacement de l'entreprise<span class="text-red">*</span>
+          </h4>
+          <v-text-field
+            v-model="adress"
+            variant="outlined"
+            color="blue"
+            :rules="[rules.required]"
+          >
           </v-text-field>
         </v-col>
         <!-- tail & tel -->
         <v-col cols="12" md="3">
           <h4 class="mb-4 text-medium-emphasis">Taille de l'entreprise</h4>
-          <v-text-field
-            v-model="data.taill_ent"
-            variant="outlined"
-            color="blue"
-          >
+          <v-text-field v-model="taill_ent" variant="outlined" color="blue">
           </v-text-field>
           <!-- tel -->
           <h4 class="mb-4 text-medium-emphasis">Téléphone</h4>
           <v-text-field
-            v-model="data.tel"
+            v-model="tel"
             variant="outlined"
             color="blue"
             type="Number"
@@ -180,7 +202,7 @@ export default {
       <v-row>
         <v-col cols="12">
           <v-textarea
-            v-model="data.description"
+            v-model="description"
             color="blue"
             rows="15"
             clearable

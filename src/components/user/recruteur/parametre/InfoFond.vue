@@ -5,25 +5,18 @@ export default {
   components: { DialogPwd },
   computed: {
     ...mapState(["user", "profilRec"]),
-    data() {
-      return {
-        id: this.user.userData._id,
-        fileForUpload: null,
-        imageUrl: "http://localhost:8000" + this.user.userData.imagePath,
-        nom: this.user.userData.nom,
-        prenom: this.user.userData.prenom,
-        dateNais: this.user.userData.dateNais
-          ? this.user.userData.dateNais.split("T")[0]
-          : "",
-        tel: this.user.userData.tel,
-        mail: this.user.userData.mail,
-      };
-    },
   },
   data() {
     return {
       form: false,
       loading: false,
+      fileForUpload: null,
+      imageUrl: "",
+      nom: "",
+      prenom: "",
+      dateNais: "",
+      tel: null,
+      mail: "",
     };
   },
   methods: {
@@ -32,23 +25,41 @@ export default {
       const file = event.target.files[0];
       if (file && file.type.startsWith("image/")) {
         const imagePreviewUrl = URL.createObjectURL(file);
-        this.data.fileForUpload = file;
+        this.fileForUpload = file;
         this.imagePreviewUrl = imagePreviewUrl;
-        this.updated(this.data);
       } else {
         alert("Veuillez sélectionner un fichier image.");
       }
     },
     onSubmit() {
       if (!this.form) return;
+      const data = {
+        id: this.user.userData._id,
+        fileForUpload: this.fileForUpload,
+        imageUrl: this.imageUrl,
+        nom: this.nom,
+        prenom: this.prenom,
+        dateNais: this.dateNais,
+        tel: this.tel,
+        mail: this.mail,
+      };
       this.loading = true;
       this.userAuth();
-      this.updated(this.data);
+      this.updated(data);
       this.userAuth();
       setTimeout(() => {
         this.loading = false;
       }, 500);
     },
+  },
+  async created() {
+    await this.userAuth();
+    this.imageUrl = "http://localhost:8000" + this.user.userData.imagePath;
+    this.nom = this.user.userData.nom;
+    this.prenom = this.user.userData.prenom;
+    this.dateNais = this.user.userData.dateNais.split("T")[0];
+    this.tel = this.user.userData.tel;
+    this.mail = this.user.userData.mail;
   },
   async mounted() {
     await this.userAuth();
@@ -94,7 +105,8 @@ export default {
                   offset-y="10"
                   offset-x="25"
                 >
-                  <v-avatar size="140" :image="imagePreviewUrl || data.imageUrl"> </v-avatar>
+                  <v-avatar size="140" :image="imagePreviewUrl || imageUrl">
+                  </v-avatar>
                 </v-badge>
               </template>
             </v-tooltip>
@@ -110,16 +122,12 @@ export default {
         <!-- nom & prenom -->
         <v-col cols="12" md="3">
           <h4 class="mb-4 text-medium-emphasis">Nom</h4>
-          <v-text-field
-            v-model="data.nom"
-            variant="outlined"
-            color="blue"
-          >
+          <v-text-field v-model="nom" variant="outlined" color="blue">
           </v-text-field>
           <!-- prenom -->
           <h4 class="mb-4 text-medium-emphasis">Téléphone</h4>
           <v-text-field
-            v-model="data.tel"
+            v-model="tel"
             variant="outlined"
             color="blue"
             type="Number"
@@ -129,23 +137,18 @@ export default {
         <!-- prenom -->
         <v-col cols="12" md="3">
           <h4 class="mb-4 text-medium-emphasis">Prénom</h4>
-          <v-text-field v-model="data.prenom" variant="outlined" color="blue">
+          <v-text-field v-model="prenom" variant="outlined" color="blue">
           </v-text-field>
           <!-- mail -->
           <h4 class="mb-4 text-medium-emphasis">E-mail</h4>
-          <v-text-field
-            v-model="data.mail"
-            variant="outlined"
-            color="gray"
-            readonly
-          >
+          <v-text-field v-model="mail" variant="outlined" color="gray" readonly>
           </v-text-field>
         </v-col>
         <!-- Date de Naissance -->
         <v-col cols="12" md="3">
           <h4 class="mb-4 text-medium-emphasis">Date de Naissance</h4>
           <v-text-field
-            v-model="data.dateNais"
+            v-model="dateNais"
             variant="outlined"
             color="blue"
             type="Date"
