@@ -67,7 +67,7 @@ export default {
                     size="68"
                     rounded="0"
                     class="rounded-lg ms-4"
-                    :image="'http://localhost:8000' + this.user.userData.logo"
+                    :image="'http://localhost:8000' + this.user.userData.logoPath"
                   >
                   </v-avatar>
                 </v-col>
