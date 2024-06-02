@@ -35,7 +35,7 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["userAuth", "showOfferRec", "getOfferApp"]),
+    ...mapActions(["userAuth", "showOfferRec", "getOfferApp", "delOffer"]),
     ...mapMutations(["RestCountApp"]),
     extractOfferIds() {
       this.RestCountApp();
@@ -43,6 +43,12 @@ export default {
       this.offerIds.forEach((id) => {
         this.getOfferApp(id);
       });
+    },
+    delet(id) {
+      this.delOffer(id);
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
     },
   },
   async mounted() {
@@ -61,6 +67,14 @@ export default {
 };
 </script>
 <template>
+  <v-snackbar
+    :timeout="1000"
+    color="blue-darken-2 mt-16"
+    v-model="offer.alert"
+    location="top"
+  >
+    {{ offer.message }}
+  </v-snackbar>
   <NavBar :hidea="' '" />
   <SideBar />
   <v-container fluid class="bg-white h-screen">
@@ -169,6 +183,7 @@ export default {
                               link
                               title="Supprimer"
                               prepend-icon="mdi-delete-empty"
+                              @click="delet(item._id)"
                             ></v-list-item>
                           </v-list>
                         </v-menu>

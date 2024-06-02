@@ -45,11 +45,11 @@ export default {
       } catch (error) {
         console.error("Erreur lors de l'affichage des offres :", error);
       }
-    },    
+    },
     async addOffer(ctx, data) {
       try {
         const AddOfferResponse = await axios.post(
-          `http://localhost:8000/api/offer/add`,
+          "http://localhost:8000/api/offer/add",
           JSON.stringify(data),
           {
             headers: { "Content-type": "application/json" },
@@ -59,12 +59,32 @@ export default {
         if (AddOfferResponse.status === 201) {
           console.log("Add offer successful");
           ctx.state.alert = true;
-          ctx.commit("setMes", "Add offer successful");
+          ctx.commit("setMes", "Ajout d'une offre réussie");
         }
       } catch (error) {
         console.error("Erreur lors de l'ajout de l'offre :", error);
         ctx.state.alert = true;
         ctx.commit("setMes", "Erreur lors de l'ajout de l'offre :");
+      }
+    },
+    async delOffer(ctx, id) {
+      try {
+        const DelOfferResponse = await axios.delete(
+          `http://localhost:8000/api/offer/delete/${id}`,
+          {
+            headers: { "Content-type": "application/json" },
+            withCredentials: true,
+          }
+        );
+        if (DelOfferResponse.status === 200) {
+          console.log("del offer successful");
+          ctx.state.alert = true;
+          ctx.commit("setMes", "suppression de l'offre réussie");
+        }
+      } catch (error) {
+        console.error("Erreur lors de la suppression de l'offre :", error);
+        ctx.state.alert = true;
+        ctx.commit("setMes", "Erreur lors de la suppression de l'offre :");
       }
     },
   },
