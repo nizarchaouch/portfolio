@@ -20,6 +20,13 @@ export default {
       rules: {
         required: (value) => !!value || "Champ requis.",
       },
+      taillOptions: [
+        "10-20 Employés",
+        "20-50 Employés",
+        "50-100 Employés",
+        "100-150 Employés",
+        "200+ Employés",
+      ],
     };
   },
   methods: {
@@ -178,8 +185,12 @@ export default {
         <!-- tail & tel -->
         <v-col cols="12" md="3">
           <h4 class="mb-4 text-medium-emphasis">Taille de l'entreprise</h4>
-          <v-text-field v-model="taill_ent" variant="outlined" color="blue">
-          </v-text-field>
+          <v-select
+          v-model="taill_ent"
+          :items="taillOptions"
+          variant="outlined"
+          color="blue"
+        ></v-select>
           <!-- tel -->
           <h4 class="mb-4 text-medium-emphasis">Téléphone</h4>
           <v-text-field
