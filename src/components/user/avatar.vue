@@ -108,7 +108,7 @@ export default {
           </v-list-item>
         </v-list>
         <v-card-actions>
-          <!--  -->
+          <!-- btn logout -->
           <v-btn
             color="red"
             variant="outlined"
