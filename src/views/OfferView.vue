@@ -41,30 +41,22 @@ export default {
     <v-data-iterator :items="offerShow" :items-per-page="6" :search="search">
       <template v-slot:header>
         <v-container fluid>
-          <v-row>
+          <v-row class="mt-4">
             <!-- filter -->
             <v-col cols="12" sm="2" lg="2">
               <FilterOffer @filter-update="updateFilter" />
             </v-col>
             <!-- cherche -->
-            <v-col cols="12" md="4" lg="4">
+            <v-col cols="12" md="8">
               <v-text-field
                 v-model="search"
                 density="comfortable"
                 placeholder="Chercher"
                 prepend-inner-icon="mdi-magnify"
                 variant="solo"
-                clearable
-                hide-details
-              ></v-text-field>
-            </v-col>
-            <!-- mots cles -->
-            <v-col cols="12" md="4" lg="4">
-              <v-text-field
-                prepend-inner-icon="mdi-script-text-key"
-                placeholder="Mots clés"
-                density="comfortable"
-                variant="solo"
+                style=" border: 1px solid blue"
+                class="rounded-pill"
+                rounded="xl"
                 clearable
                 hide-details
               ></v-text-field>

@@ -21,7 +21,7 @@ export default {
     updateItemsData() {
       this.items = this.candOffer.candData.map((item, index) => {
         return {
-          img: this.candOffer.infoData[index].logo,
+          img: this.candOffer.infoData[index].logo ,
           nomEntreprise: this.candOffer.infoData[index].nomEntreprise,
           titre: this.candOffer.infoData[index].titre,
           date: item.date.split("T")[0],
@@ -42,23 +42,29 @@ export default {
       });
     },
   },
-  mounted() {
-    this.userAuth();
-    setTimeout(() => {
-      this.getAll(this.user.userData._id);
-    }, 2);
-    setTimeout(() => {
+  async mounted() {
+    await this.userAuth();
+    if ( this.user.authenticated === false ||
+        this.user.userData.role === "recruteur") {
+          this.$router.push("login");
+    }else{
+      await this.getAll(this.user.userData._id);
       this.updateItemsData();
-    }, 500);
 
-    setTimeout(() => {
-      if (
-        this.user.authenticated === false ||
-        this.user.userData.role === "recruteur"
-      ) {
-        this.$router.push("login");
-      }
-    }, 2);
+    }
+    // setTimeout(() => {
+    // }, 2);
+    // setTimeout(() => {
+    // }, 500);
+
+    // setTimeout(() => {
+    //   if (
+    //     this.user.authenticated === false ||
+    //     this.user.userData.role === "recruteur"
+    //   ) {
+    //     this.$router.push("login");
+    //   }
+    // }, 2);
   },
 };
 </script>
