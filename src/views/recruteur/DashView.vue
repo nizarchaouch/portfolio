@@ -1,9 +1,11 @@
 <script>
+import { mapState, mapMutations, mapActions, mapGetters } from "vuex";
 import NavBar from "@/components/public/NavBar.vue";
 import SideBar from "@/components/user/recruteur/SideBar.vue";
-import { mapState, mapMutations, mapActions, mapGetters } from "vuex";
+import DialogDetail from "@/components/user/recruteur/para_offer/DialogVoirDeta.vue";
+import DialogModifier from "@/components/user/recruteur/para_offer/ModifierOffer.vue";
 export default {
-  components: { NavBar, SideBar },
+  components: { NavBar, SideBar, DialogDetail, DialogModifier },
   computed: {
     ...mapState(["user", "offer", "candOffer"]),
     ...mapGetters(["latestOffers", "offerCount"]),
@@ -293,16 +295,8 @@ export default {
                         <v-icon size="30">mdi-cog-outline</v-icon>
                         <v-menu activator="parent">
                           <v-list>
-                            <v-list-item
-                              link
-                              title="Voir les détails"
-                              prepend-icon="mdi-eye"
-                            ></v-list-item>
-                            <v-list-item
-                              link
-                              title="Modifier"
-                              prepend-icon="mdi-pencil"
-                            ></v-list-item>
+                            <DialogDetail :obj="item" />
+                            <DialogModifier :obj="item" />
                             <v-list-item
                               link
                               title="Supprimer"
