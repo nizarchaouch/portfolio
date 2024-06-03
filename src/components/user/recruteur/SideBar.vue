@@ -35,7 +35,7 @@ export default {
         </p>
       </v-list-item>
       <v-divider></v-divider>
-      <v-list lines="two">
+      <v-list lines="three">
         <v-list-item
           v-for="(item, i) in itemsRec"
           :key="i"
@@ -44,7 +44,7 @@ export default {
           :to="item.to"
         >
           <template v-slot:prepend>
-            <v-icon :icon="item.icon"></v-icon>
+            <v-icon :icon="item.icon" class="mt-2"></v-icon>
           </template>
 
           <v-list-item-title v-text="item.text"></v-list-item-title>
