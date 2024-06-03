@@ -192,16 +192,6 @@ export default {
               </v-row>
             </v-col>
           </v-row>
-          <v-divider class="my-2"></v-divider>
-          <v-row>
-            <v-col cols="11">
-              <p class="text-h6 font-weight-bold">
-                Mots clés:
-                <v-chip color="red" variant="flat" class="me-2"> web </v-chip>
-                <v-chip color="red" variant="flat" class="me-2"> vueJs </v-chip>
-              </p>
-            </v-col>
-          </v-row>
         </v-container>
       </v-list>
     </v-card>
