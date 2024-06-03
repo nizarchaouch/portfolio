@@ -69,12 +69,13 @@ export default {
 <template>
   <v-snackbar
     :timeout="1000"
-    color="blue-darken-2 mt-16"
+    color="blue-darken-2"
     v-model="offer.alert"
     location="top"
   >
     {{ offer.message }}
   </v-snackbar>
+
   <NavBar :hidea="' '" />
   <SideBar />
   <v-container fluid class="bg-white h-screen">

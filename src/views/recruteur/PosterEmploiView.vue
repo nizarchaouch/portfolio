@@ -79,7 +79,7 @@ export default {
   <v-container class="bg-white" fluid>
     <v-snackbar
       :timeout="2000"
-      color="blue-darken-2 mt-16"
+      color="blue-darken-2"
       v-model="offer.alert"
       location="top"
     >

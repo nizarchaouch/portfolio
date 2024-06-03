@@ -63,7 +63,7 @@ export default {
 <template>
   <v-snackbar
     :timeout="1000"
-    color="blue-darken-2 mt-16"
+    color="blue-darken-2"
     v-model="offer.alert"
     location="top"
   >
