@@ -54,7 +54,7 @@ export default {
       if (this.form) {
         this.data.idRec = this.userData._id;
         this.data.nomEntreprise = this.userData.nomEntreprise;
-        this.data.logo = this.userData.logo;
+        this.data.logo = this.userData.logoPath;
         this.data.position = this.userData.adress;
         this.addOffer(this.data);
       } else {
