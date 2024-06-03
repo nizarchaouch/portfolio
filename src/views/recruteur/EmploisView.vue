@@ -1,9 +1,10 @@
 <script>
+import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
 import NavBar from "@/components/public/NavBar.vue";
 import SideBar from "@/components/user/recruteur/SideBar.vue";
-import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
+import DialogDetail from "@/components/user/recruteur/para_offer/DialogVoirDeta.vue";
 export default {
-  components: { NavBar, SideBar },
+  components: { NavBar, SideBar, DialogDetail },
   computed: {
     ...mapState(["user", "offer", "candOffer"]),
     ...mapGetters(["offerCount", "latestOffers"]),
@@ -100,12 +101,7 @@ export default {
 
     <template v-slot:actions>
       <v-btn variant="text" @click="snackConf = false"> Non </v-btn>
-      <v-btn
-        color="white"
-        variant="tonal"
-        class="mx-3 bg-red"
-        @click="delet()"
-      >
+      <v-btn color="white" variant="tonal" class="mx-3 bg-red" @click="delet()">
         Oui
       </v-btn>
     </template>
@@ -205,11 +201,7 @@ export default {
                         <v-icon size="30">mdi-cog-outline</v-icon>
                         <v-menu activator="parent">
                           <v-list>
-                            <v-list-item
-                              link
-                              title="Voir les détails"
-                              prepend-icon="mdi-eye"
-                            ></v-list-item>
+                            <DialogDetail :obj="item" />
                             <v-list-item
                               link
                               title="Modifier"
