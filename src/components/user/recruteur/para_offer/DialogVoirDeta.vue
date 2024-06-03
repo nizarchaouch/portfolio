@@ -181,7 +181,7 @@ export default {
               <v-row no-gutters>
                 <v-col cols="12">
                   <p class="text-h6 font-weight-bold">Exigences de l'emploi</p>
-                  <p class="text-justify">{{ obj.description }}</p>
+                  <p class="text-justify">{{ obj.exigence }}</p>
                 </v-col>
               </v-row>
             </v-col>
