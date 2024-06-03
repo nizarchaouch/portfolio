@@ -1,16 +1,15 @@
 <script>
 import { mapState, mapActions } from "vuex";
 export default {
+  props: { obj: String },
   computed: {
     ...mapState(["user", "offer"]),
-    userData() {
-      return this.user.userData;
-    },
   },
   data() {
     return {
       drawer: true,
       dialog: false,
+      form: false,
       typeEmploi: [
         "CDI",
         "CDD",
@@ -23,9 +22,7 @@ export default {
         "Stage",
       ],
       data: {
-        idRec: "",
-        nomEntreprise: "",
-        logo: "",
+        id: null,
         position: "",
         titre: "",
         niveauCand: "",
@@ -46,19 +43,30 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["userAuth", "addOffer"]),
+    ...mapActions(["userAuth", "updatedOffer"]),
     async submitForm() {
       if (this.form) {
-        this.data.idRec = this.userData._id;
-        this.data.nomEntreprise = this.userData.nomEntreprise;
-        this.data.logo = this.userData.logoPath;
-        this.data.position = this.userData.adress;
-        await this.addOffer(this.data);
-        window.location.reload();
+        await this.updatedOffer(this.data);
+        // window.location.reload();
       } else {
         console.log("Form is invalid");
       }
     },
+  },
+  created() {
+    this.data.id = this.obj._id;
+    this.data.position = this.obj.position;
+    this.data.titre = this.obj.titre;
+    this.data.niveauCand = this.obj.niveauCand;
+    this.data.experience = this.obj.experience;
+    this.data.langue = this.obj.langue;
+    this.data.salaire = this.obj.salaire;
+    this.data.vacants = this.obj.vacants;
+    this.data.typeOffer = this.obj.typeOffer;
+    this.data.genre = this.obj.genre;
+    this.data.date_expiration = this.obj.date_expiration.split("T")[0];
+    this.data.description = this.obj.description;
+    this.data.exigence = this.obj.exigence;
   },
   async mounted() {
     await this.userAuth();
@@ -86,7 +94,6 @@ export default {
         <v-btn icon="mdi-close" @click="dialog = false"></v-btn>
 
         <v-toolbar-title>Modifier Offer</v-toolbar-title>
-
         <v-spacer></v-spacer>
 
         <v-toolbar-items>
@@ -96,7 +103,6 @@ export default {
             type="submit"
             class="text-none font-weight-bold"
             size="large"
-            @click="dialog = false"
           ></v-btn>
         </v-toolbar-items>
       </v-toolbar>
@@ -105,7 +111,6 @@ export default {
         <v-row>
           <v-col cols="12">
             <!--  -->
-
             <v-row justify="center">
               <v-col cols="12" md="9">
                 <p class="text-subtitle-2 text-medium-emphasis">

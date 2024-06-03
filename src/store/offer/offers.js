@@ -67,6 +67,28 @@ export default {
         ctx.commit("setMes", "Erreur lors de l'ajout de l'offre :");
       }
     },
+    async updatedOffer(ctx, data) {
+      try {
+        const updateOfferResponse = await axios.put(
+          `http://localhost:8000/api/offer/update/${data.id}`,
+          JSON.stringify(data),
+          {
+            headers: { "Content-type": "application/json" },
+            withCredentials: true,
+          }
+        );
+
+        if (updateOfferResponse.status === 200) {
+          console.log("Mise à jour réussie");
+          ctx.state.alert = true;
+          ctx.commit("setMes", "Mise à jour réussie");
+        }
+      } catch (error) {
+        console.error("Erreur lors de la mise à jour :", error);
+        ctx.state.alert = true;
+        ctx.commit("setMes", "Erreur lors de la mise à jour");
+      }
+    },
     async delOffer(ctx, id) {
       try {
         const DelOfferResponse = await axios.delete(
