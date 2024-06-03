@@ -21,6 +21,8 @@ export default {
     return {
       drawer: true,
       loading: false,
+      snackConf: false,
+      deleteId: null,
       search: "",
       sortBy: [{ key: "date_creation", order: "asc" }],
       headers: [
@@ -44,8 +46,12 @@ export default {
         this.getOfferApp(id);
       });
     },
-    delet(id) {
-      this.delOffer(id);
+    confirmDeletionDialog(id) {
+      this.deleteId = id;
+      this.snackConf = true;
+    },
+    delet() {
+      this.delOffer(this.deleteId);
       setTimeout(() => {
         window.location.reload();
       }, 1000);
@@ -74,6 +80,35 @@ export default {
     location="top"
   >
     {{ offer.message }}
+  </v-snackbar>
+  <!-- snackbar confirme -->
+  <v-snackbar
+    v-model="snackConf"
+    vertical
+    location="center"
+    color="light-blue-lighten-4"
+    :timeout="-1"
+  >
+    <div class="text-subtitle-1 font-weight-bold pa-2">
+      Voulez-vous vraiment supprimer cette offre ?
+    </div>
+
+    <p class="text-medium-emphasis">
+      <v-icon>mdi-alert-octagon-outline</v-icon> cette action ne peut pas ètre
+      annulée
+    </p>
+
+    <template v-slot:actions>
+      <v-btn variant="text" @click="snackConf = false"> Non </v-btn>
+      <v-btn
+        color="white"
+        variant="tonal"
+        class="mx-3 bg-red"
+        @click="delet()"
+      >
+        Oui
+      </v-btn>
+    </template>
   </v-snackbar>
 
   <NavBar :hidea="' '" />
@@ -184,7 +219,7 @@ export default {
                               link
                               title="Supprimer"
                               prepend-icon="mdi-delete-empty"
-                              @click="delet(item._id)"
+                              @click="confirmDeletionDialog(item._id)"
                             ></v-list-item>
                           </v-list>
                         </v-menu>
