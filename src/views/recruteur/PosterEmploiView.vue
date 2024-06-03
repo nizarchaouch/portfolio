@@ -50,13 +50,14 @@ export default {
   },
   methods: {
     ...mapActions(["userAuth", "addOffer"]),
-    submitForm() {
+    async submitForm() {
       if (this.form) {
         this.data.idRec = this.userData._id;
         this.data.nomEntreprise = this.userData.nomEntreprise;
         this.data.logo = this.userData.logoPath;
         this.data.position = this.userData.adress;
-        this.addOffer(this.data);
+        await this.addOffer(this.data);
+        window.location.reload();
       } else {
         console.log("Form is invalid");
       }
@@ -93,7 +94,7 @@ export default {
           </v-col>
         </v-row>
         <!--  -->
-        <v-form @submit="submitForm" v-model="form">
+        <v-form @submit.prevent="submitForm" v-model="form">
           <v-row>
             <v-col cols="12" md="9" offset-md="1">
               <p class="text-subtitle-2 text-medium-emphasis">
