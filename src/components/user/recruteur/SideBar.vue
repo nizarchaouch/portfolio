@@ -13,7 +13,11 @@ export default {
       { text: "Mon Profil", icon: "mdi-account-circle", to: "MonProfil" },
       { text: "Poster un emploi", icon: "mdi-plus-circle", to: "PosterEmploi" },
       { text: "Mes emplois", icon: "mdi-briefcase-variant", to: "MesEmplois" },
-      { text: "Trouver candidats", icon: "mdi-account-search", to: "TrouveCandidat" },
+      {
+        text: "Trouver candidats",
+        icon: "mdi-account-search",
+        to: "TrouveCandidat",
+      },
       { text: "Paramétres", icon: "mdi-cog", to: "ParametreRec" },
     ],
   }),
@@ -21,7 +25,7 @@ export default {
 </script>
 <template>
   <v-layout>
-    <v-navigation-drawer  elevation="2" style="margin-top: 65px">
+    <v-navigation-drawer elevation="2" style="margin-top: 65px">
       <v-list-item align="center">
         <v-avatar
           :image="'http://localhost:8000' + userData.logoPath"
