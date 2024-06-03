@@ -52,6 +52,10 @@ export default {
         console.log("Form is invalid");
       }
     },
+    closeDialog() {
+      this.dialog = false;
+      window.location.reload();
+    },
   },
   created() {
     this.data.id = this.obj._id;
@@ -91,7 +95,7 @@ export default {
     </template>
     <v-form @submit.prevent="submitForm" v-model="form">
       <v-toolbar>
-        <v-btn icon="mdi-close" @click="dialog = false"></v-btn>
+        <v-btn icon="mdi-close" @click="closeDialog()"></v-btn>
 
         <v-toolbar-title>Modifier Offer</v-toolbar-title>
         <v-spacer></v-spacer>
