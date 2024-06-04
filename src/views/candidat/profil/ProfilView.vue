@@ -16,7 +16,6 @@ export default {
   data() {
     return {
       loading: false,
-
       platformOptions: [
         "twitter",
         "facebook",
@@ -93,15 +92,15 @@ export default {
 <template>
   <NavBar />
   <!-- container info comptz -->
+  <v-snackbar
+    :timeout="7000"
+    color="blue-darken-2 mt-16"
+    v-model="candidat.alert"
+    location="top"
+  >
+    {{ candidat.message }}
+  </v-snackbar>
   <v-container class="mt-16">
-    <v-snackbar
-      :timeout="7000"
-      color="blue-darken-2 mt-16"
-      v-model="candidat.alert"
-      location="top"
-    >
-      {{ candidat.message }}
-    </v-snackbar>
     <v-row>
       <v-col cols="12" sm="12" md="10" xl="8" class="pa-5 ma-3 ms-8">
         <h1 class="title">Mon Profil</h1>
@@ -161,31 +160,6 @@ export default {
             </p>
             <p class="mt-4 text-capitalize">
               <v-icon>mdi-map-marker</v-icon> {{ data.adress }}
-            </p>
-            <!-- fgdf -->
-            <p class="mt-4 text-capitalize" v-if="data.urlgithub">
-              <v-icon>mdi-github</v-icon>
-              <a :href="'https://' + data.urlgithub" target="_blank">
-                {{ data.urlgithub }}</a
-              >
-            </p>
-            <p class="mt-4 text-capitalize" v-if="data.urllinkedin">
-              <v-icon>mdi-linkedin</v-icon>
-              <a :href="'https://' + data.urllinkedin" target="_blank">
-                {{ data.urllinkedin }}</a
-              >
-            </p>
-            <p class="mt-4 text-capitalize" v-if="data.urltwitter">
-              <v-icon>mdi-twitter</v-icon>
-              <a :href="'https://' + data.urltwitter" target="_blank">
-                {{ data.urltwitter }}</a
-              >
-            </p>
-            <p class="mt-4 text-capitalize" v-if="data.urlfacebook">
-              <v-icon>mdi-facebook</v-icon>
-              <a :href="'https://' + data.urlfacebook" target="_blank">
-                {{ data.urlfacebook }}</a
-              >
             </p>
             <!-- social Links -->
             <p
