@@ -48,7 +48,7 @@ export default {
           :to="item.to"
         >
           <template v-slot:prepend>
-            <v-icon :icon="item.icon" class="mt-2"></v-icon>
+            <v-icon :icon="item.icon" class="mt-2" size="27"></v-icon>
           </template>
 
           <v-list-item-title v-text="item.text"></v-list-item-title>
