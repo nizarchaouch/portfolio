@@ -149,7 +149,7 @@ export default {
                         >
                         </v-avatar>
                       </v-btn>
-                      <!-- btn Instagram -->
+                      <!-- btn autre -->
                       <v-btn
                         v-if="link.platform === 'Autre'"
                         :href="link.url"

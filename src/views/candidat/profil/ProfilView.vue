@@ -7,34 +7,46 @@ export default {
   name: "profil",
   computed: {
     ...mapState(["user", "candidat"]),
-    data() {
-      return {
-        id: this.user.userData._id,
-        fileForUpload: null,
-        imageUrl: "http://localhost:8000" + this.user.userData.imagePath,
-        nom: this.user.userData.nom,
-        prenom: this.user.userData.prenom,
-        dateNais: this.user.userData.dateNais
-          ? this.user.userData.dateNais.split("T")[0]
-          : "",
-        tel: this.user.userData.tel,
-        adress: this.user.userData.adress,
-        titre_emploi: this.user.userData.titre_emploi,
-        urlfacebook: this.user.userData.urlfacebook,
-        urllinkedin: this.user.userData.urllinkedin,
-        urltwitter: this.user.userData.urltwitter,
-        urlgithub: this.user.userData.urlgithub,
-      };
-    },
   },
 
   components: {
     NavBar,
     DialogPwd,
   },
+  data() {
+    return {
+      loading: false,
 
+      platformOptions: [
+        "twitter",
+        "facebook",
+        "linkedin",
+        "github",
+        "instagram",
+        "Autre",
+      ],
+      data: {
+        id: null,
+        fileForUpload: null,
+        imageUrl: "",
+        nom: "",
+        prenom: "",
+        dateNais: "",
+        tel: "",
+        adress: "",
+        titre_emploi: "",
+        socialLinks: [],
+      },
+    };
+  },
   methods: {
     ...mapActions(["userAuth", "updated"]),
+    addLink() {
+      this.data.socialLinks.push({ platform: "", url: "" });
+    },
+    removeLink(index) {
+      this.data.socialLinks.splice(index, 1);
+    },
     handleFileChange(event) {
       const file = event.target.files[0];
       if (file && file.type.startsWith("image/")) {
@@ -47,14 +59,25 @@ export default {
         alert("Veuillez sélectionner un fichier image.");
       }
     },
-
-    updateValue(index, value) {
-      this.data[index] = value;
+    onSubmit() {
+      this.loading = true;
       this.updated(this.data);
       setTimeout(() => {
-        this.userAuth();
-      }, 10);
+        this.loading = false;
+      }, 500);
     },
+  },
+  async created() {
+    await this.userAuth();
+    this.data.id = this.user.userData._id;
+    this.data.imageUrl = "http://localhost:8000" + this.user.userData.imagePath;
+    this.data.nom = this.user.userData.nom;
+    this.data.prenom = this.user.userData.prenom;
+    this.data.dateNais = this.user.userData.dateNais.split("T")[0];
+    this.data.tel = this.user.userData.tel;
+    this.data.adress = this.user.userData.adress;
+    this.data.titre_emploi = this.user.userData.titre_emploi;
+    this.data.socialLinks = this.user.userData.socialLinks;
   },
   async mounted() {
     await this.userAuth();
@@ -139,6 +162,7 @@ export default {
             <p class="mt-4 text-capitalize">
               <v-icon>mdi-map-marker</v-icon> {{ data.adress }}
             </p>
+            <!-- fgdf -->
             <p class="mt-4 text-capitalize" v-if="data.urlgithub">
               <v-icon>mdi-github</v-icon>
               <a :href="'https://' + data.urlgithub" target="_blank">
@@ -163,6 +187,18 @@ export default {
                 {{ data.urlfacebook }}</a
               >
             </p>
+            <!-- social Links -->
+            <p
+              class="mt-4 text-capitalize"
+              v-for="(link, index) in data.socialLinks"
+              :key="index"
+            >
+              <v-icon v-if="link.platform === 'Autre'">mdi-earth</v-icon>
+              <v-icon v-else>mdi-{{ link.platform }}</v-icon>
+              <a :href="'https://' + link.url" target="_blank">
+                {{ link.url }}</a
+              >
+            </p>
           </v-col>
         </v-card>
       </v-col>
@@ -184,20 +220,12 @@ export default {
           <v-row>
             <v-col cols="12" sm="4">
               <p class="text-subtitle-2 text-medium-emphasis">Nom</p>
-              <v-text-field
-                variant="solo-inverted"
-                v-model="data.nom"
-                @change="updateValue('nom', $event.target.value)"
-              >
+              <v-text-field variant="solo-inverted" v-model="data.nom">
               </v-text-field>
             </v-col>
             <v-col cols="12" sm="4">
               <p class="text-subtitle-2 text-medium-emphasis">Prenom</p>
-              <v-text-field
-                variant="solo-inverted"
-                v-model="data.prenom"
-                @change="updateValue('prenom', $event.target.value)"
-              >
+              <v-text-field variant="solo-inverted" v-model="data.prenom">
               </v-text-field>
             </v-col>
             <v-col cols="12" sm="4">
@@ -206,7 +234,6 @@ export default {
                 variant="solo-inverted"
                 v-model="data.tel"
                 type="number"
-                @change="updateValue('tel', $event.target.value)"
               >
               </v-text-field>
             </v-col>
@@ -220,7 +247,6 @@ export default {
                 type="date"
                 variant="solo-inverted"
                 v-model="data.dateNais"
-                @change="updateValue('dateNais', $event.target.value)"
               >
               </v-text-field>
             </v-col>
@@ -228,11 +254,7 @@ export default {
               <p class="text-subtitle-2 text-medium-emphasis">
                 Gouvernorat (Adress)
               </p>
-              <v-text-field
-                variant="solo-inverted"
-                v-model="data.adress"
-                @change="updateValue('adress', $event.target.value)"
-              >
+              <v-text-field variant="solo-inverted" v-model="data.adress">
               </v-text-field>
             </v-col>
             <v-col cols="12" sm="4">
@@ -244,64 +266,76 @@ export default {
                   </template>
                 </v-tooltip>
               </p>
-              <v-text-field
-                variant="solo-inverted"
-                v-model="data.titre_emploi"
-                @change="updateValue('titre_emploi', $event.target.value)"
-              >
+              <v-text-field variant="solo-inverted" v-model="data.titre_emploi">
               </v-text-field>
             </v-col>
           </v-row>
           <!-- social profil -->
           <v-row>
-            <h3 class="d-inline">Profil Social</h3>
+            <v-col cols="12">
+              <h3 class="d-inline">Profil Social</h3>
+              <!-- <v-icon class="float-right" color="blue">mdi-plus-circle</v-icon> -->
+              <v-btn
+                color="indigo"
+                class="float-right text-none"
+                variant="outlined"
+                @click="addLink()"
+                >Ajouter un lien</v-btn
+              >
+            </v-col>
             <v-divider class="border-opacity-25"></v-divider>
-            <v-col cols="12" sm="6">
-              <p class="text-subtitle-2 text-medium-emphasis">LinkedIn</p>
-              <v-text-field
-                variant="outlined"
-                density="compact"
-                v-model="data.urllinkedin"
-                @change="updateValue('urllinkedin', $event.target.value)"
-              >
-                <v-icon>mdi-linkedin </v-icon>
-              </v-text-field>
-            </v-col>
-            <v-col cols="12" sm="6">
-              <p class="text-subtitle-2 text-medium-emphasis">Github</p>
-              <v-text-field
-                variant="outlined"
-                density="compact"
-                v-model="data.urlgithub"
-                @change="updateValue('urlgithub', $event.target.value)"
-              >
-                <v-icon>mdi-github </v-icon>
-              </v-text-field>
-            </v-col>
           </v-row>
-          <!-- twitter facebook -->
           <v-row>
-            <v-col cols="12" sm="6">
-              <p class="text-subtitle-2 text-medium-emphasis">X(twitter)</p>
-              <v-text-field
-                variant="outlined"
-                density="compact"
-                v-model="data.urltwitter"
-                @change="updateValue('urltwitter', $event.target.value)"
-              >
-                <v-icon>mdi-twitter </v-icon>
-              </v-text-field>
+            <v-col
+              cols="12"
+              sm="6"
+              class="d-flex"
+              v-for="(link, index) in data.socialLinks"
+              :key="index"
+            >
+              <div class="w-25">
+                <v-select
+                  v-model="link.platform"
+                  :items="platformOptions"
+                  class="text-capitalize"
+                  variant="outlined"
+                  density="compact"
+                  color="blue"
+                  hide-details
+                >
+                </v-select>
+              </div>
+              <div class="w-75">
+                <v-text-field
+                  v-model="link.url"
+                  variant="outlined"
+                  density="compact"
+                  color="blue"
+                  hide-details
+                  :prepend-inner-icon="'mdi-' + link.platform"
+                >
+                  <template v-slot:append-inner>
+                    <v-btn
+                      icon="mdi-close-circle-outline"
+                      size="smal"
+                      color="red"
+                      variant="text"
+                      @click="removeLink(index)"
+                    ></v-btn>
+                  </template>
+                </v-text-field>
+              </div>
             </v-col>
-            <v-col cols="12" sm="6">
-              <p class="text-subtitle-2 text-medium-emphasis">Facebook</p>
-              <v-text-field
-                variant="outlined"
-                density="compact"
-                v-model="data.urlfacebook"
-                @change="updateValue('urlfacebook', $event.target.value)"
+            <v-col cols="12">
+              <v-btn
+                color="indigo"
+                @click="onSubmit()"
+                class="text-none font-weight-bold float-right"
+                size="large"
+                :loading="loading"
               >
-                <v-icon>mdi-facebook </v-icon>
-              </v-text-field>
+                Enregistrer les modifications
+              </v-btn>
             </v-col>
           </v-row>
         </v-card>

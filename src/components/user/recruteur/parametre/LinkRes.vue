@@ -67,12 +67,7 @@ export default {
     {{ profilRec.message }}
   </v-snackbar>
   <v-sheet :elevation="2" class="rounded-lg pa-7">
-    <v-row
-      v-for="(link, index) in socialLinks"
-      :key="index"
-      class="social-link"
-      no-gutters
-    >
+    <v-row v-for="(link, index) in socialLinks" :key="index" no-gutters>
       <v-col cols="2">
         <v-select
           v-model="link.platform"
@@ -122,15 +117,4 @@ export default {
   </v-sheet>
 </template>
 
-<style scoped>
-.social-link {
-  display: flex;
-  align-items: center;
-  margin-bottom: 10px;
-}
-.social-link v-select,
-.social-link v-text-field {
-  flex: 1;
-  margin-right: 10px;
-}
-</style>
+<style scoped></style>
