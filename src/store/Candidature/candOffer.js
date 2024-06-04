@@ -7,6 +7,9 @@ export default {
     countApp: [],
     totalCandOffers: 0,
     totalCandWait: 0,
+    alert: false,
+    message: "",
+    color: "",
   },
   mutations: {
     setCandData(state, candata) {
@@ -24,13 +27,16 @@ export default {
           // console.log("count etat attend", etat.length);
         }
       }
-
       // console.log("Total candOffers count:", state.totalCandOffers);
     },
     RestCountApp(state) {
       state.countApp = [];
       state.totalCandOffers = 0;
       state.totalCandWait = 0;
+    },
+    setMes(state, { message, color }) {
+      state.message = message;
+      state.color = color;
     },
   },
   actions: {
@@ -47,10 +53,22 @@ export default {
         console.log("store", data);
         if (response.status === 200) {
           console.log("Postuler successful");
+          ctx.state.alert = true;
+          const message = "Postuler successful";
+          const color = "blue-darken-2";
+          ctx.commit("setMes", { message, color });
         }
       } catch (error) {
-        console.log("Error during login:", error.message);
-        // ctx.state.alert = true;
+        if (error.response.status === 409) {
+          ctx.state.alert = true;
+          const message = "Déjà postulé à cette offre";
+          const color = "red";
+          ctx.commit("setMes", { message, color });
+        } else {
+          console.log("Erreur lors de la postule:", error.message);
+          ctx.state.alert = true;
+          ctx.commit("setMes", "Erreur lors de la postule");
+        }
       }
     },
     async getAll(ctx, id) {

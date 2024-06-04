@@ -25,7 +25,6 @@ export default {
         cv: this.cv,
         letter: this.letter,
       };
-      console.log("offze", data);
       this.loading = true;
       this.addCandOffer(data);
       setTimeout(() => {

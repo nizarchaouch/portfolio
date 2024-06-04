@@ -6,7 +6,7 @@ import { mapState, mapActions } from "vuex";
 export default {
   name: "offer",
   computed: {
-    ...mapState(["offer"]),
+    ...mapState(["offer","candOffer"]),
     offerShow() {
       return this.offer.offerData;
     },
@@ -36,6 +36,14 @@ export default {
 </script>
 
 <template>
+  <v-snackbar
+    :timeout="2000"
+    :color="candOffer.color"
+    v-model="candOffer.alert"
+    location="top"
+  >
+    {{ candOffer.message }}
+  </v-snackbar>
   <NavBar />
   <v-card class="mt-16 bg-transparent">
     <v-data-iterator :items="offerShow" :items-per-page="6" :search="search">
@@ -54,7 +62,7 @@ export default {
                 placeholder="Chercher"
                 prepend-inner-icon="mdi-magnify"
                 variant="solo"
-                style=" border: 1px solid blue"
+                style="border: 1px solid blue"
                 class="rounded-pill"
                 rounded="xl"
                 clearable
