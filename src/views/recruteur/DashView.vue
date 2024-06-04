@@ -191,7 +191,7 @@ export default {
                 <v-row>
                   <v-col cols="9">
                     <v-row>
-                      <h2 class="ms-4 mt-4">76</h2>
+                      <h2 class="ms-4 mt-4">{{ this.candOffer.totalCandWait }}</h2>
                     </v-row>
                     <v-row>
                       <span class="ms-4 text-body-2 text-medium-emphasis"
