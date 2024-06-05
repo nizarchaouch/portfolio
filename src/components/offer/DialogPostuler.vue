@@ -12,6 +12,8 @@ export default {
     return {
       dialog: false,
       loading: false,
+      idPortfolio: true,
+      cvPath: true,
       cv: "Portfolio",
       letter: "",
     };
@@ -60,60 +62,76 @@ export default {
       </template>
 
       <template v-slot:default="{ isActive }">
-        <v-card>
-          <template v-slot:text>
-            <!-- Nom prenom -->
-            <!-- <p>Nom et Prenom</p>
-            <v-text-field
-              readonly
-              :value="userData.nom + ' ' + userData.prenom"
-              density="compact"
-              placeholder="Nom et Prenom"
-              variant="outlined"
-            ></v-text-field> -->
-            <!-- mail -->
-            <!-- <p>Email</p>
-            <v-text-field
-              readonly
-              :value="userData.mail"
-              density="compact"
-              placeholder="Email"
-              variant="outlined"
-            ></v-text-field> -->
-            <!-- tel -->
-            <!-- <p>Téléphone</p>
-            <v-text-field
-              readonly
-              :value="userData.tel"
-              density="compact"
-              placeholder="Téléphone"
-              variant="outlined"
-            ></v-text-field> -->
+        <v-container fluid class="bg-white">
+          <v-row>
+            <!-- cv alert -->
+            <v-alert
+              v-if="!userData.cvPath && cv === 'CV'"
+              color="#C51162"
+              icon="mdi-alert-circle"
+              theme="dark"
+              border
+            >
+              <p>Aucun CV trouvé pour envoyer</p>
+              <span class="text-caption"
+                >télécharger votre CV pour postuler</span
+              >
+            </v-alert>
+            <!-- protf alert -->
+            <v-alert
+              v-if="!userData.idPortfolio && cv === 'Portfolio'"
+              color="#C51162"
+              icon="mdi-alert-circle"
+              theme="dark"
+              border
+            >
+              <p>Aucun portfolio trouvé pour envoyer</p>
+              <span class="text-caption">Créer un portfolio pour postuler</span>
+            </v-alert>
             <!-- cv -->
-            <p class="mb-2">Votre CV</p>
-            <v-select
-              chips
-              v-model="cv"
-              :disabled="loading"
-              density="compact"
-              label="Select"
-              :items="['Portfolio', 'CV']"
-              variant="outlined"
-            ></v-select>
-            <!-- letter -->
-            <p>Lettre de motivation</p>
-            <v-textarea
-              v-model="letter"
-              :disabled="loading"
-              color="cyan"
-              clearable
-              label="Lettre de motivation"
-            ></v-textarea>
-          </template>
-
-          <v-card-actions>
-            <v-spacer></v-spacer>
-
+            <v-col cols="12">
+              <p class="mb-2">Votre CV</p>
+              <v-select
+                chips
+                v-model="cv"
+                :disabled="loading"
+                density="compact"
+                label="Select"
+                color="cyan"
+                :items="['Portfolio', 'CV']"
+                variant="outlined"
+                hide-details
+              >
+                <template v-slot:append-inner>
+                  <template v-if="cv === 'CV'">
+                    <v-icon v-if="!userData.cvPath" color="red">
+                      mdi-alert-circle
+                    </v-icon>
+                    <v-icon v-else color="green">mdi-check-bold</v-icon>
+                  </template>
+                  <template v-else>
+                    <v-icon v-if="!userData.idPortfolio" color="red">
+                      mdi-alert-circle
+                    </v-icon>
+                    <v-icon v-else color="green">mdi-check-bold</v-icon>
+                  </template>
+                </template>
+              </v-select>
+            </v-col>
+            <v-col cols="12">
+              <!-- letter -->
+              <p>Lettre de motivation</p>
+              <v-textarea
+                v-model="letter"
+                :disabled="loading"
+                color="cyan"
+                clearable
+                label="Lettre de motivation"
+                hide-details
+              ></v-textarea>
+            </v-col>
+          </v-row>
+          <v-row justify="end" class="pa-2">
             <v-btn
               text="Annuler"
               variant="text"
@@ -124,11 +142,15 @@ export default {
               color="blue-darken-3"
               text="Postuler"
               variant="flat"
+              :disabled="
+                (!userData.cvPath && cv === 'CV') ||
+                (!userData.idPortfolio && cv === 'Portfolio')
+              "
               :loading="loading"
               @click="postuler()"
             ></v-btn>
-          </v-card-actions>
-        </v-card>
+          </v-row>
+        </v-container>
       </template>
     </v-dialog>
   </div>
