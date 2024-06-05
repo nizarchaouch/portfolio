@@ -99,8 +99,8 @@ export default {
             v-model="selectedEtat"
             variant="outlined"
             style="max-width: 300px"
-            color="blue"
-            class="ms-md-auto"
+            color="indigo"
+            class="ms-md-auto text-indigo-darken-4"
           ></v-select>
         </v-col>
       </v-row>
