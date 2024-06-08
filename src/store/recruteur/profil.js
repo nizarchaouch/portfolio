@@ -1,12 +1,33 @@
 import axios from "axios";
 export default {
-  state: { alert: false, message: "" },
+  state: { alert: false, message: "", InfoRec: [] },
   mutations: {
     setMes(state, message) {
       state.message = message;
     },
+    setInfo(state, info) {
+      state.InfoRec = info;
+      console.log('inforec',info);
+    },
   },
   actions: {
+    async infoRec(ctx, id) {
+      try {
+        const response = await axios.get(
+          `http://localhost:8000/api/user/recInfo/${id}`,
+          {
+            headers: { "Content-type": "application/json" },
+            withCredentials: true,
+          }
+        );
+        ctx.commit("setInfo", response.data);
+      } catch (error) {
+        console.error(
+          "Erreur lors de l'affichage des inforamtion de recruteur :",
+          error
+        );
+      }
+    },
     async updated(ctx, data) {
       try {
         let formData = new FormData();

@@ -1,6 +1,6 @@
 <script>
-import DialogPostuler from "./DialogPostuler.vue";
 import { mapState, mapActions } from "vuex";
+import DialogPostuler from "./DialogPostuler.vue";
 export default {
   props: {
     obj: Object,
@@ -55,9 +55,16 @@ export default {
                 {{ obj.raw.titre }}
               </p>
               <div class="d-flex justify-center">
-                <p class="link">
+                <router-link
+                  target="_blank"
+                  :to="{
+                    name: 'profilRec',
+                    params: { name: obj.raw.nomEntreprise, id: obj.raw.idRec },
+                  }"
+                  style="font-weight: 600"
+                >
                   {{ obj.raw.nomEntreprise }}
-                </p>
+                </router-link>
                 <span class="text-medium-emphasis">
                   <v-icon>mdi-minus</v-icon>{{ obj.raw.position }}</span
                 >
@@ -203,12 +210,5 @@ export default {
   margin-top: -40px;
   left: 0;
   right: 0;
-}
-.link {
-  font-weight: 600;
-  &:hover {
-    text-decoration: underline;
-    cursor: pointer;
-  }
 }
 </style>

@@ -71,6 +71,12 @@ const routes = [
     component: MonProfil,
   },
   {
+    path: "/profil_:name=:id",
+    name: "profilRec",
+    component: MonProfil,
+    props: true,
+  },
+  {
     path: "/MesEmplois",
     name: "MesEmplois",
     component: MesEmplois,

@@ -4,13 +4,11 @@ import NavBar from "@/components/public/NavBar.vue";
 import SideBar from "@/components/user/recruteur/SideBar.vue";
 import { mapState, mapActions, mapGetters } from "vuex";
 export default {
+  props: { id: String },
   components: { NavBar, SideBar, DialogDetail },
   computed: {
-    ...mapState(["user", "offer"]),
+    ...mapState(["user", "offer", "profilRec"]),
     ...mapGetters(["offerCount"]),
-    userData() {
-      return this.user.userData;
-    },
     showOffer() {
       return this.offer.offerData;
     },
@@ -19,10 +17,11 @@ export default {
     return {
       drawer: true,
       page: 1,
+      userData: [],
     };
   },
   methods: {
-    ...mapActions(["userAuth", "showOfferRec"]),
+    ...mapActions(["userAuth", "showOfferRec", "infoRec"]),
     scrollToOffer() {
       const element = document.getElementById("listeOffer");
       if (element) {
@@ -32,29 +31,40 @@ export default {
   },
   async mounted() {
     await this.userAuth();
-    if (
-      this.user.authenticated === false ||
-      this.user.userData.role === "candidat"
-    ) {
+    this.userData = this.user.userData;
+    if (!this.id) {
       this.$router.push("login");
     } else {
-      this.showOfferRec(this.user.userData._id);
+      if (this.user.userData.role === "recruteur") {
+        this.userData = this.user.userData;
+        this.showOfferRec(this.user.userData._id);
+      } else {
+        await this.infoRec(this.id);
+        this.userData = this.profilRec.InfoRec;
+        this.showOfferRec(this.id);
+      }
     }
   },
 };
 </script>
 <template>
-  <NavBar hidea=" " />
-  <SideBar />
+  <template v-if="this.user.userData.role === 'recruteur'">
+    <NavBar hidea=" " />
+    <SideBar />
+  </template>
+  <template v-else>
+    <NavBar />
+  </template>
   <v-container fluid>
     <v-row class="mt-16">
-      <v-col cols="12" lg="10" xl="10" offset-lg="2">
+      <v-col
+        cols="12"
+        lg="10"
+        xl="10"
+        :offset-lg="this.user.userData.role === 'recruteur' ? 2 : 1"
+      >
         <v-row>
-          <v-col
-            cols="12"
-            sm="11"
-            class="mx-xs-auto mx-sm-auto mx-md-auto mx-lg-auto mx-xl-0"
-          >
+          <v-col cols="12" sm="11" class="mx-auto">
             <h3>Détails de l'entreprise</h3>
           </v-col>
         </v-row>
@@ -206,7 +216,7 @@ export default {
                   >
                     Fondée en
                   </p>
-                  <p class="text-body-2"> {{ userData.fondee }}</p>
+                  <p class="text-body-2">{{ userData.fondee }}</p>
                 </v-col>
                 <!--  -->
                 <v-col cols="auto">
