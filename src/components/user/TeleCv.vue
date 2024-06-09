@@ -112,7 +112,9 @@ export default {
                 target="_blank"
                 variant="tonal"
                 color="#428ee6"
-              ></v-card>
+              >
+                <v-tooltip activator="parent" location="top">Voir CV</v-tooltip>
+              </v-card>
             </v-card-text>
 
             <v-divider class="mt-2"></v-divider>
