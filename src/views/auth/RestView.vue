@@ -8,15 +8,18 @@ export default {
   },
   data: () => ({
     logo: logo,
+    visible: false,
     loading: false,
     form: false,
-    data: { mail: "" },
+    data: { password: "" },
+    passwordcheck: "",
     rules: {
       required: (value) => !!value || "Champ requis.",
-      mail: (value) => {
-        const pattern =
-          /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        return pattern.test(value) || "Email invalide.";
+      counter: (value) => value.length > 7 || "Minimum 8 caractères",
+      passwordMatch: (value, otherValue) => {
+        return (
+          value === otherValue || "Les mots de passe ne correspondent pas."
+        );
       },
     },
   }),
@@ -65,23 +68,38 @@ export default {
             {{ login.message }}
           </v-snackbar>
           <v-img class="mx-auto my-6" max-width="228" :src="logo"></v-img>
-          <h2 class="text-center">Mot de passe oublié?</h2>
-          <p class="text-subtitle-2 text-center">
-            Ne vous inquiétez pas, cela arrive la plupart du temps.
-          </p>
-          <p class="text-subtitle-2 text-center">
-            Tapez votre email pour réinitialiser votre mot de passe.
-          </p>
-          <div class="text-subtitle-1 text-medium-emphasis mt-4">E-mail</div>
-
+          <h2 class="text-center">Réinitialiser le mot de passe</h2>
+          <div class="text-subtitle-1 text-medium-emphasis mt-4">
+            Saisir le nouveau mot de passe
+          </div>
           <v-text-field
+            :append-inner-icon="visible ? 'mdi-eye-off' : 'mdi-eye'"
+            :type="visible ? 'text' : 'password'"
             density="compact"
-            placeholder="Email address"
-            prepend-inner-icon="mdi-email-outline"
+            placeholder="Tapez votre nouveau mot de passe"
+            prepend-inner-icon="mdi-lock-outline"
             variant="outlined"
             :readonly="loading"
-            v-model="data.mail"
-            :rules="[rules.required, rules.mail]"
+            v-model="data.password"
+            :rules="[rules.required, rules.counter, rules.counter]"
+            @click:append-inner="visible = !visible"
+          ></v-text-field>
+          <div class="text-subtitle-1 text-medium-emphasis mt-4">
+            Confirmez le mot de passe
+          </div>
+          <v-text-field
+            :type="visible ? 'text' : 'password'"
+            density="compact"
+            placeholder="Confirme mot de passe"
+            prepend-inner-icon="mdi-lock-outline"
+            variant="outlined"
+            :readonly="loading"
+            v-model="passwordcheck"
+            :rules="[
+              rules.required,
+              () => rules.passwordMatch(data.password, passwordcheck),
+            ]"
+            @click:append-inner="visible = !visible"
           ></v-text-field>
 
           <v-btn
@@ -97,14 +115,6 @@ export default {
           >
             Envoyer
           </v-btn>
-          <v-row justify="center">
-            <p class="text-none text-subtitle-2 mt-2 ms-3">
-              Se souvenir du mot de passe?
-            </p>
-            <v-btn class="text-blue" variant="plain" to="login">
-              <p class="text-decoration-underline text-none">Se connecter</p>
-            </v-btn>
-          </v-row>
         </v-card>
       </div>
     </v-form>

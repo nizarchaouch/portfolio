@@ -3,6 +3,7 @@ import HomeView from "../views/HomeView.vue";
 import Login from "@/views/auth/LoginView.vue";
 import Signup from "@/views/auth/SignupView";
 import ForgotPwd from "@/views/auth/ForgotView.vue";
+import ResetPwd from "@/views/auth/RestView.vue";
 import ProfilView from "@/views/candidat/profil/ProfilView.vue";
 import TemplateView from "@/views/TemplateView.vue";
 import OfferView from "@/views/OfferView.vue";
@@ -33,8 +34,13 @@ const routes = [
   },
   {
     path: "/forgot_password",
-    name: "ForgotPwd",
+    name: "forgotpwd",
     component: ForgotPwd,
+  },
+  {
+    path: "/reset_password/:resetToken",
+    name: "resetpwd",
+    component: ResetPwd,
   },
   {
     path: "/profil",
