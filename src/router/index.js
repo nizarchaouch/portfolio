@@ -1,7 +1,8 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
-import Login from "@/views/LoginView.vue";
-import Signup from "@/views/SignupView";
+import Login from "@/views/auth/LoginView.vue";
+import Signup from "@/views/auth/SignupView";
+import ForgotPwd from "@/views/auth/ForgotView.vue";
 import ProfilView from "@/views/candidat/profil/ProfilView.vue";
 import TemplateView from "@/views/TemplateView.vue";
 import OfferView from "@/views/OfferView.vue";
@@ -29,6 +30,11 @@ const routes = [
     path: "/signup",
     name: "signup",
     component: Signup,
+  },
+  {
+    path: "/forgot_password",
+    name: "ForgotPwd",
+    component: ForgotPwd,
   },
   {
     path: "/profil",

@@ -72,7 +72,11 @@ export default {
     this.data.imageUrl = "http://localhost:8000" + this.user.userData.imagePath;
     this.data.nom = this.user.userData.nom;
     this.data.prenom = this.user.userData.prenom;
-    this.data.dateNais = this.user.userData.dateNais.split("T")[0];
+    if (this.user.userData.dateNais) {
+      this.data.dateNais = this.user.userData.dateNais.split("T")[0];
+    } else {
+      this.data.dateNais = "";
+    }
     this.data.tel = this.user.userData.tel;
     this.data.adress = this.user.userData.adress;
     this.data.titre_emploi = this.user.userData.titre_emploi;
