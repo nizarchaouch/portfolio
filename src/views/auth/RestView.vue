@@ -1,35 +1,46 @@
 <script>
 import logo from "@/assets/logo_text.png";
 import { mapState, mapActions } from "vuex";
+import { useRoute } from 'vue-router';
+
 export default {
   name: "authview",
   computed: {
-    ...mapState(["login", "user"]),
+    ...mapState(["forgot", "user"]),
   },
-  data: () => ({
-    logo: logo,
-    visible: false,
-    loading: false,
-    form: false,
-    data: { password: "" },
-    passwordcheck: "",
-    rules: {
-      required: (value) => !!value || "Champ requis.",
-      counter: (value) => value.length > 7 || "Minimum 8 caractères",
-      passwordMatch: (value, otherValue) => {
-        return (
-          value === otherValue || "Les mots de passe ne correspondent pas."
-        );
+  data() {
+    const route = useRoute();
+    return {
+      logo: logo,
+      visible: false,
+      loading: false,
+      form: false,
+      password: "",
+      passwordcheck: "",
+      rules: {
+        required: (value) => !!value || "Champ requis.",
+        counter: (value) => value.length >= 0 || "Minimum 8 caractères",
+        passwordMatch: (value) => {
+          return (
+            value === this.passwordcheck || "Les mots de passe ne correspondent pas."
+          );
+        },
       },
-    },
-  }),
+      route 
+    };
+  },
   methods: {
-    ...mapActions(["loginUser", "userAuth"]),
+    ...mapActions(["resetPwd", "userAuth"]),
     onSubmit() {
+      const resetToken = this.route.params.token; // Access route params here
       if (!this.form) return;
       this.loading = true;
+      const data = {
+        resetToken,
+        password: this.password,
+      };
       setTimeout(() => {
-        this.loginUser(this.data);
+        this.resetPwd(data);
         this.loading = false;
       }, 500);
     },
@@ -62,10 +73,10 @@ export default {
           <v-snackbar
             :timeout="7000"
             color="red-darken-2 mt-16"
-            v-model="login.alert"
+            v-model="forgot.alert"
             location="top"
           >
-            {{ login.message }}
+            {{ forgot.message }}
           </v-snackbar>
           <v-img class="mx-auto my-6" max-width="228" :src="logo"></v-img>
           <h2 class="text-center">Réinitialiser le mot de passe</h2>
@@ -80,7 +91,7 @@ export default {
             prepend-inner-icon="mdi-lock-outline"
             variant="outlined"
             :readonly="loading"
-            v-model="data.password"
+            v-model="password"
             :rules="[rules.required, rules.counter, rules.counter]"
             @click:append-inner="visible = !visible"
           ></v-text-field>
@@ -97,7 +108,7 @@ export default {
             v-model="passwordcheck"
             :rules="[
               rules.required,
-              () => rules.passwordMatch(data.password, passwordcheck),
+              rules.passwordMatch,
             ]"
             @click:append-inner="visible = !visible"
           ></v-text-field>

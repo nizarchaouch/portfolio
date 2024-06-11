@@ -4,13 +4,13 @@ import { mapState, mapActions } from "vuex";
 export default {
   name: "authview",
   computed: {
-    ...mapState(["login", "user"]),
+    ...mapState(["forgot", "user"]),
   },
   data: () => ({
     logo: logo,
     loading: false,
     form: false,
-    data: { mail: "" },
+    mail: "",
     rules: {
       required: (value) => !!value || "Champ requis.",
       mail: (value) => {
@@ -21,12 +21,12 @@ export default {
     },
   }),
   methods: {
-    ...mapActions(["loginUser", "userAuth"]),
+    ...mapActions(["forgotPwd", "userAuth"]),
     onSubmit() {
       if (!this.form) return;
       this.loading = true;
       setTimeout(() => {
-        this.loginUser(this.data);
+        this.forgotPwd(this.mail);
         this.loading = false;
       }, 500);
     },
@@ -47,6 +47,14 @@ export default {
 </script>
 
 <template>
+  <v-snackbar
+    :timeout="7000"
+    color="red-darken-2 mt-16"
+    v-model="forgot.alert"
+    location="top"
+  >
+    {{ forgot.message }}
+  </v-snackbar>
   <div class="body h-screen w-100">
     <v-form @submit.prevent="onSubmit" v-model="form" class="pt-16">
       <div>
@@ -56,14 +64,6 @@ export default {
           max-width="420"
           rounded="lg"
         >
-          <v-snackbar
-            :timeout="7000"
-            color="red-darken-2 mt-16"
-            v-model="login.alert"
-            location="top"
-          >
-            {{ login.message }}
-          </v-snackbar>
           <v-img class="mx-auto my-6" max-width="228" :src="logo"></v-img>
           <h2 class="text-center">Mot de passe oublié?</h2>
           <p class="text-subtitle-2 text-center">
@@ -80,7 +80,7 @@ export default {
             prepend-inner-icon="mdi-email-outline"
             variant="outlined"
             :readonly="loading"
-            v-model="data.mail"
+            v-model="mail"
             :rules="[rules.required, rules.mail]"
           ></v-text-field>
 

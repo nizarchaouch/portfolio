@@ -2,6 +2,7 @@ import { createStore } from "vuex";
 import user from "./auth/userAuth";
 import login from "./auth/login";
 import signup from "./auth/signup";
+import forgot from "./auth/forgot.js";
 import candidat from "./candidat/profil";
 import offer from "./offer/offers";
 import portfolio from "./portfolio/elements";
@@ -18,6 +19,7 @@ export default createStore({
     user,
     login,
     signup,
+    forgot,
     candidat,
     offer,
     portfolio,
