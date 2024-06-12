@@ -1,15 +1,16 @@
-// import axios from "axios";
 export default {
-  state: { element: [] },
-  mutations: {
-    addElement(state) {
-      state.element=".push(element)";
-      console.log("element", state.element);
-    },
+  state: {
+    sideBar: false,
+    linkNav: ["one", "two", "three"],
+    pages: [
+      { id: "one", bloc: "nizar" },
+      { id: "two", bloc: "chaouch" },
+      { id: "three", bloc: "pfe" },
+    ],
   },
-  actions: {
-    addbtn(){
-
+  mutations: {
+    changeSidebar(state) {
+      state.sideBar = !state.sideBar;
     },
   },
 };

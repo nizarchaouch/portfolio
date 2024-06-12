@@ -27,7 +27,7 @@ export default {
 </script>
 
 <template>
-  <v-layout row wrap>
+  <v-layout>
     <v-app-bar :scroll-behavior="hidea ? ' ' : hide">
       <template v-slot:prepend>
         <v-app-bar-nav-icon

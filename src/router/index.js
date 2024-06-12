@@ -58,7 +58,7 @@ const routes = [
     component: OfferView,
   },
   {
-    path: "/portfolio",
+    path: "/portfolio/:page",
     name: "portfolio",
     component: PortfolioView,
   },

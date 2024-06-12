@@ -11,7 +11,6 @@ export default {
   data: () => ({
     logo: logo,
     nav: null,
-    drawer: false,
     loading: false,
     toggle: "laptop",
   }),
@@ -23,28 +22,16 @@ export default {
 
 <template>
   <v-layout>
-    <v-app-bar elevation="1" height="55">
+    <v-app-bar elevation="0" height="55" border>
       <v-container fluid>
         <!-- logo -->
         <v-row class="justify-space-between" dense>
           <v-col cols="1" class="d-flex">
             <router-link to="/">
               <img :src="logo" alt="Logo" height="35" class="mt-1" />
-              <v-tooltip activator="parent" location="end" v-if="!drawer"
-                >Aller à la page d'accueil</v-tooltip
-              >
             </router-link>
             <v-divider vertical class="border-opacity-25 mx-5"></v-divider>
-            <v-tab to="/">accueil</v-tab>
-            <v-tab to="template">templates</v-tab>
-            <v-tab to="offer">Offres d'emploi</v-tab>
           </v-col>
-          <!-- <v-btn-toggle mandatory color="deep-purple" v-model="toggle">
-              <v-btn icon="mdi-laptop" value="laptop" ></v-btn>
-            </v-btn-toggle>
-            <v-btn-toggle mandatory color="deep-purple" v-model="toggle">
-              <v-btn icon="mdi-cellphone" value="phone"></v-btn>
-            </v-btn-toggle> -->
           <!-- avatar notif -->
           <v-col cols="3" class="d-flex flex-row-reverse">
             <Avatar />
@@ -72,81 +59,60 @@ export default {
         </v-row>
       </v-container>
     </v-app-bar>
-    <v-navigation-drawer
-      temporary
-      location="left"
-      elevation="2"
-      permanent
-      width="70"
-    >
-      <v-btn
-        class="ma-4"
-        color="#1976D2"
-        size="small"
-        variant="tonal"
-        icon
-        @click="drawer = !drawer"
-      >
-        <v-icon size="25">mdi-plus-circle</v-icon>
-        <v-tooltip activator="parent" location="end" v-if="!drawer"
-          >Ajouter des éléments</v-tooltip
-        >
-      </v-btn>
-      <!--  -->
-      <v-btn class="ma-4" color="#e55039" size="small" variant="tonal" icon>
-        <v-icon size="23">mdi-text-box-multiple</v-icon>
-        <v-tooltip activator="parent" location="end">Pages portfolio</v-tooltip>
-      </v-btn>
-      <!--  -->
-      <v-btn
-        class="ma-4"
-        color="#f6b93b"
-        size="small"
-        variant="tonal"
-        icon
-        value="text"
-        @click="addElement()"
-      >
-        <v-icon size="25">mdi-format-text</v-icon>
-        <v-tooltip activator="parent" location="end"
-          >Ajouter du texte</v-tooltip
-        >
-      </v-btn>
-      <!--  -->
-      <v-btn class="ma-4" color="#4a69bd" size="small" variant="tonal" icon>
-        <v-icon size="25">mdi-image-area</v-icon>
-        <v-tooltip activator="parent" location="end"
-          >Ajouter une image</v-tooltip
-        >
-      </v-btn>
-      <!--  -->
-      <v-btn class="ma-4" color="#60a3bc" size="small" variant="tonal" icon>
-        <v-icon size="23">mdi-button-cursor</v-icon>
-        <v-tooltip activator="parent" location="end"
-          >Ajouter un bouton</v-tooltip
-        >
-      </v-btn>
-      <!--  -->
-      <v-btn class="ma-4" color="#78e08f" size="small" variant="tonal" icon>
-        <v-icon size="23">mdi-card-text</v-icon>
-        <v-tooltip activator="parent" location="end"
-          >Ajouter des boîtes de conteneur</v-tooltip
-        >
-      </v-btn>
-      <!--  -->
-      <v-btn class="ma-4" color="#38ada9" size="small" variant="tonal" icon>
-        <v-icon size="23">mdi-minus-box-outline</v-icon>
-        <v-tooltip activator="parent" location="end"
-          >Ajouter des lignes</v-tooltip
-        >
-      </v-btn>
-    </v-navigation-drawer>
+    
+    <!-- nav bar modifier page  -->
+    <!-- <v-app-bar elevation="1" height="40">
+      <v-container fluid>
+        //Page
+        <v-row dense>
+          <v-col cols="2" class="d-flex pa-2">
+            <p class="mt-2">Page:</p>
+            &nbsp; &nbsp;
+            <v-select
+              density="compact"
+              variant="solo-filled"
+              hide-details
+              color="blue"
+              bg-color="transparent"
+              :items="[
+                'Californiaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                'Colorado',
+                'Florida',
+                'Georgia',
+                'Texas',
+                'Wyoming',
+              ]"
+            ></v-select>
+          </v-col>
+          <v-divider vertical class="border-opacity-25 mx-3"></v-divider>
+          //moblie & laptop
+          <v-col cols="auto">
+            <v-btn-toggle mandatory color="blue-lighten-3" v-model="toggle">
+              <v-btn icon="mdi-laptop" value="laptop"></v-btn>
+            </v-btn-toggle>
+            <v-btn-toggle mandatory color="blue-lighten-3" v-model="toggle">
+              <v-btn icon="mdi-cellphone" value="phone"></v-btn>
+            </v-btn-toggle>
+          </v-col>
+          //domaine
+          <v-divider vertical class="border-opacity-25 mx-3"></v-divider>
+          <v-col cols="6" class="d-flex mt-1">
+            <v-icon class="mt-2">mdi-web</v-icon> &nbsp;
+            <a class="mt-2 text-decoration-none text-black">
+              http://localhost:8080/portfolio/name
+            </a>
+          </v-col>
+          <v-divider vertical class="border-opacity-25 mx-3"></v-divider>
+        </v-row>
+      </v-container>
+    </v-app-bar> -->
+    <!-- nav drawer -->
     <v-navigation-drawer
       temporary
       location="left"
       elevation="10"
       permanent
-      width="200"
+      width="480"
       v-model="drawer"
     >
     </v-navigation-drawer>
