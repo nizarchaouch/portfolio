@@ -1,37 +1,56 @@
 <script>
 import { mapState, mapActions } from "vuex";
 import TeleCv from "./TeleCv.vue";
+
 export default {
   components: { TeleCv },
   computed: {
-    ...mapState(["login", "user"]),
+    ...mapState(["login", "user", "portfolio"]),
+    portfolioFirstPageLink() {
+      return this.portfolio.pages.length > 0
+        ? `/portfolio/${this.portfolio.pages[0].id}`
+        : "";
+    },
     userData() {
       return this.user.userData;
+    },
+    itemsCand() {
+      return [
+        { text: "Mon Compte", icon: "mdi-account-settings", to: "/profil" },
+        {
+          text: "Mon Portfolio",
+          icon: "mdi-star",
+          to: this.portfolioFirstPageLink,
+        },
+        {
+          text: "Mes Candidatures",
+          icon: "mdi-invoice-text-send",
+          to: "/candidature",
+        },
+      ];
+    },
+    itemsRec() {
+      return [
+        { text: "Tableau de bord", icon: "mdi-view-dashboard", to: "/dashboard" },
+        { text: "Mes emplois", icon: "mdi-briefcase-variant", to: "/MesEmplois" },
+        {
+          text: "Poster un emploi",
+          icon: "mdi-plus-circle",
+          to: "/PosterEmploi",
+        },
+        { text: "Paramétres", icon: "mdi-cog", to: "/ParametreRec" },
+      ];
     },
   },
   data: () => ({
     menu: false,
-    itemsCand: [
-      { text: "Mon Compte", icon: "mdi-account-settings", to: "profil" },
-      { text: "Mon Portfolio", icon: "mdi-star", to: "portfolio" },
-      {
-        text: "Mes Candidatures",
-        icon: "mdi-invoice-text-send",
-        to: "candidature",
-      },
-    ],
-    itemsRec: [
-      { text: "Tableau de bord", icon: "mdi-view-dashboard", to: "dashboard" },
-      { text: "Mes emplois", icon: "mdi-briefcase-variant", to: "MesEmplois" },
-      { text: "Poster un emploi", icon: "mdi-plus-circle", to: "PosterEmploi" },
-      { text: "Paramétres", icon: "mdi-cog", to: "ParametreRec" },
-    ],
   }),
   methods: {
     ...mapActions(["Logout"]),
   },
 };
 </script>
+
 <template>
   <div>
     <v-menu v-model="menu" min-width="200px" rounded>
@@ -63,7 +82,7 @@ export default {
         <v-divider class="mb-3"></v-divider>
 
         <v-spacer></v-spacer>
-        <!-- meun candidat -->
+        <!-- menu candidat -->
         <v-list
           density="compact"
           nav
@@ -72,7 +91,6 @@ export default {
           <v-list-item
             v-for="(item, i) in itemsCand"
             :key="i"
-            :value="item"
             color="primary"
             :to="item.to"
           >
@@ -91,12 +109,11 @@ export default {
             <TeleCv />
           </v-list-item>
         </v-list>
-        <!-- menu recruter -->
+        <!-- menu recruteur -->
         <v-list density="compact" nav v-else>
           <v-list-item
             v-for="(item, i) in itemsRec"
             :key="i"
-            :value="item"
             color="primary"
             :to="item.to"
           >
@@ -125,4 +142,5 @@ export default {
     </v-menu>
   </div>
 </template>
+
 <style lang="scss"></style>

@@ -106,7 +106,7 @@ export default {
   </v-snackbar>
   <v-container class="mt-16">
     <v-row>
-      <v-col cols="12" sm="12" md="10" xl="8" class="pa-5 ma-3 ms-8">
+      <v-col cols="11" md="10" xl="8" class="pa-5 ma-3 ms-8">
         <h1 class="title">Mon Profil</h1>
       </v-col>
     </v-row>

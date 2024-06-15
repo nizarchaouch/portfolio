@@ -1,17 +1,18 @@
 <script>
+import { mapState, mapActions } from "vuex";
 import NavBar from "@/components/portfolio/NavBar.vue";
 import PagePort from "@/components/portfolio/PagePort.vue";
-import SideBar from "@/components/portfolio/SideBar.vue";
-import { mapState, mapActions } from "vuex";
+import SidebarA from "@/components/portfolio/sidebar/SideBarA.vue";
+import SidebarM from "@/components/portfolio/sidebar/SideBarM.vue";
 export default {
   components: {
     NavBar,
     PagePort,
-    SideBar,
+    SidebarA,
+    SidebarM,
   },
   data() {
-    return {
-    };
+    return {};
   },
   computed: {
     ...mapState(["user", "portfolio"]),
@@ -19,16 +20,14 @@ export default {
   methods: {
     ...mapActions(["userAuth"]),
   },
-  mounted() {
-    this.userAuth();
-    setTimeout(() => {
-      if (
-        this.user.authenticated === false ||
-        this.user.userData.role === "recruteur"
-      ) {
-        this.$router.push("login");
-      }
-    }, 2);
+  async mounted() {
+    await this.userAuth();
+    if (
+      this.user.authenticated === false ||
+      this.user.userData.role === "recruteur"
+    ) {
+      this.$router.push("/login");
+    }
   },
 };
 </script>
@@ -38,11 +37,17 @@ export default {
       <NavBar />
     </v-row>
     <v-row class="mt-15">
-      <v-col :cols="portfolio.sideBar ? 9 : 11" :class="!portfolio.sideBar ? 'mx-auto' : ''">
+      <v-col
+        :cols="portfolio.sideBarA || portfolio.sideBarM ? 9 : 12"
+        :class="!(portfolio.sideBarA || portfolio.sideBarM) ? 'mx-auto' : ''"
+      >
         <PagePort />
       </v-col>
-      <v-col cols="3" v-if="portfolio.sideBar">
-        <SideBar />
+      <v-col cols="3" v-if="portfolio.sideBarA">
+        <SidebarA />
+      </v-col>
+      <v-col cols="3" v-if="portfolio.sideBarM">
+        <SidebarM />
       </v-col>
     </v-row>
   </v-container>

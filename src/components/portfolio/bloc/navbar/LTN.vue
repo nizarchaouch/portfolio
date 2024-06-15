@@ -10,43 +10,6 @@ export default {
   },
   computed: {
     ...mapState(["portfolio"]),
-    sheetStyles() {
-      if (this.portfolio.sideBarB || this.portfolio.sideBarA) {
-        return {
-          left: "15%",
-          width: "380px",
-          height: "530px",
-        };
-      }
-      if (window.innerWidth <= 600) {
-        return {
-          left: "5vw",
-          width: "333px",
-          height: "450px",
-        };
-      } else if (window.innerWidth <= 960) {
-        return {
-          left: "30%",
-          width: "380px",
-          height: "530px",
-        };
-      } else {
-        return {
-          left: "26vw",
-          width: "380px",
-          height: "530px",
-        };
-      }
-    },
-    blocHeight() {
-      if (window.innerWidth <= 600) {
-        return "600px";
-      } else if (window.innerWidth <= 960) {
-        return "700px";
-      } else {
-        return "700px";
-      }
-    },
   },
   data: () => ({
     tab: null,
@@ -150,7 +113,6 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 @keyframes fadeIn {
   from {
     opacity: 0;

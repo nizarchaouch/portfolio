@@ -1,7 +1,8 @@
 export default {
   state: {
-    sideBar: false,
-    linkNav: ["one", "two", "three"],
+    sideBarA: false,
+    sideBarM: false,
+    linkNav: ["À PROPOS DE MOI", "two", "three"],
     pages: [
       { id: "one", bloc: "nizar" },
       { id: "two", bloc: "chaouch" },
@@ -9,8 +10,13 @@ export default {
     ],
   },
   mutations: {
-    changeSidebar(state) {
-      state.sideBar = !state.sideBar;
+    changeSidebarA(state) {
+      state.sideBarA = !state.sideBarA;
+      state.sideBarM = false;
+    },
+    changeSidebarM(state) {
+      state.sideBarM = !state.sideBarM;
+      state.sideBarA = false;
     },
   },
 };
