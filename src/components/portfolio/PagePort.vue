@@ -10,47 +10,11 @@ export default {
   },
   computed: {
     ...mapState(["portfolio"]),
-    sheetStyles() {
-      if (this.portfolio.sideBarB || this.portfolio.sideBarA) {
-        return {
-          left: "15%",
-          width: "380px",
-          height: "530px",
-        };
-      }
-      if (window.innerWidth <= 600) {
-        return {
-          left: "5vw",
-          width: "333px",
-          height: "450px",
-        };
-      } else if (window.innerWidth <= 960) {
-        return {
-          left: "30%",
-          width: "380px",
-          height: "530px",
-        };
-      } else {
-        return {
-          left: "26vw",
-          width: "380px",
-          height: "530px",
-        };
-      }
-    },
-    blocHeight() {
-      if (window.innerWidth <= 600) {
-        return "600px";
-      } else if (window.innerWidth <= 960) {
-        return "700px";
-      } else {
-        return "700px";
-      }
-    },
   },
   data: () => ({
     tab: null,
     showButton: false,
+    showBloc: false,
     selectedPage: null,
   }),
   methods: {
@@ -59,6 +23,13 @@ export default {
     findPageById(id) {
       this.selectedPage =
         this.portfolio.pages.find((page) => page.id === id) || {};
+    },
+    changeBloc() {
+      this.showBloc = !this.showBloc;
+    },
+    handleAddBlock() {
+      this.changeSidebarA();
+      this.changeBloc();
     },
   },
   watch: {
@@ -115,7 +86,7 @@ export default {
       color="white"
       prepend-icon="mdi-plus"
       class="btn animation position-fixed text-none bg-blue"
-      @click="changeSidebarA"
+      @click="handleAddBlock"
     >
       Ajouter un bloc
     </v-btn>
@@ -123,7 +94,7 @@ export default {
       v-if="showButton"
       color="white"
       icon
-      class="animation text-none bg-blue"
+      class="animation text-none bg-grey"
       @click="changeSidebarM"
     >
       <v-icon>mdi-pencil</v-icon>
@@ -134,8 +105,8 @@ export default {
     class="addBloc mx-4 my-2"
     height="85"
     color="transparent"
-    v-if="portfolio.sideBarA"
-    @click="changeSidebarA"
+    v-if="showBloc"
+    @click="handleAddBlock"
   >
     <p class="text-center pa-7 cursor-pointer text-body-1">
       Choisissez un bloc

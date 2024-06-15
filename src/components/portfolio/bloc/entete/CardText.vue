@@ -44,11 +44,19 @@ export default {
   },
   data: () => ({
     tab: null,
-    showButton: true,
+    showButton: false,
+    showBloc:false,
   }),
   methods: {
     ...mapActions([""]),
     ...mapMutations(["changeSidebarA", "changeSidebarM"]),
+    changeBloc() {
+      this.showBloc = !this.showBloc;
+    },
+    handleAddBlock() {
+      this.changeSidebarA();
+      this.changeBloc();
+    },
   },
 };
 </script>
@@ -168,7 +176,7 @@ export default {
       color="white"
       prepend-icon="mdi-plus"
       class="btn animation position-relative text-none bg-blue"
-      @click="changeSidebarA"
+      @click="handleAddBlock"
     >
       Ajouter un bloc
     </v-btn>
@@ -186,8 +194,8 @@ export default {
     class="addBloc mx-4 my-2"
     height="85"
     color="transparent"
-    v-if="portfolio.sideBarA"
-    @click="changeSidebarA"
+    v-if="showBloc"
+    @click="handleAddBlock"
   >
     <p class="text-center pa-7 cursor-pointer text-body-1">
       Choisissez un bloc
