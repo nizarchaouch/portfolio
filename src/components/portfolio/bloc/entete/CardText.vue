@@ -4,42 +4,6 @@ import { mapState, mapActions, mapMutations } from "vuex";
 export default {
   computed: {
     ...mapState(["portfolio"]),
-    sheetStyles() {
-      if (this.portfolio.sideBarB || this.portfolio.sideBarA) {
-        return {
-          left: "15%",
-          width: "380px",
-          height: "510px",
-        };
-      } else if (window.innerWidth <= 600) {
-        return {
-          left: "5vw",
-          width: "370px",
-          height: "510px",
-        };
-      } else if (window.innerWidth <= 960) {
-        return {
-          left: "30%",
-          width: "380px",
-          height: "510px",
-        };
-      } else {
-        return {
-          left: "26vw",
-          width: "380px",
-          height: "510px",
-        };
-      }
-    },
-    blocHeight() {
-      if (window.innerWidth <= 600) {
-        return "600px";
-      } else if (window.innerWidth <= 960) {
-        return "700px";
-      } else {
-        return "700px";
-      }
-    },
   },
   data: () => ({
     tab: null,
@@ -77,17 +41,11 @@ export default {
     @mouseover="showButton = true"
     @mouseleave="showButton = false"
   >
-    <v-col
-      cols="12"
-      md="6"
-      lg="5"
-      class="h-100"
-      style="background-color: #e6dace"
-    >
+    <v-col cols="12" md="6" lg="5" style="background-color: #e6dace">
       <v-sheet
         color="#F4ECE6"
-        class="position-absolute sheet mt-16"
-        :style="sheetStyles"
+        class="sheet my-16 pt-3 mx-auto"
+        max-width="370"
         elevation="5"
       >
         <v-img
@@ -128,7 +86,9 @@ export default {
       class="pt-16 ps-md-16"
       style="background-color: white"
     >
-      <v-row class="ms-4 ms-md-16 mt-2 d-flex flex-column">
+      <v-row
+        class="ms-4 ms-md-16 text-sm-center text-md-justify mt-2 d-flex flex-column"
+      >
         <v-col
           cols="auto"
           class="ms-md-0 ms-sm-16"
@@ -155,7 +115,7 @@ export default {
           >
           <v-btn rounded="pill" variant="outlined" size="large">Projets</v-btn>
         </v-col>
-        <v-col cols="7" class="ms-md-0 ms-sm-13 mb-6">
+        <v-col cols="12" md="8" class="ms-md-0 ms-sm-13 mb-6">
           <p
             class="para overflow-hidden"
             style="font-size: 19px; max-height: 175px"
@@ -195,7 +155,7 @@ export default {
       class="btn animation position-relative text-none bg-grey ms-4"
       @click="handleModBlock"
     >
-      Modification rapide
+      Modifier
     </v-btn>
   </v-row>
   <v-sheet
@@ -230,11 +190,18 @@ export default {
     border: 2px solid blue;
   }
   .btn {
-    bottom: 15px;
-    left: 33%;
+    bottom: 13px;
+    left: 40%;
   }
+
   .animation {
     animation: fadeIn 0.6s;
+  }
+  @media screen and (max-width: 600px) {
+    .btn {
+      bottom: 13px;
+      left: 7%;
+    }
   }
   .name {
     font-family: "Poppins", sans-serif;

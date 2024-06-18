@@ -3,12 +3,14 @@
 /* eslint-disable */
 import { mapState, mapActions, mapMutations } from "vuex";
 import CardText from "./bloc/entete/CardText.vue";
+import ITTB from "./bloc/entete/ITTB.vue";
 import TTBI from "./bloc/entete/TTBI.vue";
 import LTN from "./bloc/navbar/LTN.vue";
 export default {
   components: {
     CardText,
     LTN,
+    ITTB,
     TTBI,
   },
   computed: {
@@ -29,8 +31,9 @@ export default {
     </div>
   </div> -->
   <LTN />
-  <!-- <CardText /> -->
+  <CardText />
   <TTBI />
+  <ITTB />
 </template>
 
 <style lang="scss" scoped></style>

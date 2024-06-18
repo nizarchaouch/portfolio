@@ -40,33 +40,28 @@ export default {
     @mouseover="showButton = true"
     @mouseleave="showButton = false"
   >
-    <v-col cols="12" md="6" order="">
-      <v-img
-        max-height="760"
-        min-height="400"
-        cover
-        src="https://picsum.photos/500/300?image=232"
-      ></v-img>
-    </v-col>
-    <v-col cols="12" md="6">
-      <div class="d-flex flex-column fill-height justify-center align-center">
-        <v-col
-          cols="12"
-          md="10"
-          class="d-flex flex-column justify-center align-center text-black"
-        >
-          <p class="text-h2 mb-4">Notre Projet</p>
-          <p class="text-justify mb-4">
+    <v-parallax
+      src="https://as1.ftcdn.net/v2/jpg/06/49/83/90/1000_F_649839048_MYPNu95Aq3fmKI7JK8GoNucX3DYTc1KZ.jpg"
+      color=""
+      max-height="760"
+      min-height="400"
+    >
+      <div
+        class="d-flex flex-column fill-height justify-center align-center"
+      >
+        <v-col cols="12" md="6" lg="5" class=" d-flex flex-column justify-center align-center text-white">
+          <h1 class="text-md-h2 font-weight-thin mb-4">Nos clients</h1>
+          <h4 class="subheading text-justify mb-4">
             Non occaecat culpa aliquip duis sunt amet qui pariatur quis ut.
             Officia sit adipisicing proident aute veniam veniam. Irure officia
             esse eu quis mollit consectetur aliqua anim nisi et labore do.
             Incididunt ea consequat duis officia commodo fugiat non. Occaecat ea
             velit esse tempor veniam laborum.
-          </p>
+          </h4>
           <v-btn color="success" class="text-none">En savoir plus</v-btn>
         </v-col>
       </div>
-    </v-col>
+    </v-parallax>
     <v-btn
       v-if="showButton"
       color="white"
@@ -115,14 +110,11 @@ export default {
   &:hover {
     border: 2px solid blue;
   }
-  .animation {
-    animation: fadeIn 0.6s;
-  }
   .btn {
     bottom: 13px;
     left: 40%;
   }
-
+  
   .animation {
     animation: fadeIn 0.6s;
   }
