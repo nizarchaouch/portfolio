@@ -2,18 +2,16 @@
 // eslint-disable-next-line
 /* eslint-disable */
 import { mapState, mapActions, mapMutations } from "vuex";
-import CardText from "./bloc/entete/CardText.vue";
 
 export default {
-  components: {
-    CardText,
-  },
+  components: {},
   computed: {
     ...mapState(["portfolio"]),
   },
   data: () => ({
     tab: null,
     showButton: false,
+    showBloc: false,
     selectedPage: null,
   }),
   methods: {
@@ -22,6 +20,22 @@ export default {
     findPageById(id) {
       this.selectedPage =
         this.portfolio.pages.find((page) => page.id === id) || {};
+    },
+    handleAddBlock() {
+      this.changeSidebarA();
+      if (this.portfolio.sideBarA) {
+        this.showBloc = true;
+      } else {
+        this.showBloc = false;
+      }
+    },
+    handleModBlock() {
+      this.changeSidebarM();
+      if (this.portfolio.sideBarA) {
+        this.showBloc = true;
+      } else {
+        this.showBloc = false;
+      }
     },
   },
   watch: {
@@ -78,7 +92,7 @@ export default {
       color="white"
       prepend-icon="mdi-plus"
       class="btn animation position-fixed text-none bg-blue"
-      @click="changeSidebarA"
+      @click="handleAddBlock"
     >
       Ajouter un bloc
     </v-btn>
@@ -87,7 +101,7 @@ export default {
       color="white"
       icon
       class="animation text-none bg-blue"
-      @click="changeSidebarM"
+      @click="handleModBlock"
     >
       <v-icon>mdi-pencil</v-icon>
       <v-tooltip activator="parent" location="bottom">Modifier</v-tooltip>
@@ -97,8 +111,8 @@ export default {
     class="addBloc mx-4 my-2"
     height="85"
     color="transparent"
-    v-if="portfolio.sideBarA"
-    @click="changeSidebarA"
+    v-if="showBloc"
+    @click="handleAddBlock"
   >
     <p class="text-center pa-7 cursor-pointer text-body-1">
       Choisissez un bloc
@@ -129,11 +143,18 @@ export default {
     border: 2px solid blue;
   }
   .btn {
+    z-index: 3;
     margin-top: 70px;
-    left: 40%;
+    left: 38%;
   }
   .animation {
     animation: fadeIn 0.6s;
+  }
+
+  @media screen and (max-width: 600px) {
+    .btn {
+      left: 30%;
+    }
   }
 }
 </style>

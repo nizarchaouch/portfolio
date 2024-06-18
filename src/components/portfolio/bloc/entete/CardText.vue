@@ -11,12 +11,11 @@ export default {
           width: "380px",
           height: "510px",
         };
-      }
-      if (window.innerWidth <= 600) {
+      } else if (window.innerWidth <= 600) {
         return {
-          left: "4vw",
-          width: "320px",
-          height: "450px",
+          left: "5vw",
+          width: "370px",
+          height: "510px",
         };
       } else if (window.innerWidth <= 960) {
         return {
@@ -45,17 +44,26 @@ export default {
   data: () => ({
     tab: null,
     showButton: false,
-    showBloc:false,
+    showBloc: false,
   }),
   methods: {
     ...mapActions([""]),
     ...mapMutations(["changeSidebarA", "changeSidebarM"]),
-    changeBloc() {
-      this.showBloc = !this.showBloc;
-    },
     handleAddBlock() {
       this.changeSidebarA();
-      this.changeBloc();
+      if (this.portfolio.sideBarA) {
+        this.showBloc = true;
+      } else {
+        this.showBloc = false;
+      }
+    },
+    handleModBlock() {
+      this.changeSidebarM();
+      if (this.portfolio.sideBarA) {
+        this.showBloc = true;
+      } else {
+        this.showBloc = false;
+      }
     },
   },
 };
@@ -185,9 +193,9 @@ export default {
       color="white"
       prepend-icon="mdi-pencil"
       class="btn animation position-relative text-none bg-grey ms-4"
-      @click="changeSidebarM"
+      @click="handleModBlock"
     >
-    Modification rapide
+      Modification rapide
     </v-btn>
   </v-row>
   <v-sheet
