@@ -32,7 +32,7 @@ export default {
   async mounted() {
     await this.userAuth();
     this.userData = this.user.userData;
-    if (!this.id) {
+    if (!this.id && !this.user.userData.role === "recruteur") {
       this.$router.push("login");
     } else {
       if (this.user.userData.role === "recruteur") {

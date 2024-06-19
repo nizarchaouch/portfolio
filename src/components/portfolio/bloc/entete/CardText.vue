@@ -83,15 +83,14 @@ export default {
       cols="12"
       md="6"
       lg="7"
-      class="pt-16 ps-md-16"
+      class="pt-16 ps-lg-16"
       style="background-color: white"
     >
       <v-row
-        class="ms-4 ms-md-16 text-sm-center text-md-justify mt-2 d-flex flex-column"
+        class="ps-md-16 mt-2 text-sm-center text-md-justify d-flex flex-column"
       >
         <v-col
-          cols="auto"
-          class="ms-md-0 ms-sm-16"
+          cols="11"
           style="
             font-size: 100px;
             font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial,
@@ -99,12 +98,12 @@ export default {
           "
           >Hello</v-col
         >
-        <v-col cols="auto" class="ms-md-0 ms-sm-13">
+        <v-col cols="11">
           <p class="title" style="font-size: 25px">
             Qui je suis et ce que je fais
           </p>
         </v-col>
-        <v-col cols="auto" class="ms-md-0 ms-sm-13 mb-3">
+        <v-col cols="11" class="mb-3">
           <v-btn
             rounded="pill"
             variant="elevated"
@@ -115,7 +114,7 @@ export default {
           >
           <v-btn rounded="pill" variant="outlined" size="large">Projets</v-btn>
         </v-col>
-        <v-col cols="12" md="8" class="ms-md-0 ms-sm-13 mb-6">
+        <v-col cols="12" md="11" lg="10" xl="8" class="mb-6">
           <p
             class="para overflow-hidden"
             style="font-size: 19px; max-height: 175px"
@@ -139,25 +138,28 @@ export default {
         </v-col>
       </v-row>
     </v-col>
-    <v-btn
-      v-if="showButton"
-      color="white"
-      prepend-icon="mdi-plus"
-      class="btn animation position-relative text-none bg-blue"
-      @click="handleAddBlock"
-    >
-      Ajouter un bloc
-    </v-btn>
-    <v-btn
-      v-if="showButton"
-      color="white"
-      prepend-icon="mdi-pencil"
-      class="btn animation position-relative text-none bg-grey ms-4"
-      @click="handleModBlock"
-    >
-      Modifier
-    </v-btn>
+    <div style="height: 0">
+      <v-btn
+        v-if="showButton"
+        color="white"
+        prepend-icon="mdi-plus"
+        class="btn animation position-relative text-none bg-blue"
+        @click="handleAddBlock"
+      >
+        Ajouter un bloc
+      </v-btn>
+      <v-btn
+        v-if="showButton"
+        color="white"
+        prepend-icon="mdi-pencil"
+        class="btn animation position-relative text-none bg-grey ms-4"
+        @click="handleModBlock"
+      >
+        Modifier
+      </v-btn>
+    </div>
   </v-row>
+
   <v-sheet
     class="addBloc mx-4 my-2"
     height="85"
@@ -189,29 +191,13 @@ export default {
   &:hover {
     border: 2px solid blue;
   }
-  .btn {
-    bottom: 13px;
-    left: 40%;
-  }
-
   .animation {
     animation: fadeIn 0.6s;
-  }
-  @media screen and (max-width: 600px) {
-    .btn {
-      bottom: 13px;
-      left: 7%;
-    }
   }
   .name {
     font-family: "Poppins", sans-serif;
     font-weight: 600;
     font-style: normal;
-  }
-  .title {
-    font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
-      "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
-    font-size: large;
   }
   .title {
     font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
@@ -224,6 +210,20 @@ export default {
   }
   .sheet {
     transition: left 0.3s ease, width 0.3s ease, height 0.3s ease;
+  }
+}
+div {
+  .btn {
+    z-index: 3;
+    bottom: 15px;
+    left: 230%;
+  }
+  @media screen and (max-width: 600px) {
+    .btn {
+      z-index: 3;
+      bottom: 13px;
+      left: 15%;
+    }
   }
 }
 </style>

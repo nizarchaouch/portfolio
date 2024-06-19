@@ -1,6 +1,6 @@
 export default {
   state: {
-    sideBarA: false,
+    sideBarA: true,
     sideBarM: false,
     linkNav: ["À PROPOS DE MOI", "two", "three"],
     pages: [

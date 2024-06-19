@@ -36,11 +36,12 @@ export default {
 <template>
   <v-row
     no-gutters
-    class="bloc"
     @mouseover="showButton = true"
     @mouseleave="showButton = false"
+    class="bloc"
+    style="background-color: white"
   >
-    <v-col cols="12" md="6" order="">
+    <v-col cols="12" md="6">
       <v-img
         max-height="760"
         min-height="400"
@@ -55,7 +56,7 @@ export default {
           md="10"
           class="d-flex flex-column justify-center align-center text-black"
         >
-          <p class="text-h2 mb-4">Notre Projet</p>
+          <p class="text-h2 mb-4">Notre Projeta</p>
           <p class="text-justify mb-4">
             Non occaecat culpa aliquip duis sunt amet qui pariatur quis ut.
             Officia sit adipisicing proident aute veniam veniam. Irure officia
@@ -67,6 +68,8 @@ export default {
         </v-col>
       </div>
     </v-col>
+  </v-row>
+  <div style="height: 0">
     <v-btn
       v-if="showButton"
       color="white"
@@ -85,7 +88,7 @@ export default {
     >
       Modifier
     </v-btn>
-  </v-row>
+  </div>
   <v-sheet
     class="addBloc mx-4 my-2"
     height="85"
@@ -118,19 +121,21 @@ export default {
   .animation {
     animation: fadeIn 0.6s;
   }
-  .btn {
-    bottom: 13px;
-    left: 40%;
-  }
-
   .animation {
     animation: fadeIn 0.6s;
   }
-  @media screen and (max-width: 600px) {
-    .btn {
-      bottom: 13px;
-      left: 7%;
-    }
+}
+.btn {
+  z-index: 3;
+  bottom: 20px;
+  left: 40%;
+}
+
+@media screen and (max-width: 600px) {
+  .btn {
+    z-index: 3;
+    bottom: 20px;
+    left: 7%;
   }
 }
 </style>

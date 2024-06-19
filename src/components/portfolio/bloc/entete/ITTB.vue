@@ -46,10 +46,13 @@ export default {
       max-height="760"
       min-height="400"
     >
-      <div
-        class="d-flex flex-column fill-height justify-center align-center"
-      >
-        <v-col cols="12" md="6" lg="5" class=" d-flex flex-column justify-center align-center text-white">
+      <div class="d-flex flex-column fill-height justify-center align-center">
+        <v-col
+          cols="12"
+          md="6"
+          lg="5"
+          class="d-flex flex-column justify-center align-center text-white"
+        >
           <h1 class="text-md-h2 font-weight-thin mb-4">Nos clients</h1>
           <h4 class="subheading text-justify mb-4">
             Non occaecat culpa aliquip duis sunt amet qui pariatur quis ut.
@@ -62,6 +65,8 @@ export default {
         </v-col>
       </div>
     </v-parallax>
+  </v-row>
+  <div style="height: 0">
     <v-btn
       v-if="showButton"
       color="white"
@@ -80,7 +85,7 @@ export default {
     >
       Modifier
     </v-btn>
-  </v-row>
+  </div>
   <v-sheet
     class="addBloc mx-4 my-2"
     height="85"
@@ -110,19 +115,21 @@ export default {
   &:hover {
     border: 2px solid blue;
   }
-  .btn {
-    bottom: 13px;
-    left: 40%;
-  }
-  
   .animation {
     animation: fadeIn 0.6s;
   }
-  @media screen and (max-width: 600px) {
-    .btn {
-      bottom: 13px;
-      left: 7%;
-    }
+}
+.btn {
+  z-index: 3;
+  bottom: 15px;
+  left: 40%;
+}
+
+@media screen and (max-width: 600px) {
+  .btn {
+    z-index: 3;
+    bottom: 15px;
+    left: 7%;
   }
 }
 </style>

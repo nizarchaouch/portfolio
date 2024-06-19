@@ -6,7 +6,7 @@ export default {
   },
   data: () => ({}),
   methods: {
-    ...mapMutations(["changeSidebarB"]),
+    ...mapMutations(["changeSidebarM"]),
   },
 };
 </script>
@@ -19,7 +19,7 @@ export default {
       elevation="10"
       permanent
       width="480"
-      v-model="portfolio.sideBarB"
+      v-model="portfolio.sideBarM"
     >
       <v-row class="mt-15 pa-3 bg-indigo" no-gutters>
         <v-col class="animation d-flex">
@@ -28,7 +28,7 @@ export default {
             variant="text"
             class="text-none ms-auto"
             icon="mdi-window-close"
-            @click="changeSidebarB"
+            @click="changeSidebarM"
           ></v-btn>
         </v-col>
       </v-row>

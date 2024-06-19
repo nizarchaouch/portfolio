@@ -10,7 +10,7 @@ export default {
   data: () => ({
     itemsRec: [
       { text: "Aperçu", icon: "mdi-chart-bar", to: "dashboard" },
-      { text: "Mon Profil", icon: "mdi-account-circle", to: "MonProfil" },
+      { text: "Mon Profil", icon: "mdi-account-circle", to: "/MonProfil" },
       { text: "Poster un emploi", icon: "mdi-plus-circle", to: "PosterEmploi" },
       { text: "Mes emplois", icon: "mdi-briefcase-variant", to: "MesEmplois" },
       {
