@@ -96,8 +96,9 @@ export default {
             font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial,
               sans-serif;
           "
-          >Hello</v-col
         >
+          Hello
+        </v-col>
         <v-col cols="11">
           <p class="title" style="font-size: 25px">
             Qui je suis et ce que je fais
@@ -211,18 +212,18 @@ export default {
   .sheet {
     transition: left 0.3s ease, width 0.3s ease, height 0.3s ease;
   }
-}
-div {
-  .btn {
-    z-index: 3;
-    bottom: 15px;
-    left: 230%;
-  }
-  @media screen and (max-width: 600px) {
+  div {
     .btn {
       z-index: 3;
-      bottom: 13px;
-      left: 15%;
+      bottom: 15px;
+      left: 230%;
+    }
+    @media screen and (max-width: 600px) {
+      .btn {
+        z-index: 3;
+        bottom: 13px;
+        left: 15%;
+      }
     }
   }
 }

@@ -1,7 +1,7 @@
 export default {
   state: {
-    sideBarA: true,
-    sideBarM: false,
+    sideBarA: false,
+    sideBarM: true,
     linkNav: ["À PROPOS DE MOI", "two", "three"],
     pages: [
       { id: "one", bloc: "nizar" },

@@ -68,27 +68,27 @@ export default {
         </v-col>
       </div>
     </v-col>
+    <div style="height: 0">
+      <v-btn
+        v-if="showButton"
+        color="white"
+        prepend-icon="mdi-plus"
+        class="btn animation position-relative text-none bg-blue"
+        @click="handleAddBlock"
+      >
+        Ajouter un bloc
+      </v-btn>
+      <v-btn
+        v-if="showButton"
+        color="white"
+        prepend-icon="mdi-pencil"
+        class="btn animation position-relative text-none bg-grey ms-4"
+        @click="handleModBlock"
+      >
+        Modifier
+      </v-btn>
+    </div>
   </v-row>
-  <div style="height: 0">
-    <v-btn
-      v-if="showButton"
-      color="white"
-      prepend-icon="mdi-plus"
-      class="btn animation position-relative text-none bg-blue"
-      @click="handleAddBlock"
-    >
-      Ajouter un bloc
-    </v-btn>
-    <v-btn
-      v-if="showButton"
-      color="white"
-      prepend-icon="mdi-pencil"
-      class="btn animation position-relative text-none bg-grey ms-4"
-      @click="handleModBlock"
-    >
-      Modifier
-    </v-btn>
-  </div>
   <v-sheet
     class="addBloc mx-4 my-2"
     height="85"
@@ -121,14 +121,11 @@ export default {
   .animation {
     animation: fadeIn 0.6s;
   }
-  .animation {
-    animation: fadeIn 0.6s;
-  }
 }
 .btn {
   z-index: 3;
   bottom: 20px;
-  left: 40%;
+  left: 230%;
 }
 
 @media screen and (max-width: 600px) {

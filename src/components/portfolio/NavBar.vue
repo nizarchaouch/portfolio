@@ -1,5 +1,6 @@
 <script>
-import logo from "@/assets/logo_text.png";
+import logo_text from "@/assets/logo_text.png";
+import logo from "@/assets/logo.png";
 import Avatar from "@/components/user/avatar.vue";
 import Notfi from "@/components/user/Notfi.vue";
 import { mapState, mapMutations } from "vuex";
@@ -9,6 +10,7 @@ export default {
     ...mapState(["candidat"]),
   },
   data: () => ({
+    logo_text: logo_text,
     logo: logo,
     nav: null,
     loading: false,
@@ -28,7 +30,8 @@ export default {
         <v-row class="justify-space-between" dense>
           <v-col cols="1" class="d-flex">
             <router-link to="/">
-              <img :src="logo" alt="Logo" height="35" class="mt-1" />
+              <img :src="logo_text" alt="Logo" height="35" class="mt-1 hidden-md-and-down" />
+              <img :src="logo" alt="Logo" height="35" class="mt-1 hidden-md-and-up" />
             </router-link>
             <v-divider vertical class="border-opacity-25 mx-5"></v-divider>
           </v-col>
@@ -36,15 +39,15 @@ export default {
           <v-col cols="3" class="d-flex flex-row-reverse">
             <Avatar />
             <Notfi />
-            <v-divider vertical class="bo rder-opacity-25 mx-3"></v-divider>
+            <v-divider vertical class="bo rder-opacity-25 mx-2"></v-divider>
             <!-- sauvegarder & aperçu -->
             <div>
               <v-btn
                 color="#651FFF"
                 variant="text"
-                class="mt-2"
+                class="mt-2 text-body-2"
                 @click="loading = !loading"
-                >aperçu</v-btn
+                >Aperçu</v-btn
               >
               <v-progress-linear
                 :active="loading"
@@ -52,7 +55,7 @@ export default {
                 color="deep-purple-accent-4"
               ></v-progress-linear>
             </div>
-            <v-btn variant="text" class="mt-2 text-none" :loading="loading"
+            <v-btn variant="text" class="mt-2 text-body-2 text-none" :loading="loading"
               >Sauvegarder</v-btn
             >
           </v-col>

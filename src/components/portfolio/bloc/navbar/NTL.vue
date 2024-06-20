@@ -10,7 +10,6 @@ export default {
   },
   data: () => ({
     tab: null,
-    drawer: false,
     showButton: false,
     showBloc: false,
     selectedPage: null,
@@ -56,61 +55,10 @@ export default {
     @mouseover="showButton = true"
     @mouseleave="showButton = false"
     image="https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg"
-    color="black"
+    color=""
   >
-    <v-app-bar-nav-icon
-      @click="drawer = !drawer"
-      class="hidden-md-and-up"
-    ></v-app-bar-nav-icon>
-    <v-layout class="hidden-md-and-up">
-      <v-navigation-drawer
-        v-model="drawer"
-        class="mt-15"
-        location="top"
-        elevation="10"
-        temporary
-        permanent
-      >
-        <div class="d-flex flex-row">
-          <v-tabs v-model="tab" class="pe-3" direction="vertical">
-            <v-tab
-              v-for="(item, index) in portfolio.linkNav"
-              :key="index"
-              :value="item"
-              class="text-decoration-none text-"
-              style="font-weight: 600"
-              color="blue"
-              @click="findPageById(item)"
-            >
-              {{ item }}
-            </v-tab>
-          </v-tabs>
-          <v-icon
-            @click="drawer = !drawer"
-            size="large"
-            class="ma-5 ms-auto"
-            color="grey"
-            >mdi-close-circle</v-icon
-          >
-        </div>
-      </v-navigation-drawer>
-    </v-layout>
-
-    <v-col cols="auto" class="d-flex">
-      <v-avatar color="grey" rounded="" size="60">
-        <v-img
-          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPFARC1fuCzw9lIUrY4ZS69QUrSzDi11gKPczV38dtl3ezCQeqjhB6FKd1IXBGULNYzFM&usqp=CAU"
-          cover
-        ></v-img>
-      </v-avatar>
-      <v-tab class="text-none text-white">Nizar chaouch</v-tab>
-    </v-col>
-
-    <v-spacer></v-spacer>
-
-    <v-tabs v-model="tab" class="pe-3 hidden-md-and-down" height="60">
+    <v-tabs v-model="tab" class="pe-3" height="60">
       <v-tab
-        :hide-slider="false"
         v-for="(item, index) in portfolio.linkNav"
         :key="index"
         :value="item"
@@ -122,6 +70,23 @@ export default {
         {{ item }}
       </v-tab>
     </v-tabs>
+
+    <v-spacer></v-spacer>
+    <v-app-bar-nav-icon
+      @click="changeSidebar"
+      class="hidden-md-and-up"
+    ></v-app-bar-nav-icon>
+
+    <v-col cols="auto" class="d-flex">
+      <v-tab class="text-none text-white">Nizar chaouch</v-tab>
+      <v-avatar color="grey" rounded="" size="60">
+        <v-img
+          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPFARC1fuCzw9lIUrY4ZS69QUrSzDi11gKPczV38dtl3ezCQeqjhB6FKd1IXBGULNYzFM&usqp=CAU"
+          cover
+        ></v-img>
+      </v-avatar>
+    </v-col>
+
     <v-btn
       v-if="showButton"
       color="white"
