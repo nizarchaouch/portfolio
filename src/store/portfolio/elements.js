@@ -15,9 +15,12 @@ export default {
     ],
     navbar: {
       backgroundImage: false,
-      backgroundTransp: false,
       afficheTitre: true,
       fixedNav: false,
+      formaTitreNav: [],
+      colorTitre:"white",
+      colorBackTitre:"#0B242400",
+      titre: "Nizar Chaouch",
       selectStyle: "Titer 4", //en px
       sizeTitle: 25,
       selectPolice: "Potta One",
@@ -35,7 +38,8 @@ export default {
     },
     links: {
       hideSlider: false,
-      colorLink: "white",
+      colorLink: "blue",
+      selectPolice: "Poppins",
     },
   },
   mutations: {

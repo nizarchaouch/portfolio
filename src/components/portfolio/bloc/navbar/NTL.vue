@@ -10,6 +10,7 @@ export default {
   },
   data: () => ({
     tab: null,
+    drawer: false,
     showButton: false,
     showBloc: false,
     selectedPage: null,
@@ -57,20 +58,58 @@ export default {
     :image="
       portfolio.navbar.backgroundImage ? portfolio.navbar.lineImage : null
     "
-    :color="
-      portfolio.navbar.backgroundTransp
-        ? 'transparent'
-        : portfolio.navbar.colorNav
-    "
+    :color="portfolio.navbar.colorNav"
   >
-    <v-tabs v-model="tab" class="pe-3" height="60">
+    <v-app-bar-nav-icon
+      @click="drawer = !drawer"
+      class="hidden-md-and-up"
+    ></v-app-bar-nav-icon>
+    <v-layout class="hidden-md-and-up">
+      <v-navigation-drawer
+        v-model="drawer"
+        class="mt-15"
+        location="top"
+        elevation="10"
+        temporary
+        permanent
+      >
+        <div class="d-flex flex-row">
+          <v-tabs v-model="tab" class="pe-3" direction="vertical">
+            <v-tab
+              v-for="(item, index) in portfolio.linkNav"
+              :key="index"
+              :value="item.name"
+              class="text-decoration-none"
+              style="font-weight: 600"
+              color="blue"
+              @click="findPageById(item)"
+            >
+              {{ item.name }}
+            </v-tab>
+          </v-tabs>
+          <v-icon
+            @click="drawer = !drawer"
+            size="large"
+            class="ma-5 ms-auto"
+            color="grey"
+            >mdi-close-circle</v-icon
+          >
+        </div>
+      </v-navigation-drawer>
+    </v-layout>
+
+    <v-tabs v-model="tab" class="pe-3 hidden-md-and-down" height="60">
       <v-tab
         v-for="(item, index) in portfolio.linkNav"
         :key="index"
         :value="item.name"
         :hide-slider="portfolio.links.hideSlider"
-        :style="'font-weight: 600; color: ' + portfolio.links.colorLink"
-        :color="portfolio.links.colorLinkActive"
+        :style="{
+          'font-weight': 600,
+          fontFamily: portfolio.links.selectPolice,
+        }"
+        class="text-none"
+        :color="portfolio.links.colorLink"
         @click="findPageById(item)"
       >
         {{ item.name }}
@@ -78,24 +117,39 @@ export default {
     </v-tabs>
 
     <v-spacer></v-spacer>
-    <v-app-bar-nav-icon
-      @click="changeSidebar"
-      class="hidden-md-and-up"
-    ></v-app-bar-nav-icon>
 
     <v-col cols="auto" class="d-flex">
-      <v-tab class="text-none text-white">Nizar chaouch</v-tab>
-      <v-avatar
-        v-if="portfolio.logo.logo"
-        :color="portfolio.logo.colorChoix"
-        :rounded="!portfolio.logo.logoArr"
-        :size="portfolio.logo.sizeLogo"
+      <v-tab
+        class="text-none"
+        :style="{
+          fontFamily: portfolio.navbar.selectPolice,
+          'font-size': portfolio.navbar.sizeTitle + 'px',
+        }"
       >
-        <v-img
-          :src="portfolio.logo.image ? portfolio.logo.lineImage : null"
-          cover
-        ></v-img>
-      </v-avatar>
+        <p
+          v-if="portfolio.navbar.afficheTitre"
+          :class="portfolio.navbar.formaTitreNav"
+          class="py-1"
+          :style="{
+            color: portfolio.navbar.colorTitre,
+            'background-color': portfolio.navbar.colorBackTitre,
+          }"
+        >
+          {{ portfolio.navbar.titre }}
+        </p>
+        <v-avatar
+          v-if="portfolio.logo.logo"
+          class="ms-4 mt-1"
+          :color="portfolio.logo.colorChoix"
+          :rounded="!portfolio.logo.logoArr"
+          :size="portfolio.logo.sizeLogo"
+        >
+          <v-img
+            :src="portfolio.logo.image ? portfolio.logo.lineImage : null"
+            cover
+          ></v-img>
+        </v-avatar>
+      </v-tab>
     </v-col>
 
     <v-btn

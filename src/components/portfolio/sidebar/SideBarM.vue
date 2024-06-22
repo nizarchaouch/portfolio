@@ -9,11 +9,12 @@ export default {
     ...mapState(["portfolio", "fonts"]),
   },
   data: () => ({
-    panel: 2,
+    panel: 3,
     colorPick: false,
     colorPickLogo: false,
     colorPickLinks: false,
-    colorPickLinksActive: false,
+    colorPickTitreNav: false,
+    colorPickBackTitreNav: false,
     linkNav: [],
     style: [
       { title: "Titre 1", value: 2, px: 100 },
@@ -98,19 +99,6 @@ export default {
               </v-col>
               <v-col cols="12">
                 <div class="d-flex">
-                  <h4 class="mt-4">Couleur d'arrière-plan transparente</h4>
-                  <v-switch
-                    v-model="portfolio.navbar.backgroundTransp"
-                    :value="true"
-                    color="blue"
-                    class="ms-auto"
-                    inset
-                  >
-                  </v-switch>
-                </div>
-              </v-col>
-              <v-col cols="12">
-                <div class="d-flex">
                   <h4 class="mt-4">Barre de navigation fixe</h4>
                   <v-switch
                     v-model="portfolio.navbar.fixedNav"
@@ -157,7 +145,7 @@ export default {
               <v-color-picker
                 v-if="colorPick"
                 v-model="portfolio.navbar.colorNav"
-                :modes="['hex']"
+                :modes="['hexa']"
                 class="mx-auto"
               ></v-color-picker>
             </v-row>
@@ -209,11 +197,7 @@ export default {
                   >
                   </v-switch>
                 </div>
-              </v-col>
-            </v-row>
-            <!--  -->
-            <v-row no-gutters>
-              <v-col cols="12" md="6">
+
                 <div class="d-flex">
                   <h4 class="mt-4">Fond couleur</h4>
                   <v-btn
@@ -225,20 +209,34 @@ export default {
                   </v-btn>
                 </div>
               </v-col>
-              <v-col cols="12" md="6">
-                <div class="d-flex">
-                  <h4 class="mt-4 ms-md-3">Taille</h4>
-                  <v-text-field
-                    v-model="portfolio.logo.sizeLogo"
-                    variant="outlined"
-                    density="compact"
-                    suffix="px"
-                    color="blue"
-                    type="Number"
-                    class="mt-2 ms-5"
-                    hide-details
-                  ></v-text-field>
-                </div>
+            </v-row>
+            <!--  -->
+            <v-row no-gutters>
+              <v-col cols="12">
+                <h4 class="mt-4">Taille</h4>
+                <v-slider
+                  v-model="portfolio.logo.sizeLogo"
+                  :max="170"
+                  :min="10"
+                  :step="1"
+                  color="blue"
+                  hide-details
+                >
+                  <template v-slot:append>
+                    <v-text-field
+                      v-model="portfolio.logo.sizeLogo"
+                      :max="170"
+                      :min="10"
+                      style="width: 100px"
+                      suffix="px"
+                      density="compact"
+                      variant="outlined"
+                      type="number"
+                      hide-details
+                      single-line
+                    ></v-text-field>
+                  </template>
+                </v-slider>
               </v-col>
               <v-col cols="12" v-if="portfolio.logo.image">
                 <div class="d-flex">
@@ -260,7 +258,7 @@ export default {
               <v-color-picker
                 v-if="colorPickLogo"
                 v-model="portfolio.logo.colorChoix"
-                :modes="['hex']"
+                :modes="['hexa']"
                 class="mx-auto"
               ></v-color-picker>
             </v-row>
@@ -377,45 +375,92 @@ export default {
                       suffix="px"
                       density="compact"
                       type="number"
+                      variant="outlined"
                       hide-details
                       single-line
                     ></v-text-field>
                   </template>
                 </v-slider>
               </v-col>
-              <v-col cols="12" md="6">
-                <div class="d-flex">
-                  <h4 class="mt-4">Fond couleur</h4>
-                  <v-btn
-                    variant="tonal"
-                    class="mt-2 ms-auto"
-                    @click="colorPickLogo = !colorPickLogo"
-                  >
-                    <v-icon>mdi-format-color-fill</v-icon>
-                  </v-btn>
-                </div>
-              </v-col>
-              <v-col cols="12" v-if="portfolio.logo.image">
-                <div class="d-flex">
-                  <h4 class="mt-4">Lien d'image</h4>
-                  <v-text-field
-                    v-model="portfolio.logo.lineImage"
+              <v-col cols="12">
+                <v-card max-width="600" class="ma-2 pa-1">
+                  <v-btn-toggle
+                    v-model="portfolio.navbar.formaTitreNav"
+                    class="pa-1 ms-10 bg-blue"
                     variant="outlined"
-                    density="compact"
-                    hide-details
-                    single-line
-                    color="blue"
-                    class="mt-2 ms-2"
-                  ></v-text-field>
-                </div>
+                    color="black"
+                    divided
+                    multiple
+                  >
+                    <v-btn value="font-italic">
+                      <v-icon icon="mdi-format-italic"></v-icon>
+                    </v-btn>
+
+                    <v-btn value="font-weight-bold">
+                      <v-icon icon="mdi-format-bold"></v-icon>
+                    </v-btn>
+
+                    <v-btn value="text-decoration-underline">
+                      <v-icon icon="mdi-format-underline"></v-icon>
+                    </v-btn>
+
+                    <v-btn @click="colorPickTitreNav = !colorPickTitreNav">
+                      <div
+                        class="d-flex align-center flex-column justify-center"
+                      >
+                        <v-icon icon="mdi-format-color-text"></v-icon>
+
+                        <v-sheet
+                          :color="portfolio.navbar.colorTitre"
+                          height="4"
+                          width="26"
+                          tile
+                        ></v-sheet>
+                      </div>
+                    </v-btn>
+                    <v-btn
+                      @click="colorPickBackTitreNav = !colorPickBackTitreNav"
+                    >
+                      <div
+                        class="d-flex align-center flex-column justify-center"
+                      >
+                        <v-icon icon="mdi-format-color-fill"></v-icon>
+
+                        <v-sheet
+                          :color="portfolio.navbar.colorBackTitre"
+                          height="4"
+                          width="26"
+                          tile
+                        ></v-sheet>
+                      </div>
+                    </v-btn>
+                  </v-btn-toggle>
+
+                  <v-sheet class="pa-4 text-center">
+                    <v-textarea
+                      v-model="portfolio.navbar.titre"
+                      rows="2"
+                      variant="outlined"
+                      auto-grow
+                      full-width
+                      hide-details
+                    ></v-textarea>
+                  </v-sheet>
+                </v-card>
               </v-col>
             </v-row>
             <!--  -->
             <v-row>
               <v-color-picker
-                v-if="colorPickLogo"
-                v-model="portfolio.logo.colorChoix"
-                :modes="['hex']"
+                v-if="colorPickTitreNav"
+                v-model="portfolio.navbar.colorTitre"
+                :modes="['hexa']"
+                class="mx-auto"
+              ></v-color-picker>
+              <v-color-picker
+                v-if="colorPickBackTitreNav"
+                v-model="portfolio.navbar.colorBackTitre"
+                :modes="['hexa']"
                 class="mx-auto"
               ></v-color-picker>
             </v-row>
@@ -446,7 +491,7 @@ export default {
               </v-col>
               <v-col cols="12">
                 <div class="d-flex">
-                  <h4 class="mt-4">Couleur lien</h4>
+                  <h4 class="mt-4">Couleur lien active</h4>
                   <v-btn
                     variant="tonal"
                     class="mt-2 ms-auto"
@@ -456,17 +501,35 @@ export default {
                   </v-btn>
                 </div>
               </v-col>
+              <v-col cols="12">
+                <div class="d-flex mt-5">
+                  <h4 class="mt-4">Police</h4>
+                  <v-autocomplete
+                    v-model="portfolio.links.selectPolice"
+                    :items="fonts.font"
+                    class="ms-16 mt-1"
+                    density="compact"
+                    variant="outlined"
+                    color="blue"
+                    item-title="family"
+                    item-value="family"
+                  >
+                    <template v-slot:item="{ props, item }">
+                      <v-list-item
+                        v-bind="props"
+                        @click="loadFont"
+                        :title="item.raw.family"
+                        :style="{ fontFamily: item.raw.family }"
+                      ></v-list-item>
+                    </template>
+                  </v-autocomplete>
+                </div>
+              </v-col>
               <v-col cols="12" class="mt-2">
                 <v-color-picker
                   v-if="colorPickLinks"
                   v-model="portfolio.links.colorLink"
-                  :modes="['hex']"
-                  class="mx-auto"
-                ></v-color-picker>
-                <v-color-picker
-                  v-if="colorPickLinksActive"
-                  v-model="portfolio.links.colorLinkActive"
-                  :modes="['hex']"
+                  :modes="['hexa']"
                   class="mx-auto"
                 ></v-color-picker>
               </v-col>

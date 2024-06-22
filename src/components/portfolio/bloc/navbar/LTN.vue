@@ -58,11 +58,7 @@ export default {
     :image="
       portfolio.navbar.backgroundImage ? portfolio.navbar.lineImage : null
     "
-    :color="
-      portfolio.navbar.backgroundTransp
-        ? 'transparent'
-        : portfolio.navbar.colorNav
-    "
+    :color="portfolio.navbar.colorNav"
   >
     <v-app-bar-nav-icon
       @click="drawer = !drawer"
@@ -104,7 +100,7 @@ export default {
 
     <v-col cols="auto" class="d-flex">
       <v-tab
-        class="text-none text-white"
+        class="text-none"
         :style="{
           fontFamily: portfolio.navbar.selectPolice,
           'font-size': portfolio.navbar.sizeTitle + 'px',
@@ -122,7 +118,17 @@ export default {
             cover
           ></v-img>
         </v-avatar>
-        <p v-if="portfolio.navbar.afficheTitre">Nizar chaouch</p>
+        <p
+          v-if="portfolio.navbar.afficheTitre"
+          :class="portfolio.navbar.formaTitreNav"
+          class="py-1"
+          :style="{
+            color: portfolio.navbar.colorTitre,
+            'background-color': portfolio.navbar.colorBackTitre,
+          }"
+        >
+          {{ portfolio.navbar.titre }}
+        </p>
       </v-tab>
     </v-col>
 
@@ -134,8 +140,12 @@ export default {
         :key="index"
         :value="item.name"
         :hide-slider="portfolio.links.hideSlider"
-        :style="'font-weight: 600; color: ' + portfolio.links.colorLink"
-        color="blue"
+        :style="{
+          'font-weight': 600,
+          fontFamily: portfolio.links.selectPolice,
+        }"
+        class="text-none"
+        :color="portfolio.links.colorLink"
         @click="findPageById(item)"
       >
         {{ item.name }}
