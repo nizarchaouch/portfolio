@@ -2,12 +2,41 @@ export default {
   state: {
     sideBarA: false,
     sideBarM: true,
-    linkNav: ["À PROPOS DE MOI", "two", "three"],
+    linkNav: [
+      { name: "À PROPOS DE MOI" },
+      { name: "two" },
+      { name: "three" },
+      { name: "Gerard" },
+    ],
     pages: [
       { id: "one", bloc: "nizar" },
       { id: "two", bloc: "chaouch" },
       { id: "three", bloc: "pfe" },
     ],
+    navbar: {
+      backgroundImage: false,
+      backgroundTransp: false,
+      afficheTitre: true,
+      fixedNav: false,
+      selectStyle: "Titer 4", //en px
+      sizeTitle: 25,
+      selectPolice: "Potta One",
+      colorNav: "#0B2424",
+      lineImage: "https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg",
+    },
+    logo: {
+      logo: true,
+      image: false,
+      logoArr: false,
+      colorChoix: "blue",
+      sizeLogo: 20,
+      lineImage:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPFARC1fuCzw9lIUrY4ZS69QUrSzDi11gKPczV38dtl3ezCQeqjhB6FKd1IXBGULNYzFM&usqp=CAU",
+    },
+    links: {
+      hideSlider: false,
+      colorLink: "white",
+    },
   },
   mutations: {
     changeSidebarA(state) {

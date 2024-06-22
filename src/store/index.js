@@ -6,6 +6,7 @@ import forgot from "./auth/forgot.js";
 import candidat from "./candidat/profil";
 import offer from "./offer/offers";
 import portfolio from "./portfolio/elements";
+import fonts from "./portfolio/fonts";
 import candOffer from "./Candidature/candOffer";
 import chartRec from "./recruteur/chart";
 import profilRec from "./recruteur/profil";
@@ -23,6 +24,7 @@ export default createStore({
     candidat,
     offer,
     portfolio,
+    fonts,
     candOffer,
     chartRec,
     profilRec,

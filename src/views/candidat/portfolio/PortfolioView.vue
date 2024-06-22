@@ -36,7 +36,7 @@ export default {
     <v-row>
       <NavBar />
     </v-row>
-    <v-row class="mt-15">
+    <v-row class="mt-13">
       <v-col
         :cols="portfolio.sideBarA || portfolio.sideBarM ? 9 : 12"
         :class="!(portfolio.sideBarA || portfolio.sideBarM) ? 'mx-auto' : ''"

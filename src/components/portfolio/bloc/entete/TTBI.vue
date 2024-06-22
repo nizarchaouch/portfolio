@@ -125,7 +125,7 @@ export default {
 .btn {
   z-index: 3;
   bottom: 20px;
-  left: 230%;
+  left: 35vw;
 }
 
 @media screen and (max-width: 600px) {

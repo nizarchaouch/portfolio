@@ -1,36 +1,50 @@
 <script>
-import { mapState, mapMutations } from "vuex";
+import { mapState, mapMutations, mapActions } from "vuex";
+import { VueDraggableNext } from "vue-draggable-next";
 export default {
+  components: {
+    draggable: VueDraggableNext,
+  },
   computed: {
-    ...mapState(["portfolio"]),
+    ...mapState(["portfolio", "fonts"]),
   },
   data: () => ({
     panel: 2,
     colorPick: false,
+    colorPickLogo: false,
     colorPickLinks: false,
     colorPickLinksActive: false,
-    logo: {
-      logo: true,
-      image: true,
-      logoArr: "0",
-      colorChoix: "blue",
-      sizeLogo: 22,
-      lineImage: "",
-    },
-    navbar: {
-      backgroundImage: false,
-      backgroundTransp: false,
-      colorNav: null,
-      lineImage: null,
-    },
-    links: {
-      hideSlider: false,
-      colorLinkActive: "blue",
-      colorLink: "white",
-    },
+    linkNav: [],
+    style: [
+      { title: "Titre 1", value: 2, px: 100 },
+      { title: "Titre 2", value: 3, px: 35 },
+      { title: "Titre 3", value: 4, px: 27 },
+      { title: "Titre 4", value: 5, px: 25 },
+      { title: "Titre 5", value: 6, px: 23 },
+      { title: "Titre 6", value: 8, px: 20 },
+    ],
   }),
   methods: {
     ...mapMutations(["changeSidebarM"]),
+    ...mapActions(["fetchFonts"]),
+    loadFont() {
+      const fontLink = document.createElement("link");
+      fontLink.rel = "stylesheet";
+      fontLink.href = `https://fonts.googleapis.com/css?family=${this.portfolio.navbar.selectPolice.replace(
+        / /g,
+        "+"
+      )}&display=swap`;
+      document.head.appendChild(fontLink);
+      console.log("ttt", fontLink);
+    },
+  },
+  mounted() {
+    this.fetchFonts();
+    this.loadFont();
+  },
+  async created() {
+    // await this.userAuth();
+    this.linkNav = this.portfolio.linkNav;
   },
 };
 </script>
@@ -45,7 +59,7 @@ export default {
       width="480"
       v-model="portfolio.sideBarM"
     >
-      <v-toolbar color="indigo" class="px-2 mt-14">
+      <v-toolbar color="indigo" class="px-1 mt-14">
         <v-toolbar-title class="font-weight-bold">
           Modification Rapide
         </v-toolbar-title>
@@ -73,7 +87,7 @@ export default {
                 <div class="d-flex">
                   <h4 class="mt-4">Ajouter une image d'arrière-plan</h4>
                   <v-switch
-                    v-model="navbar.backgroundImage"
+                    v-model="portfolio.navbar.backgroundImage"
                     :value="true"
                     color="blue"
                     class="ms-auto"
@@ -86,7 +100,20 @@ export default {
                 <div class="d-flex">
                   <h4 class="mt-4">Couleur d'arrière-plan transparente</h4>
                   <v-switch
-                    v-model="navbar.backgroundTransp"
+                    v-model="portfolio.navbar.backgroundTransp"
+                    :value="true"
+                    color="blue"
+                    class="ms-auto"
+                    inset
+                  >
+                  </v-switch>
+                </div>
+              </v-col>
+              <v-col cols="12">
+                <div class="d-flex">
+                  <h4 class="mt-4">Barre de navigation fixe</h4>
+                  <v-switch
+                    v-model="portfolio.navbar.fixedNav"
                     :value="true"
                     color="blue"
                     class="ms-auto"
@@ -110,11 +137,11 @@ export default {
                   </v-btn>
                 </div>
               </v-col>
-              <v-col cols="12" v-if="navbar.backgroundImage">
+              <v-col cols="12" v-if="portfolio.navbar.backgroundImage">
                 <div class="d-flex">
                   <h4 class="mt-4">Lien d'image</h4>
                   <v-text-field
-                    v-model="navbar.lineImage"
+                    v-model="portfolio.navbar.lineImage"
                     variant="outlined"
                     density="compact"
                     hide-details
@@ -129,6 +156,7 @@ export default {
             <v-row>
               <v-color-picker
                 v-if="colorPick"
+                v-model="portfolio.navbar.colorNav"
                 :modes="['hex']"
                 class="mx-auto"
               ></v-color-picker>
@@ -149,7 +177,7 @@ export default {
                 <div class="d-flex">
                   <h4 class="mt-4">Affichage Logo</h4>
                   <v-switch
-                    v-model="logo.logo"
+                    v-model="portfolio.logo.logo"
                     :value="true"
                     color="blue"
                     class="ms-auto"
@@ -160,7 +188,7 @@ export default {
                 <div class="d-flex">
                   <h4 class="mt-4">Logo Arrondi</h4>
                   <v-switch
-                    v-model="logo.logoArr"
+                    v-model="portfolio.logo.logoArr"
                     value="1"
                     color="blue"
                     class="ms-auto"
@@ -173,7 +201,7 @@ export default {
                 <div class="d-flex">
                   <h4 class="mt-4">Affichage Image</h4>
                   <v-switch
-                    v-model="logo.image"
+                    v-model="portfolio.logo.image"
                     :value="true"
                     color="blue"
                     class="ms-auto"
@@ -191,7 +219,7 @@ export default {
                   <v-btn
                     variant="tonal"
                     class="mt-2 ms-auto"
-                    @click="colorPick = !colorPick"
+                    @click="colorPickLogo = !colorPickLogo"
                   >
                     <v-icon>mdi-format-color-fill</v-icon>
                   </v-btn>
@@ -201,7 +229,7 @@ export default {
                 <div class="d-flex">
                   <h4 class="mt-4 ms-md-3">Taille</h4>
                   <v-text-field
-                    v-model="logo.sizeLogo"
+                    v-model="portfolio.logo.sizeLogo"
                     variant="outlined"
                     density="compact"
                     suffix="px"
@@ -212,11 +240,11 @@ export default {
                   ></v-text-field>
                 </div>
               </v-col>
-              <v-col cols="12" v-if="logo.image">
+              <v-col cols="12" v-if="portfolio.logo.image">
                 <div class="d-flex">
                   <h4 class="mt-4">Lien d'image</h4>
                   <v-text-field
-                    v-model="logo.lineImage"
+                    v-model="portfolio.logo.lineImage"
                     variant="outlined"
                     density="compact"
                     hide-details
@@ -230,9 +258,164 @@ export default {
             <!--  -->
             <v-row>
               <v-color-picker
-                v-if="colorPick"
-                v-model="logo.colorChoix"
-                mode="hex"
+                v-if="colorPickLogo"
+                v-model="portfolio.logo.colorChoix"
+                :modes="['hex']"
+                class="mx-auto"
+              ></v-color-picker>
+            </v-row>
+          </template>
+        </v-expansion-panel>
+        <!-- title -->
+        <v-expansion-panel>
+          <template v-slot:title>
+            <v-icon class="me-1" color="indigo" size="large"
+              >mdi-alpha-t-circle</v-icon
+            >
+            <h3 class="mt-1">Modifier Titre</h3>
+          </template>
+          <template v-slot:text>
+            <v-row no-gutters>
+              <v-col cols="12">
+                <div class="d-flex">
+                  <h4 class="mt-4">Affichage Titre</h4>
+                  <v-switch
+                    v-model="portfolio.navbar.afficheTitre"
+                    :value="true"
+                    color="blue"
+                    class="ms-auto"
+                    inset
+                  >
+                  </v-switch>
+                </div>
+              </v-col>
+              <v-col cols="12">
+                <div class="d-flex">
+                  <h4 class="mt-4">Style</h4>
+                  <v-select
+                    v-model="portfolio.navbar.selectStyle"
+                    :items="style"
+                    class="ms-16 mt-3"
+                    density="compact"
+                    variant="outlined"
+                    color="blue"
+                    item-title="title"
+                    item-value="title"
+                  >
+                    <template v-slot:item="{ props, item }">
+                      <v-list-item
+                        v-bind="props"
+                        class="d-flex"
+                        @click="portfolio.navbar.sizeTitle = item.raw.px"
+                      >
+                        <template v-slot:title>
+                          <div class="d-flex">
+                            <div class="mt-5">
+                              <v-icon size="large" class="ms-1"
+                                >mdi-circle</v-icon
+                              >
+                              <p>{{ item.raw.px }}px</p>
+                            </div>
+                            <p
+                              :class="
+                                'd-flex flex-column justify-center font-weight-bold text-h' +
+                                item.raw.value
+                              "
+                            >
+                              {{ item.raw.title }}
+                            </p>
+                          </div>
+                        </template>
+                      </v-list-item>
+                    </template>
+                  </v-select>
+                </div>
+              </v-col>
+              <v-col cols="12">
+                <div class="d-flex mt-5">
+                  <h4 class="mt-4">Police</h4>
+                  <v-autocomplete
+                    v-model="portfolio.navbar.selectPolice"
+                    :items="fonts.font"
+                    class="ms-14 mt-1"
+                    density="compact"
+                    variant="outlined"
+                    color="blue"
+                    item-title="family"
+                    item-value="family"
+                  >
+                    <template v-slot:item="{ props, item }">
+                      <v-list-item
+                        v-bind="props"
+                        @click="loadFont"
+                        :title="item.raw.family"
+                        :style="{ fontFamily: item.raw.family }"
+                      ></v-list-item>
+                    </template>
+                  </v-autocomplete>
+                </div>
+              </v-col>
+            </v-row>
+            <!--  -->
+            <v-row no-gutters>
+              <v-col cols="12">
+                <h4 class="mt-4">Taille de la police</h4>
+                <v-slider
+                  v-model="portfolio.navbar.sizeTitle"
+                  :max="170"
+                  :min="10"
+                  :step="1"
+                  color="blue"
+                  hide-details
+                >
+                  <template v-slot:append>
+                    <v-text-field
+                      v-model="portfolio.navbar.sizeTitle"
+                      :max="170"
+                      :min="10"
+                      style="width: 100px"
+                      suffix="px"
+                      density="compact"
+                      type="number"
+                      hide-details
+                      single-line
+                    ></v-text-field>
+                  </template>
+                </v-slider>
+              </v-col>
+              <v-col cols="12" md="6">
+                <div class="d-flex">
+                  <h4 class="mt-4">Fond couleur</h4>
+                  <v-btn
+                    variant="tonal"
+                    class="mt-2 ms-auto"
+                    @click="colorPickLogo = !colorPickLogo"
+                  >
+                    <v-icon>mdi-format-color-fill</v-icon>
+                  </v-btn>
+                </div>
+              </v-col>
+              <v-col cols="12" v-if="portfolio.logo.image">
+                <div class="d-flex">
+                  <h4 class="mt-4">Lien d'image</h4>
+                  <v-text-field
+                    v-model="portfolio.logo.lineImage"
+                    variant="outlined"
+                    density="compact"
+                    hide-details
+                    single-line
+                    color="blue"
+                    class="mt-2 ms-2"
+                  ></v-text-field>
+                </div>
+              </v-col>
+            </v-row>
+            <!--  -->
+            <v-row>
+              <v-color-picker
+                v-if="colorPickLogo"
+                v-model="portfolio.logo.colorChoix"
+                :modes="['hex']"
                 class="mx-auto"
               ></v-color-picker>
             </v-row>
@@ -252,7 +435,7 @@ export default {
                 <div class="d-flex">
                   <h4 class="mt-4">Masquer le curseur</h4>
                   <v-switch
-                    v-model="links.hideSlider"
+                    v-model="portfolio.links.hideSlider"
                     :value="true"
                     color="blue"
                     class="ms-auto"
@@ -261,19 +444,7 @@ export default {
                   </v-switch>
                 </div>
               </v-col>
-              <v-col cols="12" md="7">
-                <div class="d-flex">
-                  <h4 class="mt-4">Couleur du lien actif</h4>
-                  <v-btn
-                    variant="tonal"
-                    class="mt-2 ms-3"
-                    @click="colorPickLinksActive = !colorPickLinksActive"
-                  >
-                    <v-icon>mdi-format-color-fill</v-icon>
-                  </v-btn>
-                </div>
-              </v-col>
-              <v-col cols="12" md="5">
+              <v-col cols="12">
                 <div class="d-flex">
                   <h4 class="mt-4">Couleur lien</h4>
                   <v-btn
@@ -285,21 +456,48 @@ export default {
                   </v-btn>
                 </div>
               </v-col>
+              <v-col cols="12" class="mt-2">
+                <v-color-picker
+                  v-if="colorPickLinks"
+                  v-model="portfolio.links.colorLink"
+                  :modes="['hex']"
+                  class="mx-auto"
+                ></v-color-picker>
+                <v-color-picker
+                  v-if="colorPickLinksActive"
+                  v-model="portfolio.links.colorLinkActive"
+                  :modes="['hex']"
+                  class="mx-auto"
+                ></v-color-picker>
+              </v-col>
             </v-row>
-            <!--  -->
-            <v-row>
-              <v-color-picker
-                v-if="colorPickLinks"
-                v-model="links.colorLink"
-                mode="hex"
-                class="mx-auto"
-              ></v-color-picker>
-              <v-color-picker
-                v-if="colorPickLinksActive"
-                v-model="links.colorLinkActive"
-                mode="hex"
-                class="mx-auto"
-              ></v-color-picker>
+            <!-- menu site -->
+            <v-row no-gutters>
+              <v-col>
+                <v-divider class="border-opacity-100 my-5"></v-divider>
+                <h3 class="mt-4 mb-2">Menu du site</h3>
+                <draggable :list="linkNav">
+                  <v-card
+                    color="blue-lighten-4"
+                    height="55"
+                    class="mb-2 cursor-move"
+                    v-for="element in linkNav"
+                    :key="element"
+                  >
+                    <template v-slot:prepend>
+                      <v-icon size="large">mdi-cursor-move</v-icon>
+                    </template>
+                    <template v-slot:title>
+                      <v-text-field
+                        variant="text"
+                        hide-details
+                        density="compact"
+                        v-model="element.name"
+                      ></v-text-field>
+                    </template>
+                  </v-card>
+                </draggable>
+              </v-col>
             </v-row>
           </template>
         </v-expansion-panel>
@@ -308,4 +506,39 @@ export default {
   </v-layout>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+// @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap");
+// @import url("https://fonts.googleapis.com/css2?family=Pridi&display=swap");
+// @import url("https://fonts.googleapis.com/css2?family=Prompt&display=swap");
+// @import url("https://fonts.googleapis.com/css2?family=Proxima+Nova&display=swap");
+// @import url("https://fonts.googleapis.com/css2?family=Questrial&display=swap");
+// @import url("https://fonts.googleapis.com/css2?family=Quicksand&display=swap");
+// @import url("https://fonts.googleapis.com/css2?family=Raleway:wght@600&display=swap");
+// @import url("https://fonts.googleapis.com/css2?family=Reklame+Script&display=swap");
+// @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap");
+// @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap");
+// @import url("https://fonts.googleapis.com/css2?family=Rosewood&display=swap");
+// @import url("https://fonts.googleapis.com/css2?family=Rozha+One&display=swap");
+// @import url("https://fonts.googleapis.com/css2?family=Rubik:wght@300&display=swap");
+// select {
+//   font-size: 1rem;
+//   padding: 0.5rem;
+//   border-radius: 8px;
+//   border: 1px solid #ccc;
+//   background-color: #f9f9f9;
+//   transition: all 0.3s ease;
+//   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7 10L12 15L17 10H7Z' fill='black'/%3E%3C/svg%3E%0A"); /* Custom arrow */
+//   background-repeat: no-repeat;
+//   background-position: right 0.5rem center;
+//   background-size: 1rem;
+//   &:focus {
+//     border-color: #6200ea;
+//     outline: none;
+//     box-shadow: 0 0 0 2px rgba(98, 0, 234, 0.2);
+//   }
+//   option {
+//     padding: 20px;
+//     margin: 20px;
+//   }
+// }
+</style>

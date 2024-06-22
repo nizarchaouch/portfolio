@@ -55,8 +55,14 @@ export default {
   <v-toolbar
     @mouseover="showButton = true"
     @mouseleave="showButton = false"
-    image="https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg"
-    color="black"
+    :image="
+      portfolio.navbar.backgroundImage ? portfolio.navbar.lineImage : null
+    "
+    :color="
+      portfolio.navbar.backgroundTransp
+        ? 'transparent'
+        : portfolio.navbar.colorNav
+    "
   >
     <v-app-bar-nav-icon
       @click="drawer = !drawer"
@@ -76,13 +82,13 @@ export default {
             <v-tab
               v-for="(item, index) in portfolio.linkNav"
               :key="index"
-              :value="item"
-              class="text-decoration-none text-"
+              :value="item.name"
+              class="text-decoration-none"
               style="font-weight: 600"
               color="blue"
               @click="findPageById(item)"
             >
-              {{ item }}
+              {{ item.name }}
             </v-tab>
           </v-tabs>
           <v-icon
@@ -97,29 +103,42 @@ export default {
     </v-layout>
 
     <v-col cols="auto" class="d-flex">
-      <v-avatar color="grey" rounded="" size="60">
-        <v-img
-          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPFARC1fuCzw9lIUrY4ZS69QUrSzDi11gKPczV38dtl3ezCQeqjhB6FKd1IXBGULNYzFM&usqp=CAU"
-          cover
-        ></v-img>
-      </v-avatar>
-      <v-tab class="text-none text-white">Nizar chaouch</v-tab>
+      <v-tab
+        class="text-none text-white"
+        :style="{
+          fontFamily: portfolio.navbar.selectPolice,
+          'font-size': portfolio.navbar.sizeTitle + 'px',
+        }"
+      >
+        <v-avatar
+          v-if="portfolio.logo.logo"
+          class="me-4 mt-1"
+          :color="portfolio.logo.colorChoix"
+          :rounded="!portfolio.logo.logoArr"
+          :size="portfolio.logo.sizeLogo"
+        >
+          <v-img
+            :src="portfolio.logo.image ? portfolio.logo.lineImage : null"
+            cover
+          ></v-img>
+        </v-avatar>
+        <p v-if="portfolio.navbar.afficheTitre">Nizar chaouch</p>
+      </v-tab>
     </v-col>
 
     <v-spacer></v-spacer>
 
     <v-tabs v-model="tab" class="pe-3 hidden-md-and-down" height="60">
       <v-tab
-        :hide-slider="false"
         v-for="(item, index) in portfolio.linkNav"
         :key="index"
-        :value="item"
-        class="text-decoration-none text-white"
-        style="font-weight: 600"
-        color="red"
+        :value="item.name"
+        :hide-slider="portfolio.links.hideSlider"
+        :style="'font-weight: 600; color: ' + portfolio.links.colorLink"
+        color="blue"
         @click="findPageById(item)"
       >
-        {{ item }}
+        {{ item.name }}
       </v-tab>
     </v-tabs>
     <v-btn

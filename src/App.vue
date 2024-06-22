@@ -7,6 +7,7 @@ export default {};
 
 <style lang="scss">
 body {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
   background-color: #e5e5f2a3;
 }
 ::-webkit-scrollbar {

@@ -54,20 +54,26 @@ export default {
   <v-toolbar
     @mouseover="showButton = true"
     @mouseleave="showButton = false"
-    image="https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg"
-    color=""
+    :image="
+      portfolio.navbar.backgroundImage ? portfolio.navbar.lineImage : null
+    "
+    :color="
+      portfolio.navbar.backgroundTransp
+        ? 'transparent'
+        : portfolio.navbar.colorNav
+    "
   >
     <v-tabs v-model="tab" class="pe-3" height="60">
       <v-tab
         v-for="(item, index) in portfolio.linkNav"
         :key="index"
-        :value="item"
-        class="text-decoration-none text-white"
-        style="font-weight: 600"
-        color="red"
+        :value="item.name"
+        :hide-slider="portfolio.links.hideSlider"
+        :style="'font-weight: 600; color: ' + portfolio.links.colorLink"
+        :color="portfolio.links.colorLinkActive"
         @click="findPageById(item)"
       >
-        {{ item }}
+        {{ item.name }}
       </v-tab>
     </v-tabs>
 
@@ -79,9 +85,14 @@ export default {
 
     <v-col cols="auto" class="d-flex">
       <v-tab class="text-none text-white">Nizar chaouch</v-tab>
-      <v-avatar color="grey" rounded="" size="60">
+      <v-avatar
+        v-if="portfolio.logo.logo"
+        :color="portfolio.logo.colorChoix"
+        :rounded="!portfolio.logo.logoArr"
+        :size="portfolio.logo.sizeLogo"
+      >
         <v-img
-          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPFARC1fuCzw9lIUrY4ZS69QUrSzDi11gKPczV38dtl3ezCQeqjhB6FKd1IXBGULNYzFM&usqp=CAU"
+          :src="portfolio.logo.image ? portfolio.logo.lineImage : null"
           cover
         ></v-img>
       </v-avatar>
