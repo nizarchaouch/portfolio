@@ -4,7 +4,7 @@ import { mapState, mapActions, mapMutations } from "vuex";
 export default {
   props: { id: Number },
   computed: {
-    ...mapState(["portfolio","portfolioss"]),
+    ...mapState(["portfolio", "portfolioss"]),
   },
   data: () => ({
     tab: null,
@@ -58,9 +58,24 @@ export default {
           Modifier le bloc
         </v-btn>
         <v-card class="pa-2 my-1 d-flex justify-space-between" flat border>
-          <v-btn variant="text" size="40" icon="mdi-content-copy"></v-btn>
-          <v-btn variant="text" size="40" icon="mdi-arrow-up"></v-btn>
-          <v-btn variant="text" size="40" icon="mdi-arrow-down"></v-btn>
+          <v-btn variant="text" size="40">
+            <v-icon>mdi-content-copy</v-icon>
+            <v-tooltip activator="parent" location="bottom"
+              >Dupliquer</v-tooltip
+            >
+          </v-btn>
+          <v-btn variant="text" size="40">
+            <v-icon>mdi-arrow-up</v-icon>
+            <v-tooltip activator="parent" location="bottom"
+              >Déplacer vers le haut</v-tooltip
+            >
+          </v-btn>
+          <v-btn variant="text" size="40">
+            <v-icon>mdi-arrow-down</v-icon>
+            <v-tooltip activator="parent" location="bottom"
+              >Déplacer vers le bas</v-tooltip
+            >
+          </v-btn>
         </v-card>
         <v-btn
           border
