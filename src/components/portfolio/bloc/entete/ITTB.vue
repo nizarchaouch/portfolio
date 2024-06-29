@@ -106,7 +106,7 @@ export default {
         v-if="showButton"
         color="white"
         prepend-icon="mdi-plus"
-        class="animation text-none bg-blue btn"
+        class="animation text-none bg-blue rounded-pill"
         @click="
           (portfolio.dialogA = !portfolio.dialogA) && (portfolio.blocindex = id)
         "

@@ -93,6 +93,8 @@ export default {
 
       <v-col cols="auto" class="d-flex">
         <v-tab
+          :to="this.pages[0].name"
+          @click="findPage(this.pages[0].name)"
           class="text-none"
           :style="{
             fontFamily: portfolio.navbar.selectPolice,

@@ -41,7 +41,7 @@ export default {
       pages: [
         {
           id: 0,
-          name: "page1",
+          name: "page 1",
           bloc: [
             {
               id: 0,
@@ -65,7 +65,7 @@ export default {
         },
         {
           id: 1,
-          name: "Page2",
+          name: "Page 2",
           bloc: [
             {
               id: 0,
@@ -93,7 +93,7 @@ export default {
   mutations: {
     addPage(state) {
       state.portfolios.pages.push({
-        id: state.portfolios.pages.length + 1,
+        id: state.portfolios.pages.length,
         name: "Page " + (state.portfolios.pages.length + 1),
         bloc: [],
       });
