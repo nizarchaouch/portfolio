@@ -15,6 +15,7 @@ export default {
   },
   data: () => ({
     tab: 1,
+    blocs: ["TTBI", "ITTB", "CardText"],
   }),
   methods: {
     ...mapActions(["addBloc", "addBlocNav"]),
@@ -86,25 +87,13 @@ export default {
             <v-window-item :value="1">
               <v-row no-gutters>
                 <v-col
+                  v-for="(bloc, index) in blocs"
+                  :key="index"
                   cols="12"
-                  @click="onClickAddBloc('ITTB')"
+                  @click="onClickAddBloc(bloc)"
                   class="pa-16 pt-3 cursor-pointer"
                 >
-                  <ITTB />
-                </v-col>
-                <v-col
-                  cols="auto"
-                  @click="onClickAddBloc('TTBI')"
-                  class="pa-16 pt-0 cursor-pointer"
-                >
-                  <TTBI />
-                </v-col>
-                <v-col
-                  cols="auto"
-                  @click="onClickAddBloc('CardText')"
-                  class="pa-16 pt-0 cursor-pointer"
-                >
-                  <CardText />
+                 <component :is="bloc"></component>
                 </v-col>
               </v-row>
             </v-window-item>

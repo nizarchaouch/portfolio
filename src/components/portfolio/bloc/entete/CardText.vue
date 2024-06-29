@@ -12,8 +12,14 @@ export default {
     showBloc: false,
   }),
   methods: {
-    ...mapActions([""]),
+    ...mapActions(["delBloc"]),
     ...mapMutations(["changeSidebarA", "changeSidebarM"]),
+    onClickDeltBloc() {
+      this.delBloc({
+        pageIndex: this.portfolioss.selectedPage.id,
+        blocIndex: this.id,
+      });
+    },
   },
 };
 </script>
@@ -63,7 +69,7 @@ export default {
           prepend-icon="mdi-trash-can-outline"
           class="text-none text-red"
           elevation="0"
-          @click="handleModBlock"
+          @click="onClickDeltBloc"
         >
           Supprimer bloc
         </v-btn>
@@ -204,7 +210,6 @@ export default {
   animation: fadeIn 0.6s;
 }
 .bloc {
-  z-index: 1;
   &:hover {
     border: 2px solid blue;
   }

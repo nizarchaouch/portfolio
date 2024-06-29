@@ -43,39 +43,39 @@ export default {
           id: 0,
           name: "page1",
           bloc: [
-            // {
-            //   id: 0,
-            //   type: "CardText",
-            //   content: "Welcome to the homepage!",
-            //   settings: {
-            //     fontSize: "16px",
-            //     color: "blue",
-            //   },
-            // },
-            // {
-            //   id: 1,
-            //   type: "TTBI",
-            //   content: "Welcome to the homepage!",
-            //   settings: {
-            //     fontSize: "16px",
-            //     color: "blue",
-            //   },
-            // },
+            {
+              id: 0,
+              type: "CardText",
+              content: "Welcome to the homepage!",
+              settings: {
+                fontSize: "16px",
+                color: "blue",
+              },
+            },
+            {
+              id: 1,
+              type: "TTBI",
+              content: "Welcome to the homepage!",
+              settings: {
+                fontSize: "16px",
+                color: "blue",
+              },
+            },
           ],
         },
         {
           id: 1,
           name: "Page2",
           bloc: [
-            // {
-            //   id: 1,
-            //   type: "text",
-            //   content: "About us content here...",
-            //   settings: {
-            //     fontSize: "14px",
-            //     color: "black",
-            //   },
-            // },
+            {
+              id: 0,
+              type: "text",
+              content: "About us content here...",
+              settings: {
+                fontSize: "14px",
+                color: "black",
+              },
+            },
             // {
             //   id: 2,
             //   type: "video",
@@ -142,7 +142,20 @@ export default {
       ) {
         state.portfolios.pages[pageIndex].bloc[i].id++;
       }
-      console.log("addBloc", state.portfolios.pages);
+      // console.log("addBloc", state.portfolios.pages);
+    },
+    delBloc({ state }, { pageIndex, blocIndex }) {
+      state.portfolios.pages[pageIndex].bloc.splice(blocIndex , 1);
+
+      // Mettre à jour les identifiants des blocs suivants
+      for (
+        let i = blocIndex ;
+        i < state.portfolios.pages[pageIndex].bloc.length;
+        i++
+      ) {
+        state.portfolios.pages[pageIndex].bloc[i].id--;
+      }
+      console.log("delBloc", state.portfolios.pages);
     },
   },
 };

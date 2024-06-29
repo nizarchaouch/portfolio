@@ -4,31 +4,20 @@ import { mapState, mapActions, mapMutations } from "vuex";
 export default {
   props: { id: Number },
   computed: {
-    ...mapState(["portfolio"]),
+    ...mapState(["portfolio","portfolioss"]),
   },
   data: () => ({
     tab: null,
     showButton: false,
-    showBloc: false,
   }),
   methods: {
-    ...mapActions([""]),
+    ...mapActions(["delBloc"]),
     ...mapMutations(["changeSidebarA", "changeSidebarM"]),
-    handleAddBlock() {
-      this.changeSidebarA();
-      if (this.portfolio.sideBarA) {
-        this.showBloc = true;
-      } else {
-        this.showBloc = false;
-      }
-    },
-    handleModBlock() {
-      this.changeSidebarM();
-      if (this.portfolio.sideBarA) {
-        this.showBloc = true;
-      } else {
-        this.showBloc = false;
-      }
+    onClickDeltBloc() {
+      this.delBloc({
+        pageIndex: this.portfolioss.selectedPage.id,
+        blocIndex: this.id,
+      });
     },
   },
 };
@@ -79,7 +68,7 @@ export default {
           prepend-icon="mdi-trash-can-outline"
           class="text-none text-red"
           elevation="0"
-          @click="handleModBlock"
+          @click="onClickDeltBloc"
         >
           Supprimer bloc
         </v-btn>
