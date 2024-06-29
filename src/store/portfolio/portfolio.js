@@ -106,7 +106,7 @@ export default {
     addBlocNav({ state }, { pageIndex, blocIndex, type }) {
       // Insérer un nouveau bloc après l'index actuel du bloc
       const newBlock = {
-        id:  0,
+        id: 0,
         type: type,
         content: "newContent",
         settings: {},
@@ -145,17 +145,35 @@ export default {
       // console.log("addBloc", state.portfolios.pages);
     },
     delBloc({ state }, { pageIndex, blocIndex }) {
-      state.portfolios.pages[pageIndex].bloc.splice(blocIndex , 1);
+      state.portfolios.pages[pageIndex].bloc.splice(blocIndex, 1);
 
       // Mettre à jour les identifiants des blocs suivants
       for (
-        let i = blocIndex ;
+        let i = blocIndex;
         i < state.portfolios.pages[pageIndex].bloc.length;
         i++
       ) {
         state.portfolios.pages[pageIndex].bloc[i].id--;
       }
       console.log("delBloc", state.portfolios.pages);
+    },
+    duplBloc({ state }, { pageIndex, blocIndex, type, settings }) {
+      const newBlock = {
+        id: state.portfolios.pages[pageIndex].bloc[blocIndex].id + 1,
+        type: type,
+        settings: settings,
+      };
+      state.portfolios.pages[pageIndex].bloc.splice(blocIndex + 1, 0, newBlock);
+
+      // Mettre à jour les identifiants des blocs suivants
+      for (
+        let i = blocIndex + 2;
+        i < state.portfolios.pages[pageIndex].bloc.length;
+        i++
+      ) {
+        state.portfolios.pages[pageIndex].bloc[i].id++;
+      }
+      console.log("duplBloc", state.portfolios.pages);
     },
   },
 };

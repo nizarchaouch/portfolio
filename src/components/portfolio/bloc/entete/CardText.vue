@@ -12,12 +12,20 @@ export default {
     showBloc: false,
   }),
   methods: {
-    ...mapActions(["delBloc"]),
+    ...mapActions(["delBloc", "duplBloc"]),
     ...mapMutations(["changeSidebarA", "changeSidebarM"]),
     onClickDeltBloc() {
       this.delBloc({
         pageIndex: this.portfolioss.selectedPage.id,
         blocIndex: this.id,
+      });
+    },
+    onClickDuplBloc() {
+      this.duplBloc({
+        pageIndex: this.portfolioss.selectedPage.id,
+        blocIndex: this.id,
+        type: this.portfolioss.selectedPage.bloc[this.id].type,
+        settings: this.portfolioss.selectedPage.bloc[this.id].settings,
       });
     },
   },
@@ -59,7 +67,7 @@ export default {
           Modifier le bloc
         </v-btn>
         <v-card class="pa-2 my-1 d-flex justify-space-between" flat border>
-          <v-btn variant="text" size="40">
+          <v-btn variant="text" size="40" @click="onClickDuplBloc">
             <v-icon>mdi-content-copy</v-icon>
             <v-tooltip activator="parent" location="bottom"
               >Dupliquer</v-tooltip
