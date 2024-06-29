@@ -90,7 +90,7 @@ export default {
       </v-card>
     </v-row>
     <v-row no-gutters class="bloc" style="background-color: white">
-      <v-col cols="12" md="6">
+      <v-col cols="12" md="6" order="">
         <v-img
           max-height="760"
           min-height="400"

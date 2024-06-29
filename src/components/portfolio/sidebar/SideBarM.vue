@@ -60,7 +60,7 @@ export default {
       v-model="portfolio.sideBarM"
     >
       <v-toolbar color="indigo" class="px-1 mt-14">
-        <v-toolbar-title class="font-weight-bold"> Modifier </v-toolbar-title>
+        <v-toolbar-title class="font-weight-bold"> Modifier Bloc </v-toolbar-title>
         <v-spacer></v-spacer>
         <v-btn
           variant="text"

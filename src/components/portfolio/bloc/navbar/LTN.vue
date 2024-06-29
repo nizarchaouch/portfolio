@@ -147,9 +147,10 @@ export default {
       </v-tabs>
       <v-btn
         v-if="showButton"
-        color="white"
+        color="grey-darken-2"
+        elevation="10"
         icon
-        class="animation text-none bg-blue"
+        class="animation text-none bg-white"
         @click="portfolio.sideBarM = !portfolio.sideBarM"
       >
         <v-icon>mdi-pencil</v-icon>
