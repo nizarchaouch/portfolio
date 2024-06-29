@@ -73,13 +73,19 @@ export default {
               >Dupliquer</v-tooltip
             >
           </v-btn>
-          <v-btn variant="text" size="40">
+          <v-btn variant="text" size="40" :disabled="this.id === 0">
             <v-icon>mdi-arrow-up</v-icon>
             <v-tooltip activator="parent" location="bottom"
               >Déplacer vers le haut</v-tooltip
             >
           </v-btn>
-          <v-btn variant="text" size="40">
+          <v-btn
+            variant="text"
+            size="40"
+            :disabled="
+              this.id === this.portfolioss.selectedPage.bloc.length - 1
+            "
+          >
             <v-icon>mdi-arrow-down</v-icon>
             <v-tooltip activator="parent" location="bottom"
               >Déplacer vers le bas</v-tooltip
