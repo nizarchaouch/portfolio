@@ -26,7 +26,7 @@ export default {
     ],
   }),
   methods: {
-    ...mapMutations(["changeSidebarM", "addPage"]),
+    ...mapMutations(["changeSidebarM", "addPage", "movePage"]),
     ...mapActions(["fetchFonts"]),
     loadFont() {
       const fontLink = document.createElement("link");
@@ -545,7 +545,7 @@ export default {
                 >
                   <v-icon>mdi-plus</v-icon> Ajouter
                 </v-btn>
-                <draggable :list="linkNav">
+                <draggable :list="linkNav" @change="movePage">
                   <v-card
                     color="blue-lighten-4"
                     height="55"

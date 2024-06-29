@@ -69,7 +69,7 @@ export default {
           bloc: [
             {
               id: 0,
-              type: "text",
+              type: "CardText",
               content: "About us content here...",
               settings: {
                 fontSize: "14px",
@@ -98,6 +98,13 @@ export default {
         bloc: [],
       });
       console.log(state.portfolios.pages);
+    },
+    movePage(state) {
+      let index = 0;
+      for (let i = 0; i < state.portfolios.pages.length; i++) {
+        state.portfolios.pages[i].id = index++;
+      }
+      console.log("moved", state.portfolios.pages);
     },
   },
   getters: {},
@@ -144,6 +151,7 @@ export default {
       }
       // console.log("addBloc", state.portfolios.pages);
     },
+
     delBloc({ state }, { pageIndex, blocIndex }) {
       state.portfolios.pages[pageIndex].bloc.splice(blocIndex, 1);
 
@@ -157,6 +165,7 @@ export default {
       }
       console.log("delBloc", state.portfolios.pages);
     },
+
     duplBloc({ state }, { pageIndex, blocIndex, type, settings }) {
       const newBlock = {
         id: state.portfolios.pages[pageIndex].bloc[blocIndex].id + 1,
