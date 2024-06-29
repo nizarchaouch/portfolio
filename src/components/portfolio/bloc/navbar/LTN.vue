@@ -160,7 +160,8 @@ export default {
       <v-btn
         v-if="showButton"
         color="white"
-        class="btn animation bg-blue"
+        class="animation bg-blue text-none rounded-pill"
+        prepend-icon="mdi-plus"
         @click="
           (portfolio.dialogA = !portfolio.dialogA) &&
             (portfolio.isnavbar = true)
