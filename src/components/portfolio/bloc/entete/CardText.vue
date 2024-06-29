@@ -9,7 +9,7 @@ export default {
   data: () => ({
     tab: null,
     showButton: false,
-    showBloc: false,
+    nameCand: "",
   }),
   methods: {
     ...mapActions(["delBloc", "duplBloc"]),

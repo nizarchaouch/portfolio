@@ -1,8 +1,8 @@
 <script>
 /* eslint-disable */
 import { mapState, mapActions } from "vuex";
-import TTBI from "./bloc/entete/TTBI.vue";
-import ITTB from "./bloc/entete/ITTB.vue";
+import TTBI from "./bloc/apropos/TTBI.vue";
+import ITTB from "./bloc/apropos/ITTB.vue";
 import CardText from "./bloc/entete/CardText.vue";
 export default {
   components: {
@@ -15,7 +15,8 @@ export default {
   },
   data: () => ({
     tab: 1,
-    entete: ["TTBI", "ITTB", "CardText"],
+    entete: ["CardText"],
+    apropos: ["TTBI", "ITTB"],
   }),
   methods: {
     ...mapActions(["addBloc", "addBlocNav"]),
@@ -93,22 +94,22 @@ export default {
                   @click="onClickAddBloc(bloc)"
                   class="pa-16 pt-3 cursor-pointer"
                 >
-                 <component :is="bloc"></component>
+                  <component :is="bloc"></component>
                 </v-col>
               </v-row>
             </v-window-item>
             <v-window-item :value="2">
-              <v-card
-                class="mx-auto text-white pa-2"
-                color="#26c6da"
-                max-width="400"
-              >
-                <v-img
-                  width="500"
-                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTlBLORxmuwMNWRDP-AHNGnLl9fO-vaHpr1iA&s"
+              <v-row no-gutters>
+                <v-col
+                  v-for="(bloc, index) in apropos"
+                  :key="index"
+                  cols="12"
+                  @click="onClickAddBloc(bloc)"
+                  class="pa-16 pt-3 cursor-pointer"
                 >
-                </v-img>
-              </v-card>
+                  <component :is="bloc"></component>
+                </v-col>
+              </v-row>
             </v-window-item>
             <v-window-item :value="3"> cc </v-window-item>
           </v-window>

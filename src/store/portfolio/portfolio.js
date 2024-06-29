@@ -48,6 +48,10 @@ export default {
               type: "CardText",
               content: "Welcome to the homepage!",
               settings: {
+                card:{
+                  img:"",
+                  nameCand:"nizar chaouch"
+                },
                 fontSize: "16px",
                 color: "blue",
               },

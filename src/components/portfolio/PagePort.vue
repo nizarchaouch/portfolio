@@ -5,8 +5,8 @@ import { mapState, mapActions, mapMutations } from "vuex";
 import LTN from "./bloc/navbar/LTN.vue";
 import NTL from "./bloc/navbar/NTL.vue";
 import CardText from "./bloc/entete/CardText.vue";
-import ITTB from "./bloc/entete/ITTB.vue";
-import TTBI from "./bloc/entete/TTBI.vue";
+import ITTB from "./bloc/apropos/ITTB.vue";
+import TTBI from "./bloc/apropos/TTBI.vue";
 export default {
   components: {
     CardText,
