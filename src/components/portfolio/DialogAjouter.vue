@@ -15,7 +15,7 @@ export default {
   },
   data: () => ({
     tab: 1,
-    blocs: ["TTBI", "ITTB", "CardText"],
+    entete: ["TTBI", "ITTB", "CardText"],
   }),
   methods: {
     ...mapActions(["addBloc", "addBlocNav"]),
@@ -87,7 +87,7 @@ export default {
             <v-window-item :value="1">
               <v-row no-gutters>
                 <v-col
-                  v-for="(bloc, index) in blocs"
+                  v-for="(bloc, index) in entete"
                   :key="index"
                   cols="12"
                   @click="onClickAddBloc(bloc)"
