@@ -15,7 +15,6 @@ export default {
           "https://www.googleapis.com/webfonts/v1/webfonts?key=AIzaSyC2ze0O5eV244cqWMd5iC10rWYmSqdT-EU"
         );
         ctx.commit("SetFonts", response.data.items);
-        console.log("font", response.data.items);
       } catch (error) {
         console.error("Error fetching fonts:", error);
       }

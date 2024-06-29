@@ -5,6 +5,7 @@ import signup from "./auth/signup";
 import forgot from "./auth/forgot.js";
 import candidat from "./candidat/profil";
 import offer from "./offer/offers";
+import portfolioss from "./portfolio/portfolio";
 import portfolio from "./portfolio/elements";
 import fonts from "./portfolio/fonts";
 import candOffer from "./Candidature/candOffer";
@@ -23,6 +24,7 @@ export default createStore({
     forgot,
     candidat,
     offer,
+    portfolioss,
     portfolio,
     fonts,
     candOffer,

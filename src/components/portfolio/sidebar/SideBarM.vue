@@ -6,7 +6,7 @@ export default {
     draggable: VueDraggableNext,
   },
   computed: {
-    ...mapState(["portfolio", "fonts"]),
+    ...mapState(["portfolio", "fonts", "portfolioss"]),
   },
   data: () => ({
     panel: 3,
@@ -26,7 +26,7 @@ export default {
     ],
   }),
   methods: {
-    ...mapMutations(["changeSidebarM"]),
+    ...mapMutations(["changeSidebarM", "addPage"]),
     ...mapActions(["fetchFonts"]),
     loadFont() {
       const fontLink = document.createElement("link");
@@ -36,7 +36,6 @@ export default {
         "+"
       )}&display=swap`;
       document.head.appendChild(fontLink);
-      console.log("ttt", fontLink);
     },
   },
   mounted() {
@@ -45,7 +44,7 @@ export default {
   },
   async created() {
     // await this.userAuth();
-    this.linkNav = this.portfolio.linkNav;
+    this.linkNav = this.portfolioss.portfolios.pages;
   },
 };
 </script>
@@ -57,13 +56,11 @@ export default {
       location="right"
       elevation="10"
       permanent
-      width="480"
+      width="380"
       v-model="portfolio.sideBarM"
     >
       <v-toolbar color="indigo" class="px-1 mt-14">
-        <v-toolbar-title class="font-weight-bold">
-          Modification Rapide
-        </v-toolbar-title>
+        <v-toolbar-title class="font-weight-bold"> Modifier </v-toolbar-title>
         <v-spacer></v-spacer>
         <v-btn
           variant="text"
@@ -74,6 +71,7 @@ export default {
       </v-toolbar>
       <!--  -->
       <v-expansion-panels v-model="panel" multiple>
+        <!-- desgin  -->
         <!-- navBar -->
         <v-expansion-panel>
           <template v-slot:title>
@@ -383,12 +381,12 @@ export default {
                 </v-slider>
               </v-col>
               <v-col cols="12">
-                <v-card max-width="600" class="ma-2 pa-1">
+                <v-card max-width="600" class="pa-1">
                   <v-btn-toggle
                     v-model="portfolio.navbar.formaTitreNav"
-                    class="pa-1 ms-10 bg-blue"
+                    class="e-10"
                     variant="outlined"
-                    color="black"
+                    color="blue"
                     divided
                     multiple
                   >
@@ -536,19 +534,54 @@ export default {
             </v-row>
             <!-- menu site -->
             <v-row no-gutters>
-              <v-col>
+              <v-col cols="12">
                 <v-divider class="border-opacity-100 my-5"></v-divider>
-                <h3 class="mt-4 mb-2">Menu du site</h3>
+                <h3 class="mt-4 mb-2 d-inline">Menu du site</h3>
+                <v-btn
+                  color="blue"
+                  class="text-none float-right"
+                  variant="text"
+                  @click="addPage()"
+                >
+                  <v-icon>mdi-plus</v-icon> Ajouter
+                </v-btn>
                 <draggable :list="linkNav">
                   <v-card
                     color="blue-lighten-4"
                     height="55"
-                    class="mb-2 cursor-move"
+                    class="my-2 cursor-move"
                     v-for="element in linkNav"
                     :key="element"
                   >
                     <template v-slot:prepend>
                       <v-icon size="large">mdi-cursor-move</v-icon>
+                    </template>
+                    <template v-slot:append>
+                      <v-btn variant="plain" class="pb-1">
+                        <v-icon size="30">mdi-dots-vertical</v-icon>
+                        <v-menu activator="parent">
+                          <v-list>
+                            <v-list-item
+                              link
+                              title="Masquer du menu"
+                              prepend-icon="mdi-eye-off"
+                              @click="confirmDeletionDialog(item._id)"
+                            ></v-list-item>
+                            <v-list-item
+                              link
+                              title="Dupliquer"
+                              prepend-icon="mdi-file-multiple"
+                              @click="confirmDeletionDialog(item._id)"
+                            ></v-list-item>
+                            <v-list-item
+                              link
+                              title="Supprimer"
+                              prepend-icon="mdi-delete-empty"
+                              @click="confirmDeletionDialog(item._id)"
+                            ></v-list-item>
+                          </v-list>
+                        </v-menu>
+                      </v-btn>
                     </template>
                     <template v-slot:title>
                       <v-text-field
@@ -569,39 +602,4 @@ export default {
   </v-layout>
 </template>
 
-<style lang="scss" scoped>
-// @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap");
-// @import url("https://fonts.googleapis.com/css2?family=Pridi&display=swap");
-// @import url("https://fonts.googleapis.com/css2?family=Prompt&display=swap");
-// @import url("https://fonts.googleapis.com/css2?family=Proxima+Nova&display=swap");
-// @import url("https://fonts.googleapis.com/css2?family=Questrial&display=swap");
-// @import url("https://fonts.googleapis.com/css2?family=Quicksand&display=swap");
-// @import url("https://fonts.googleapis.com/css2?family=Raleway:wght@600&display=swap");
-// @import url("https://fonts.googleapis.com/css2?family=Reklame+Script&display=swap");
-// @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap");
-// @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap");
-// @import url("https://fonts.googleapis.com/css2?family=Rosewood&display=swap");
-// @import url("https://fonts.googleapis.com/css2?family=Rozha+One&display=swap");
-// @import url("https://fonts.googleapis.com/css2?family=Rubik:wght@300&display=swap");
-// select {
-//   font-size: 1rem;
-//   padding: 0.5rem;
-//   border-radius: 8px;
-//   border: 1px solid #ccc;
-//   background-color: #f9f9f9;
-//   transition: all 0.3s ease;
-//   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7 10L12 15L17 10H7Z' fill='black'/%3E%3C/svg%3E%0A"); /* Custom arrow */
-//   background-repeat: no-repeat;
-//   background-position: right 0.5rem center;
-//   background-size: 1rem;
-//   &:focus {
-//     border-color: #6200ea;
-//     outline: none;
-//     box-shadow: 0 0 0 2px rgba(98, 0, 234, 0.2);
-//   }
-//   option {
-//     padding: 20px;
-//     margin: 20px;
-//   }
-// }
-</style>
+<style lang="scss" scoped></style>

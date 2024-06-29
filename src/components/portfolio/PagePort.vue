@@ -16,27 +16,45 @@ export default {
     TTBI,
   },
   computed: {
-    ...mapState(["portfolio"]),
+    ...mapState(["portfolio", "portfolioss"]),
+    selectedPage() {
+      return this.portfolioss.selectedPage;
+    },
+    navbar() {
+      return this.portfolioss.portfolios.navbar;
+    },
+    pages() {
+      return this.portfolioss.portfolios.pages;
+    },
   },
   data: () => ({}),
   methods: {
     ...mapActions([""]),
     ...mapMutations([""]),
   },
+  created() {
+    this.portfolioss.selectedPage = this.pages[0];
+  },
 };
 </script>
 
 <template>
-  <!-- <div v-if="selectedPage">
+  <component :is="navbar.type" />
+  <div v-for="(bloc, index) in selectedPage.bloc" :key="index">
+    <component :is="bloc.type" :id="bloc.id"/>
+  </div>
+  <!-- {{ pages[0].bloc }} -->
+  <!-- {{selectedPage.id }} id page -->
+  <!-- <div v-if="portfolio.selectedPage">
     <div>
-      {{ selectedPage.bloc }}
+      {{ portfolioss.selectedPage.bloc }}
     </div>
   </div> -->
-  <LTN />
+  <!-- <LTN /> -->
   <!-- <NTL /> -->
-  <CardText />
-  <TTBI />
-  <ITTB />
+  <!-- <CardText /> -->
+  <!-- <TTBI />
+  <ITTB /> -->
 </template>
 
 <style lang="scss" scoped></style>

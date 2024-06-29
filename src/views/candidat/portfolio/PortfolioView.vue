@@ -38,10 +38,12 @@ export default {
     </v-row>
     <v-row class="mt-13">
       <v-col
-        :cols="portfolio.sideBarA || portfolio.sideBarM ? 9 : 12"
+        :cols="portfolio.sideBarA || portfolio.sideBarM ? 10 : 12"
         :class="!(portfolio.sideBarA || portfolio.sideBarM) ? 'mx-auto' : ''"
       >
-        <PagePort />
+        <div :class="(portfolio.sideBarA || portfolio.sideBarM) ? 'me-13' : ''">
+          <PagePort />
+        </div>
       </v-col>
       <v-col cols="3" v-if="portfolio.sideBarA">
         <SidebarA />
@@ -51,7 +53,6 @@ export default {
       </v-col>
     </v-row>
   </v-container>
-  
 </template>
 
 <style lang="scss"></style>
