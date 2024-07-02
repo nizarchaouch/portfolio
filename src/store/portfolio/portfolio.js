@@ -110,6 +110,7 @@ export default {
       }
       console.log("moved", state.portfolios.pages);
     },
+    
   },
   getters: {},
   actions: {

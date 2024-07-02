@@ -1,33 +1,27 @@
 <script>
+// eslint-disable-next-line
+/* eslint-disable */
 import { mapState, mapActions, mapMutations } from "vuex";
+import BtnMod from "../../BtnBloc/BtnMod.vue";
+import BtnAjou from "../../BtnBloc/BtnAjou.vue";
 
 export default {
   props: { id: Number },
+  components: { BtnMod, BtnAjou },
   computed: {
     ...mapState(["portfolio", "portfolioss"]),
   },
   data: () => ({
     tab: null,
     showButton: false,
-    nameCand: "",
+    settings: {
+      name: "nizar",
+      fontsize: 30,
+    },
   }),
   methods: {
-    ...mapActions(["delBloc", "duplBloc"]),
+    ...mapActions([]),
     ...mapMutations(["changeSidebarA", "changeSidebarM"]),
-    onClickDeltBloc() {
-      this.delBloc({
-        pageIndex: this.portfolioss.selectedPage.id,
-        blocIndex: this.id,
-      });
-    },
-    onClickDuplBloc() {
-      this.duplBloc({
-        pageIndex: this.portfolioss.selectedPage.id,
-        blocIndex: this.id,
-        type: this.portfolioss.selectedPage.bloc[this.id].type,
-        settings: this.portfolioss.selectedPage.bloc[this.id].settings,
-      });
-    },
   },
 };
 </script>
@@ -38,72 +32,7 @@ export default {
     @mouseover="showButton = true"
     @mouseleave="showButton = false"
   >
-    <v-row style="height: 0" v-if="!portfolio.dialogA">
-      <v-btn
-        v-if="showButton"
-        color="white"
-        prepend-icon="mdi-auto-fix"
-        class="animation text-none ms-6 mt-5"
-        @click="handleAddBlock"
-        style="z-index: 3"
-      >
-        Modifier le desgin
-      </v-btn>
-      <v-card
-        v-if="showButton"
-        class="animation ms-sm-auto me-6 mt-5 pa-2 ms-6"
-        flat
-        elevation="2"
-        style="z-index: 3"
-      >
-        <v-btn
-          border
-          color="white"
-          prepend-icon="mdi-pencil"
-          class="text-none"
-          elevation="0"
-          @click="handleModBlock"
-        >
-          Modifier le bloc
-        </v-btn>
-        <v-card class="pa-2 my-1 d-flex justify-space-between" flat border>
-          <v-btn variant="text" size="40" @click="onClickDuplBloc">
-            <v-icon>mdi-content-copy</v-icon>
-            <v-tooltip activator="parent" location="bottom"
-              >Dupliquer</v-tooltip
-            >
-          </v-btn>
-          <v-btn variant="text" size="40" :disabled="this.id === 0">
-            <v-icon>mdi-arrow-up</v-icon>
-            <v-tooltip activator="parent" location="bottom"
-              >Déplacer vers le haut</v-tooltip
-            >
-          </v-btn>
-          <v-btn
-            variant="text"
-            size="40"
-            :disabled="
-              this.id === this.portfolioss.selectedPage.bloc.length - 1
-            "
-          >
-            <v-icon>mdi-arrow-down</v-icon>
-            <v-tooltip activator="parent" location="bottom"
-              >Déplacer vers le bas</v-tooltip
-            >
-          </v-btn>
-        </v-card>
-        <v-btn
-          border
-          color="white"
-          prepend-icon="mdi-trash-can-outline"
-          class="text-none text-red"
-          elevation="0"
-          @click="onClickDeltBloc"
-        >
-          Supprimer bloc
-        </v-btn>
-      </v-card>
-    </v-row>
+    <BtnMod :showButton="showButton" :id="id" />
     <v-row no-gutters class="bloc">
       <v-col cols="12" md="6" lg="5" style="background-color: #e6dace">
         <v-sheet
@@ -206,21 +135,7 @@ export default {
           </v-col>
         </v-row>
       </v-col>
-      <v-row style="height: 0" justify="center" v-if="!portfolio.dialogA">
-        <v-btn
-          v-if="showButton"
-          color="white"
-          prepend-icon="mdi-plus"
-          class="animation text-none bg-blue rounded-pill"
-          @click="
-            (portfolio.dialogA = !portfolio.dialogA) &&
-              (portfolio.blocindex = id)
-          "
-          style="z-index: 3; bottom: 5px"
-        >
-          Ajouter un bloc
-        </v-btn>
-      </v-row>
+      <BtnAjou :showButton="showButton" :id="id" :settings="settings" />
     </v-row>
   </v-row>
 </template>
